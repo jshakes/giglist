@@ -1,8 +1,133 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+// =======================
+// Colors
+// =======================
+$black: #222;
+$dark-orange: #f36f21;
+$light-orange: #fdbd10;
+
+// =======================
+// Fonts
+// =======================
+@font-face{
+	font-family: 'icomoon';
+	src:url('/fonts/icomoon/icomoon.eot?ctq5u1');
+	src:url('/fonts/icomoon/icomoon.eot?#iefix-ctq5u1') format('embedded-opentype'),
+		url('/fonts/icomoon/icomoon.woff?ctq5u1') format('woff'),
+		url('/fonts/icomoon/icomoon.ttf?ctq5u1') format('truetype'),
+		url('/fonts/icomoon/icomoon.svg?ctq5u1#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
 }
 
-a {
-  color: #00B7FF;
+
+// =======================
+// Base
+// =======================
+*{
+	padding: 0;
+	margin: 0;
+}
+
+body{
+	padding: 8em 8.5em;
+  font: 400 14px "franklin-gothic-urw", Helvetica, Arial, sans-serif;
+  color: white;
+  background: #fdbd10;
+  background: -moz-linear-gradient(45deg,  $light-orange 1%, $dark-orange 100%);
+  background: -webkit-linear-gradient(45deg,  $light-orange 1%,$dark-orange 100%);
+  background: linear-gradient(45deg,  $light-orange 1%,$dark-orange 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdbd10', endColorstr='#f36f21',GradientType=1 );
+}
+
+::-moz-selection { color: $dark-orange; text-shadow: 3px 3px white;}
+::selection { background: Turquoise; color: white;}
+
+a{
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+
+li{
+	list-style-type: none;
+}
+
+
+// =======================
+// Homepage
+// =======================
+.homepage-header{
+	margin-bottom: 6em;
+
+	h1{
+		margin-bottom: 0.2em;
+		line-height: 1.1;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.3em;
+		font-size: 8em;
+	}
+
+	p{
+		font-size: 2em;
+
+		&+p{
+			margin-top: 1em;
+		}
+	}
+
+	.locate-me-btn{
+		font-weight: 700;
+
+		&:after{
+			font-family: icomoon;
+			content: '\e900';
+			font-size: 0.5em;
+			padding-left: 0.5em;
+		}
+
+		&:hover{
+			color: Turquoise;
+		}
+	}
+}
+
+.city-list{
+	width: 80%;
+}
+
+.city-list-item{
+	position: relative;
+	width: 100%;
+	margin-bottom: 0.5em;
+	font-size: 4em;
+	font-weight: 700;
+	border: 6px solid white;
+	cursor: pointer;
+
+	&:hover{
+		svg{
+			display: inline-block;
+			color: transparent;
+		}
+
+		a{
+			opacity: 0;
+		}
+	}
+	a{
+		display: block;
+		padding: 0.25em 0 0.3em 0.5em;
+		color: white;
+	}
+
+	svg{
+		display: none;
+		fill: white;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: -1px;
+		bottom: -1px;
+	}
 }
