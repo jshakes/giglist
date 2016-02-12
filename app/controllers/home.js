@@ -16,3 +16,13 @@ router.get('/', function (req, res, next) {
     });
   });
 });
+
+router.get('/city', function (req, res, next) {
+  Article.find(function (err, articles) {
+    if (err) return next(err);
+    res.render('city', {
+      title: 'A City Playlist',
+      articles: articles
+    });
+  });
+});

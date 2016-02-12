@@ -1,3 +1,10 @@
+.clearfix:before, .city-playlist-wrapper:before, .clearfix:after, .city-playlist-wrapper:after {
+  display: table;
+  content: "";
+  visibility: hidden; }
+.clearfix:after, .city-playlist-wrapper:after {
+  clear: both; }
+
 @font-face {
   font-family: 'icomoon';
   src: url("/fonts/icomoon/icomoon.eot?ctq5u1");
@@ -6,7 +13,8 @@
   font-style: normal; }
 * {
   padding: 0;
-  margin: 0; }
+  margin: 0;
+  box-sizing: border-box; }
 
 body {
   padding: 8em 8.5em;
@@ -26,13 +34,29 @@ body {
   background: Turquoise;
   color: white; }
 
+li {
+  list-style-type: none; }
+
+h2 {
+  font-weight: 700;
+  font-size: 4em;
+  margin-bottom: 0.25em; }
+
+h3 {
+  font-size: 2em;
+  font-weight: 400; }
+
+p {
+  font-size: 2em; }
+  p + p {
+    margin-top: 1em; }
+
 a {
   text-decoration: none;
   color: white;
   cursor: pointer; }
-
-li {
-  list-style-type: none; }
+  a:hover {
+    text-decoration: none; }
 
 .homepage-header {
   margin-bottom: 6em; }
@@ -43,19 +67,17 @@ li {
     text-transform: uppercase;
     letter-spacing: 0.3em;
     font-size: 8em; }
-  .homepage-header p {
-    font-size: 2em; }
-    .homepage-header p + p {
-      margin-top: 1em; }
+  .homepage-header span {
+    display: block;
+    margin-top: 1em; }
   .homepage-header .locate-me-btn {
     font-weight: 700; }
     .homepage-header .locate-me-btn:after {
+      display: inline-block;
       font-family: icomoon;
       content: '\e900';
       font-size: 0.5em;
       padding-left: 0.5em; }
-    .homepage-header .locate-me-btn:hover {
-      color: Turquoise; }
 
 .city-list {
   width: 80%; }
@@ -85,5 +107,40 @@ li {
     left: 0;
     right: -1px;
     bottom: -1px; }
+
+.city-playlist-wrapper {
+  margin-top: 4em; }
+
+.city-playlist {
+  float: left;
+  width: 66.666667%;
+  height: 800px; }
+
+.gig-info-list {
+  float: left;
+  height: 800px;
+  padding-top: 80px;
+  margin-left: -8px;
+  background: #282828;
+  border-left: 1px solid #282828;
+  overflow: auto; }
+  .gig-info-list ul {
+    border-top: 1px solid #181818; }
+  .gig-info-list li a {
+    display: inline-block;
+    height: 46px;
+    line-height: 45px;
+    padding: 0 2em;
+    border-bottom: #282828 solid 1px;
+    background: #181818;
+    transition: 0.2s all ease; }
+    .gig-info-list li a:hover {
+      background: #282828;
+      transition: 0.2s all ease; }
+
+.gig-info-link {
+  font-weight: 200; }
+  .gig-info-link span {
+    font-size: 0.7em; }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,4 +1,19 @@
 // =======================
+// Classes
+// =======================
+.clearfix{
+	&:before, &:after{
+		display: table;
+		content: "";
+		visibility: hidden;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+
+// =======================
 // Colors
 // =======================
 $black: #222;
@@ -26,6 +41,7 @@ $light-orange: #fdbd10;
 *{
 	padding: 0;
 	margin: 0;
+	box-sizing: border-box;
 }
 
 body{
@@ -42,14 +58,41 @@ body{
 ::-moz-selection { color: $dark-orange; text-shadow: 3px 3px white;}
 ::selection { background: Turquoise; color: white;}
 
+li{
+	list-style-type: none;
+}
+
+
+// =======================
+// Typography
+// =======================
+h2{
+	font-weight: 700;
+	font-size: 4em;
+	margin-bottom: 0.25em;
+}
+
+h3{
+	font-size: 2em;
+	font-weight: 400;
+}
+
+p{
+	font-size: 2em;
+
+	&+p{
+		margin-top: 1em;
+	}
+}
+
 a{
   text-decoration: none;
   color: white;
   cursor: pointer;
-}
 
-li{
-	list-style-type: none;
+  &:hover{
+  	text-decoration: none;
+  }
 }
 
 
@@ -68,26 +111,20 @@ li{
 		font-size: 8em;
 	}
 
-	p{
-		font-size: 2em;
-
-		&+p{
-			margin-top: 1em;
-		}
+	span{
+		display: block;
+		margin-top: 1em;
 	}
 
 	.locate-me-btn{
 		font-weight: 700;
 
 		&:after{
+			display: inline-block; //To prevent underline on hover, for some reason
 			font-family: icomoon;
 			content: '\e900';
 			font-size: 0.5em;
 			padding-left: 0.5em;
-		}
-
-		&:hover{
-			color: Turquoise;
 		}
 	}
 }
@@ -129,5 +166,57 @@ li{
 		left: 0;
 		right: -1px;
 		bottom: -1px;
+	}
+}
+
+
+// =======================
+// City Playlist
+// =======================
+.city-playlist-wrapper{
+	margin-top: 4em;
+	@extend .clearfix;
+}
+
+.city-playlist{
+	float: left;
+	width: 66.666667%;
+	height: 800px;
+}
+
+.gig-info-list{
+	float: left;
+	height: 800px;
+	padding-top: 80px;
+	margin-left: -8px;
+	background: #282828;
+	border-left: 1px solid #282828;
+	overflow: auto;
+
+	ul{
+		border-top: 1px solid #181818;
+	}
+
+	li a{
+		display: inline-block;
+		height: 46px;
+		line-height: 45px;
+		padding: 0 2em;
+		border-bottom: #282828 solid 1px;
+		background: #181818;
+		transition: 0.2s all ease;
+
+		&:hover{
+			background: #282828;
+			transition: 0.2s all ease;
+		}
+	}
+}
+
+.gig-info-link{
+	font-weight: 200;
+
+	span{
+		font-size: 0.7em;
 	}
 }
