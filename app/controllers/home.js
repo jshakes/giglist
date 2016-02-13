@@ -1,28 +1,13 @@
-var express = require('express'),
-  router = express.Router(),
-  mongoose = require('mongoose'),
-  Article = mongoose.model('Article');
+var express = require('express');
+var router = express.Router();
 
 module.exports = function (app) {
   app.use('/', router);
 };
 
 router.get('/', function (req, res, next) {
-  Article.find(function (err, articles) {
-    if (err) return next(err);
-    res.render('index', {
-      title: 'A Website',
-      articles: articles
-    });
-  });
-});
-
-router.get('/city', function (req, res, next) {
-  Article.find(function (err, articles) {
-    if (err) return next(err);
-    res.render('city', {
-      title: 'A City Playlist',
-      articles: articles
-    });
+  
+  res.render('index', {
+    title: 'A Website'
   });
 });
