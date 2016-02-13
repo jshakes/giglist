@@ -26,14 +26,6 @@ body {
   background: linear-gradient(45deg, #fdbd10 1%, #f36f21 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdbd10', endColorstr='#f36f21',GradientType=1 ); }
 
-::-moz-selection {
-  color: #f36f21;
-  text-shadow: 3px 3px white; }
-
-::selection {
-  background: Turquoise;
-  color: white; }
-
 li {
   list-style-type: none; }
 
@@ -47,7 +39,7 @@ h3 {
   font-weight: 400; }
 
 p {
-  font-size: 2em; }
+  font-size: 1.4em; }
   p + p {
     margin-top: 1em; }
 
@@ -59,7 +51,12 @@ a {
     text-decoration: none; }
 
 .homepage-header {
-  margin-bottom: 6em; }
+  margin-bottom: 6em;
+  opacity: 0;
+  animation-duration: 1.5s;
+  transition-timing-function: ease-in;
+  animation-fill-mode: both;
+  animation-name: fadeIn; }
   .homepage-header h1 {
     margin-bottom: 0.2em;
     line-height: 1.1;
@@ -67,6 +64,8 @@ a {
     text-transform: uppercase;
     letter-spacing: 0.3em;
     font-size: 8em; }
+    .homepage-header h1 a:hover {
+      color: rgba(255, 255, 255, 0.8); }
   .homepage-header span {
     display: block;
     margin-top: 1em; }
@@ -78,9 +77,28 @@ a {
       content: '\e900';
       font-size: 0.5em;
       padding-left: 0.5em; }
+    .homepage-header .locate-me-btn:hover, .homepage-header .locate-me-btn:hover:after {
+      color: rgba(255, 255, 255, 0.8); }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0.25%, 0); }
+  100% {
+    opacity: 1;
+    transform: none; } }
 .city-list {
-  width: 80%; }
+  width: 80%;
+  opacity: 0;
+  animation-duration: 1.5s;
+  transition-timing-function: ease-in;
+  animation-fill-mode: both;
+  animation-name: fadeInUp; }
 
 .city-list-item {
   position: relative;
@@ -89,6 +107,7 @@ a {
   font-size: 4em;
   font-weight: 700;
   border: 6px solid white;
+  border-radius: 1px;
   cursor: pointer; }
   .city-list-item:hover svg {
     display: inline-block;
@@ -108,39 +127,76 @@ a {
     right: -1px;
     bottom: -1px; }
 
+.global-home-link {
+  position: absolute;
+  font-size: 2.5em;
+  top: 0.5em; }
+  .global-home-link:hover {
+    color: rgba(255, 255, 255, 0.8); }
+
+.city-playlist-page h2 {
+  display: inline; }
+
+.social-wrapper {
+  display: inline-block; }
+  .social-wrapper ul, .social-wrapper li {
+    display: inline-block; }
+  .social-wrapper .icon {
+    margin-left: 1em; }
+    .social-wrapper .icon:after {
+      font-family: 'icomoon';
+      color: white;
+      font-size: 2em; }
+    .social-wrapper .icon:hover:after {
+      color: rgba(255, 255, 255, 0.8); }
+
+.twitter-share-icon:after {
+  content: '\e902'; }
+
+.fbook-share-icon:after {
+  content: '\e901'; }
+
 .city-playlist-wrapper {
   margin-top: 4em; }
 
 .city-playlist {
   float: left;
-  width: 66.666667%;
+  width: 50%;
   height: 800px; }
 
 .gig-info-list {
   float: left;
-  height: 800px;
-  padding-top: 80px;
-  margin-left: -8px;
-  background: #282828;
-  border-left: 1px solid #282828;
-  overflow: auto; }
-  .gig-info-list ul {
-    border-top: 1px solid #181818; }
-  .gig-info-list li a {
-    display: inline-block;
-    height: 46px;
-    line-height: 45px;
-    padding: 0 2em;
-    border-bottom: #282828 solid 1px;
-    background: #181818;
-    transition: 0.2s all ease; }
-    .gig-info-list li a:hover {
-      background: #282828;
-      transition: 0.2s all ease; }
+  margin: 80px 0 0 1em; }
+  .gig-info-list li {
+    height: 45px;
+    margin-bottom: 1px;
+    text-align: right; }
 
-.gig-info-link {
-  font-weight: 200; }
-  .gig-info-link span {
-    font-size: 0.7em; }
+.gig-link {
+  position: relative;
+  display: block;
+  padding: 1em 1em 1em 0.5em;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.1);
+  text-align: left; }
+  .gig-link:before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -1em;
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 22px solid transparent;
+    border-bottom: 23px solid transparent;
+    border-right: 1em solid rgba(255, 255, 255, 0.1); }
+  .gig-link:hover {
+    background: white;
+    color: #f36f21; }
+    .gig-link:hover:before {
+      border-right-color: white; }
+
+.gig-date {
+  margin-right: 0.5em; }
 
 /*# sourceMappingURL=style.css.map */

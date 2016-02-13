@@ -46,6 +46,10 @@ module.exports = function (grunt) {
           livereload: reloadPort
         }
       },
+      concat_app: {
+        files: "public/js/apps/*.js",
+        tasks: "concat:app"
+      },
       views: {
         files: [
           'app/views/*.handlebars',
@@ -53,12 +57,39 @@ module.exports = function (grunt) {
         ],
         options: { livereload: reloadPort }
       }
-    }
+    },
+    concat: {
+      vendor: {
+        src: [
+          "public/components/jquery/dist/jquery.js"
+        ],
+        dest: "public/js/vendors.js"
+      },
+      app: {
+        src: "public/js/apps/main.js",
+        dest: "public/js/app.js"
+      }
+    },
+    uglify: {
+      vendors: {
+        files: {
+          'public/js/vendors.min.js': 'public/js/vendors.js'
+        }
+      },
+      app: {
+        files: {
+          'public/js/app.min.js': 'public/js/app.js'
+        }
+      }
+    },
   });
 
   grunt.config.requires('watch.js.files');
   files = grunt.config('watch.js.files');
   files = grunt.file.expand(files);
+
+  grunt.loadNpmTasks("grunt-contrib-concat");
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
   grunt.registerTask('delayed-livereload', 'Live reload after the node server has restarted.', function () {
     var done = this.async();
@@ -77,6 +108,14 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'sass',
     'develop',
-    'watch'
+    'watch',
+    'concat',
+    'uglify:app',
+    'uglify:vendors'
+  ]);
+
+  grunt.registerTask('build', [
+    'concat:vendor',
+    'uglify'
   ]);
 };
