@@ -13,9 +13,11 @@ router.get('/city', function (req, res, next) {
   });
 });
 
+
 router.get('/test', function (req, res, next) {
 
-  songkick.getEvents.then(function(events) {
+  // Get upcoming events for New York
+  songkick.getEvents(7644).then(function(events) {
 
     res.json(events);
   });

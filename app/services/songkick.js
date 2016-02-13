@@ -9,14 +9,16 @@ var http = require('http');
 var Songkick = require('songkick-api');
 
 module.exports = {
-  getEvents: new Promise(function(resolve, reject) {
+  getEvents: function(metroID) {
 
     var songkick = new Songkick(SONGKICK_API_KEY);
-    songkick.searchEvents({
-      location: 'sk:7644'
-    }).then(function(events) {
+    return new Promise(function(resolve, reject) {
+      songkick.searchEvents({
+        location: 'sk:' + metroID
+      }).then(function(events) {
 
-      resolve(events);
+        resolve(events);
+      });
     });
-  })
+  }
 };
