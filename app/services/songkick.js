@@ -10,7 +10,7 @@ var http = require('http');
 var Songkick = require('songkick-api');
 
 module.exports = {
-  getEvents: function(metroID) {
+  _getEvents: function(metroID) {
 
     var songkick = new Songkick(SONGKICK_API_KEY);
     return new Promise(function(resolve, reject) {
@@ -27,7 +27,7 @@ module.exports = {
     var _this = this;
     return new Promise(function(resolve, reject) {
 
-      _this.getEvents(metroID).then(function(events) {
+      _this._getEvents(metroID).then(function(events) {
 
         var performances = _.flatten(_.pluck(events, 'performance'));
         var artists = _.pluck(performances, 'artist');
