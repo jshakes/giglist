@@ -5,6 +5,7 @@
  */
 
 var SONGKICK_API_KEY = 'RpuYqxFiPPsJPs5l';
+var _ = require('underscore');
 var http = require('http');
 var Songkick = require('songkick-api');
 
@@ -18,6 +19,19 @@ module.exports = {
       }).then(function(events) {
 
         resolve(events);
+      });
+    });
+  },
+  getEventsArtists: function(metroID) {
+
+    var _this = this;
+    return new Promise(function(resolve, reject) {
+
+      _this.getEvents(metroID).then(function(events) {
+
+        var performances = _.flatten(_.pluck(events, 'performance'));
+        var artists = _.pluck(performances, 'artist');
+        resolve(artists);
       });
     });
   }

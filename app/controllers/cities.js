@@ -1,3 +1,4 @@
+
 var express = require('express');
 var router = express.Router();
 var songkick = require('../services/songkick');
@@ -17,9 +18,9 @@ router.get('/city', function (req, res, next) {
 router.get('/test', function (req, res, next) {
 
   // Get upcoming events for New York
-  songkick.getEvents(7644).then(function(events) {
+  songkick.getEventsArtists(7644).then(function(artists) {
 
-    res.json(events);
+    res.json(artists);
   });
 });
 
