@@ -62,10 +62,15 @@ a {
   .homepage {
     font-size: 60%; } }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
 .homepage-header {
   margin-bottom: 6em;
   opacity: 0;
-  animation-duration: 1.5s;
+  animation-duration: 2s;
   transition-timing-function: ease-in;
   animation-fill-mode: both;
   animation-name: fadeIn; }
@@ -84,7 +89,6 @@ a {
   .homepage-header .locate-me-btn {
     font-weight: 700; }
     .homepage-header .locate-me-btn:after {
-      display: inline-block;
       font-family: icomoon;
       content: '\e900';
       font-size: 0.5em;
@@ -92,18 +96,27 @@ a {
     .homepage-header .locate-me-btn:hover, .homepage-header .locate-me-btn:hover:after {
       color: rgba(255, 255, 255, 0.8); }
 
-@keyframes fadeIn {
-  0% {
-    opacity: 0; }
-  100% {
-    opacity: 1; } }
 @keyframes fadeInUp {
   0% {
     opacity: 0;
-    margin-top: 0.1em; }
+    -webkit-transform: translateY(0.2em);
+    transform: translateY(0.2em); }
   100% {
-    margin-top: 0;
-    opacity: 1; } }
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0); } }
+.city-list-item:nth-child(1) {
+  animation-delay: 0.15s; }
+
+.city-list-item:nth-child(2) {
+  animation-delay: 0.3s; }
+
+.city-list-item:nth-child(3) {
+  animation-delay: 0.45s; }
+
+.city-list-item:nth-child(4) {
+  animation-delay: 0.6s; }
+
 .city-list-item {
   display: inline-block;
   position: relative;
@@ -115,7 +128,7 @@ a {
   border-radius: 1px;
   cursor: pointer;
   opacity: 0;
-  animation-duration: 1.25s;
+  animation-duration: 2s;
   transition-timing-function: ease-out;
   animation-fill-mode: both;
   animation-name: fadeInUp; }
@@ -164,8 +177,8 @@ a {
 
 .social-wrapper {
   display: inline-block;
-  width: 120px;
-  margin-right: -120px; }
+  width: 100px;
+  margin-right: -100px; }
   .social-wrapper ul, .social-wrapper li {
     display: inline-block; }
   .social-wrapper .icon {
@@ -174,7 +187,7 @@ a {
     .social-wrapper .icon:after {
       font-family: 'icomoon';
       color: white;
-      font-size: 2em; }
+      font-size: 1.6em; }
     .social-wrapper .icon:hover:after {
       color: rgba(255, 255, 255, 0.8); }
 

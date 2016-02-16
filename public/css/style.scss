@@ -142,10 +142,20 @@ a{
 	}
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 .homepage-header{
 	margin-bottom: 6em;
 	opacity: 0;
-	animation-duration: 1.5s;
+	animation-duration: 2s;
 	transition-timing-function: ease-in;
 	animation-fill-mode: both;
 	animation-name: fadeIn;
@@ -172,7 +182,6 @@ a{
 		font-weight: 700;
 
 		&:after{
-			display: inline-block; //To prevent underline on hover, for some reason
 			font-family: icomoon;
 			content: '\e900';
 			font-size: 0.5em;
@@ -185,26 +194,22 @@ a{
 	}
 }
 
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
 @keyframes fadeInUp {
   0% {
     opacity: 0;
-    margin-top: 0.1em;
+    -webkit-transform: translateY(0.2em);
+    transform: translateY(0.2em);
   }
 
   100% {
-    margin-top: 0;
     opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
   }
+}
+
+@for $i from 1 to 5 {
+  .city-list-item:nth-child(#{$i}) { animation-delay: $i * 0.15s; }
 }
 
 .city-list-item{
@@ -218,7 +223,7 @@ a{
 	border-radius: 1px;
 	cursor: pointer;
 	opacity: 0;
-	animation-duration: 1.25s;
+	animation-duration: 2s;
 	transition-timing-function: ease-out;
 	animation-fill-mode: both;
 	animation-name: fadeInUp;
@@ -291,8 +296,9 @@ a{
 
 .social-wrapper{
 	display: inline-block;
-	width: 120px;
-	margin-right: -120px;
+	width: 100px;
+	margin-right: -100px;
+
 	ul, li{
 		display: inline-block;
 	}
@@ -304,7 +310,7 @@ a{
 		&:after{
 			font-family: 'icomoon';
 			color: white;
-			font-size: 2em;
+			font-size: 1.6em;
 		}
 
 		&:hover:after{
