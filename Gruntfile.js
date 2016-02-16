@@ -109,9 +109,7 @@ module.exports = function (grunt) {
     'sass',
     'develop',
     'watch',
-    'concat',
-    'uglify:app',
-    'uglify:vendors'
+    'concat'
   ]);
 
   grunt.registerTask('build', [

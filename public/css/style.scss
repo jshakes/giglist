@@ -19,6 +19,7 @@
 $black: #222;
 $dark-orange: #f36f21;
 $light-orange: #fdbd10;
+$trans-white:rgba(255,255,255,0.2);
 
 
 // =======================
@@ -33,6 +34,34 @@ $light-orange: #fdbd10;
 		url('/fonts/icomoon/icomoon.svg?ctq5u1#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
+}
+
+
+// =========================
+// Media Query Definitions
+// =========================
+$mqs: (
+  small: 25em,
+  medium: 40em,
+  large: 50em,
+  extra-large: 1000px,
+  huge: 100em
+);
+
+@mixin smaller-than($size) {
+
+  $width: map-get($mqs, $size);
+  @media (max-width: $width) {
+    @content;
+  }
+}
+
+@mixin larger-than($size) {
+
+  $width: map-get($mqs, $size);
+  @media (min-width: $width) {
+    @content;
+  }
 }
 
 
@@ -54,6 +83,11 @@ body{
   background: -webkit-linear-gradient(45deg,  $light-orange 1%,$dark-orange 100%);
   background: linear-gradient(45deg,  $light-orange 1%,$dark-orange 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdbd10', endColorstr='#f36f21',GradientType=1 );
+  height: 100%;
+
+  @include smaller-than(large){
+  	padding: 2.5em 3em;
+  }
 }
 
 li{
@@ -73,6 +107,11 @@ h2{
 h3{
 	font-size: 2em;
 	font-weight: 400;
+}
+
+h4{
+	font-size: 2.2em;
+	font-weight: 700;
 }
 
 p{
@@ -97,6 +136,12 @@ a{
 // =======================
 // Homepage
 // =======================
+.homepage{
+	@include smaller-than(large){
+		font-size: 60%;
+	}
+}
+
 .homepage-header{
 	margin-bottom: 6em;
 	opacity: 0;
@@ -153,25 +198,17 @@ a{
 @keyframes fadeInUp {
   0% {
     opacity: 0;
-    transform: translate3d(0, 0.25%, 0);
+    margin-top: 0.1em;
   }
 
   100% {
+    margin-top: 0;
     opacity: 1;
-    transform: none;
   }
 }
 
-.city-list{
-	width: 80%;
-	opacity: 0;
-	animation-duration: 1.5s;
-	transition-timing-function: ease-in;
-	animation-fill-mode: both;
-	animation-name: fadeInUp;
-}
-
 .city-list-item{
+	display: inline-block;
 	position: relative;
 	width: 100%;
 	margin-bottom: 0.5em;
@@ -180,6 +217,11 @@ a{
 	border: 6px solid white;
 	border-radius: 1px;
 	cursor: pointer;
+	opacity: 0;
+	animation-duration: 1.25s;
+	transition-timing-function: ease-out;
+	animation-fill-mode: both;
+	animation-name: fadeInUp;
 
 	&:hover{
 		svg{
@@ -214,28 +256,50 @@ a{
 // =======================
 .global-home-link{
 	position: absolute;
-	font-size: 2.5em;
-	top: 0.5em;
-
+	top: 1em;
+	left: 1.5em;
+	font-size: 1.2em;
 	&:hover{
 		color: rgba(255,255,255,0.8);
+	}
+
+	span{
+		font-size: 1.5em;
+		vertical-align: sub;
 	}
 }
 
 .city-playlist-page{
+	text-align: center;
+}
+
+.city-playlist-header{
+	margin-bottom: 4em;
+
 	h2{
 		display: inline;
+	}
+
+	h3{
+		width: 60%;
+		margin: 0 auto;
+	}
+	@include smaller-than(large){
+		margin-top: 4em;
 	}
 }
 
 .social-wrapper{
 	display: inline-block;
-
+	width: 120px;
+	margin-right: -120px;
 	ul, li{
 		display: inline-block;
 	}
+
 	.icon{
-		margin-left: 1em;
+		display: inline-block;
+		padding-left: 0.5em;
 
 		&:after{
 			font-family: 'icomoon';
@@ -257,61 +321,69 @@ a{
 	content: '\e901';
 }
 
+.link-share-icon:after{
+	content: '\e903';
+}
+
 
 .city-playlist-wrapper{
-	margin-top: 4em;
 	@extend .clearfix;
+	width: 80%;
+	margin: 0 auto;
 }
 
 .city-playlist{
 	float: left;
 	width: 50%;
 	height: 800px;
+	border-radius: 1px 0 0 1px;
 }
 
 .gig-info-list{
 	float: left;
-	margin: 80px 0 0 1em;
+	width: 50%;
+	border-radius: 0 1px 1px 0;
 
-
-	li{
-		height: 45px;
-		margin-bottom: 1px;
-		text-align: right;
+	table{
+		width: 100%;
+		margin-top: -1px;
+		border-spacing: 0 1px;
 	}
 }
 
-.gig-link{
-	position: relative;
-	display: block;
-	padding: 1em 1em 1em 0.5em;
-	font-weight: 500;
-	background: rgba(255,255,255,0.1);
-	text-align: left;
+.gig-info-list-header{
+	th{
+		height: 80px;
+		padding: 0 0 5px 14px;
+		text-align: left;
+		background: $trans-white;
+		vertical-align: bottom;
+	}
+}
 
-	&:before{
-		position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -1em;
-    content: '';
-    width: 0;
-    height: 0;
-    border-top: 22px solid transparent;
-    border-bottom: 23px solid transparent;
-    border-right: 1em solid rgba(255, 255, 255, 0.1);
+.gig-info-list-item{
+	position: relative;
+	font-weight: 500;
+	text-align: left;
+	font-size: 1em;
+	background: $trans-white;
+	letter-spacing: 0.25px;
+
+	a{
+		display: inline-block;
+		width: 100%;
+		height: 45px;
+		padding: 15px;
 	}
 
 	&:hover{
 		background: white;
-		color: $dark-orange;
-
-		&:before{
-			border-right-color: white;
+		a{
+			color: $dark-orange;
 		}
 	}
 }
 
-.gig-date{
-	margin-right: 0.5em;
+.gig-link{
+	text-align: right;
 }
