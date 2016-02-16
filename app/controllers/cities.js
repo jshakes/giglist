@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 var songkick = require('../services/songkick');
 var spotify = require('../services/spotify');
+var _ = require('underscore');
 
 module.exports = function (app) {
   app.use('/', router);
@@ -29,14 +30,26 @@ router.get('/test', function (req, res, next) {
       spotify.getArtistMostPopularTrack(artist.displayName).then(function(trackId) {
 
         i++;
-        console.log('called', i, 'times.', 'Track ID is', trackId);
-        callback(null, trackId);
+        setTimeout(function() {
+          
+          console.log('called', i, 'times.', 'Track ID is', trackId);
+          callback(null, trackId);
+        }, 500);
       });
     // All items have been iterated over
     }, function(err, trackArr) {
 
-      console.log('DONEZO');
-      res.json(trackArr);
+      var validTracks = _.filter(trackArr, function(item) {
+
+        return item !== 0;
+      });
+      spotify.addTracksToPlaylist(validTracks).then(function(data) {
+        
+        res.json({
+          response: data,
+          tracksAdded: validTracks
+        });
+      });
     });
   });
 });
