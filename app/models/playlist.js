@@ -1,5 +1,7 @@
 /*
   Playlist
+
+  A playlist with a Spotify ID and 0 to many tracks
  */
 
 var mongoose = require('mongoose');
