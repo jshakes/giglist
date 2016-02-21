@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "grunt"
+    "start": "grunt",
+    "create:city": "node app/jobs/createCity"
   },
   "dependencies": {
     "async": "^1.5.2",

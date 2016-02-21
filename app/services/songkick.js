@@ -14,12 +14,33 @@ module.exports = {
 
     var songkick = new Songkick(SONGKICK_API_KEY);
     return new Promise(function(resolve, reject) {
+
       songkick.searchEvents({
         location: 'sk:' + metroID
       }).then(function(events) {
 
         resolve(events);
       });
+    });
+  },
+  getMetroFromCoords: function(coords) {
+
+    var songkick = new Songkick(SONGKICK_API_KEY);
+    return new Promise(function(resolve, reject) {
+      
+      songkick.searchLocations({
+        location: 'geo:' + coords
+      }).then(function(locations) {
+
+        if(locations.length) {
+          
+          resolve(locations[0]);
+        }
+        else {
+
+          reject('No locations found');
+        }
+      })
     });
   },
   getEventsArtists: function(metroID) {
