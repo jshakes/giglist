@@ -25,7 +25,7 @@ songkick.getMetroFromCoords(coords)
     // Add the state if it's a US city
     if(location.metroArea.state) {
 
-      params.name += ', ' + location.metroArea.state;
+      params.name += ', ' + location.metroArea.state.displayName;
     }
 
     var city = new City(params);
@@ -34,7 +34,8 @@ songkick.getMetroFromCoords(coords)
   })
   .then(function() {
 
-    return console.log('City saved');
+    console.log('City saved');
+    process.exit();
   })
   .catch(function(err) {
 
