@@ -30,22 +30,13 @@ songkick.getMetroFromCoords(coords)
 
     var city = new City(params);
     console.log('attempting to save', city);
-    city.save(function(err) {
-
-      if(err) {
-
-        console.error(err);
-      }
-      else {
-
-        console.log('City saved');
-      }
-    });
+    return city.save();
   })
   .then(function() {
 
+    return console.log('City saved');
   })
   .catch(function(err) {
 
-    console.error(err);
+    return console.error(err);
   });
