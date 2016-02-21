@@ -1,7 +1,5 @@
 /*
-  City
-
-  A city with a name, Songkick Metro ID, and 0 to many playlists
+  Playlist
  */
 
 var mongoose = require('mongoose');
@@ -13,11 +11,12 @@ var schema = new Schema({
     type: Date,
     default: Date.now()
   },
-  metroId: Number,
-  playlists: [{
+  spotifyId: String,
+  genre: String,
+  tracks: [{
     type: Schema.Types.ObjectId,
-    ref: 'Playlist'
+    ref: 'Track'
   }]
 });
 
-module.exports = mongoose.model('City', schema);
+module.exports = mongoose.model('Playlist', schema);
