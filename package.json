@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "grunt",
-    "create:city": "node app/jobs/createCity"
+    "create:city": "node scripts/createCity"
   },
   "dependencies": {
     "async": "^1.5.2",

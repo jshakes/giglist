@@ -8,8 +8,9 @@
   - populates the playlist with tracks
  */
 
-var app = require('../../app');
-var songkick = require('../services/songkick');
+var app = require('../app');
+var City = require('../app/models/city');
+var songkick = require('../app/services/songkick');
 
 var coords = process.argv[2];
 
