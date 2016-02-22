@@ -8,7 +8,7 @@
 
 To create a city run:
 
-`npm run create:city [CITY NAME]`
+`npm run create:city -- [LATITUDE],[LONGITUDE]`
 
 To delete a city:
 
