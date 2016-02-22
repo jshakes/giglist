@@ -19,8 +19,11 @@ songkick.getMetroFromCoords(coords)
 
     var params = {
       name: location.metroArea.displayName,
-      metroId: location.metroArea.id
-    }
+      metroId: location.metroArea.id,
+      latitude: location.metroArea.lat,
+      longitude: location.metroArea.lng,
+      country: location.metroArea.country.displayName
+    };
 
     // Add the state if it's a US city
     if(location.metroArea.state) {

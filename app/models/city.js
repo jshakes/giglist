@@ -16,6 +16,9 @@ var schema = new Schema({
   },
   slug: String,
   metroId: Number,
+  latitude: String,
+  longitude: String,
+  country: String,
   playlists: [{
     type: Schema.Types.ObjectId,
     ref: 'Playlist'
