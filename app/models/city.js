@@ -6,6 +6,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var URLSlugs = require('mongoose-url-slugs');
 
 var schema = new Schema({
   name: String,
@@ -13,11 +14,14 @@ var schema = new Schema({
     type: Date,
     default: Date.now()
   },
+  slug: String,
   metroId: Number,
   playlists: [{
     type: Schema.Types.ObjectId,
     ref: 'Playlist'
   }]
 });
+
+schema.plugin(URLSlugs('name'));
 
 module.exports = mongoose.model('City', schema);

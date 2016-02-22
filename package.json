@@ -17,6 +17,7 @@
     "glob": "^6.0.4",
     "method-override": "^2.3.0",
     "mongoose": "^4.1.2",
+    "mongoose-url-slugs": "^0.2.1",
     "morgan": "^1.6.1",
     "serve-favicon": "^2.3.0",
     "songkick-api": "0.0.2",
