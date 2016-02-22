@@ -9,7 +9,7 @@ var config = {
       name: 'livelist'
     },
     port: 3000,
-    db: 'mongodb://localhost/livelist-development'
+    db: 'mongodb://giglist:aEyXVxuEpSmc8h6Q@candidate.43.mongolayer.com:10005/giglist_dev'
   },
 
   test: {
