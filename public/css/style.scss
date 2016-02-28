@@ -20,6 +20,8 @@ $black: #222;
 $dark-orange: #f36f21;
 $light-orange: #fdbd10;
 $trans-white:rgba(255,255,255,0.2);
+$spotify-green: #1ed760;
+$songkick-pink: #f80046;
 
 
 // =======================
@@ -134,6 +136,51 @@ a{
 
 
 // =======================
+// Form Elements
+// =======================
+.btn-rounded{
+	display: inline-block;
+	width: auto;
+	border-radius: 2em;
+	font-weight: 500;
+}
+
+
+// =======================
+// Icons
+// =======================
+.icon{
+	&:after{
+		font-family: 'icomoon';
+		position: relative;
+	}
+}
+
+.locate-icon:after{
+	content: '\e900';
+}
+
+.twitter-icon:after{
+	content: '\e902';
+}
+
+.fbook-icon:after{
+	content: '\e901';
+}
+
+.link-icon:after{
+	content: '\e903';
+}
+
+.spotify-icon:after{
+	content: '\e904';
+}
+
+.songkick-icon:after{
+	content: '\e905';
+}
+
+// =======================
 // Homepage
 // =======================
 .homepage{
@@ -182,8 +229,6 @@ a{
 		font-weight: 700;
 
 		&:after{
-			font-family: icomoon;
-			content: '\e900';
 			font-size: 0.5em;
 			padding-left: 0.5em;
 		}
@@ -279,8 +324,6 @@ a{
 }
 
 .city-playlist-header{
-	margin-bottom: 4em;
-
 	h2{
 		display: inline;
 	}
@@ -296,8 +339,8 @@ a{
 
 .social-wrapper{
 	display: inline-block;
-	width: 100px;
-	margin-right: -100px;
+	width: 80px;
+	margin-right: -80px;
 
 	ul, li{
 		display: inline-block;
@@ -308,9 +351,8 @@ a{
 		padding-left: 0.5em;
 
 		&:after{
-			font-family: 'icomoon';
 			color: white;
-			font-size: 1.6em;
+			font-size: 1.2em;
 		}
 
 		&:hover:after{
@@ -319,37 +361,30 @@ a{
 	}
 }
 
-.twitter-share-icon:after{
-	content: '\e902';
-}
+.playlist-subscribe-link{
+	padding: 0.5em 1em;
+	margin: 2em 0 2.3em;
+	background: $black;
+	font-size: 1.6em;
 
-.fbook-share-icon:after{
-	content: '\e901';
-}
+	&:after{
+		top: 3px;
+		margin-left: 10px;
+	}
 
-.link-share-icon:after{
-	content: '\e903';
+	&:hover{
+		background: $spotify-green;
+	}
 }
-
 
 .city-playlist-wrapper{
 	@extend .clearfix;
+	position: relative;
 	width: 80%;
 	margin: 0 auto;
 }
 
-.city-playlist{
-	float: left;
-	width: 50%;
-	height: 800px;
-	border-radius: 1px 0 0 1px;
-}
-
 .gig-info-list{
-	float: left;
-	width: 50%;
-	border-radius: 0 1px 1px 0;
-
 	table{
 		width: 100%;
 		margin-top: -1px;
@@ -375,7 +410,7 @@ a{
 	background: $trans-white;
 	letter-spacing: 0.25px;
 
-	a{
+	span{
 		display: inline-block;
 		width: 100%;
 		height: 45px;
@@ -384,10 +419,41 @@ a{
 
 	&:hover{
 		background: white;
-		a{
+
+		span{
 			color: $dark-orange;
 		}
+
+		.gig-listen a{
+			background: $spotify-green;
+		}
+
+		.gig-link a{
+			background: $songkick-pink;
+		}
 	}
+}
+
+.gig-listen, .gig-link{
+	text-align: right;
+
+	a{
+		height: 30px;
+		padding: 0.25em 0.75em;
+		background: $trans-white;
+
+		&:after{
+
+			top: 3px;
+			margin-left: 0.25em;
+			font-size: 1.2em;
+		}
+	}
+}
+
+.gig-link{
+	padding-right: 15px;
+	width: 135px;
 }
 
 .gig-link{
