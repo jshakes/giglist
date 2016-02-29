@@ -88,7 +88,7 @@ body{
   height: 100%;
 
   @include smaller-than(large){
-  	padding: 2.5em 3em;
+  	padding: 2.5em 2em;
   }
 }
 
@@ -329,9 +329,13 @@ a{
 	}
 
 	h3{
-		width: 60%;
 		margin: 0 auto;
+
+		@include larger-than(large){
+			width: 60%;
+		}
 	}
+
 	@include smaller-than(large){
 		margin-top: 4em;
 	}
@@ -359,13 +363,25 @@ a{
 			color: rgba(255,255,255,0.8);
 		}
 	}
+
+	.twitter-icon:hover:after{
+		color: #00aced;
+	}
+
+	.fbook-icon:hover:after{
+		color: #3b5998;
+	}
+
+	.link-icon:hover:after{
+		color: $black;
+	}
 }
 
 .playlist-subscribe-link{
-	padding: 0.5em 1em;
+	padding: 0.4em 1em 0.5em;
 	margin: 2em 0 2.3em;
 	background: $black;
-	font-size: 1.6em;
+	font-size: 1.4em;
 
 	&:after{
 		top: 3px;
@@ -380,8 +396,11 @@ a{
 .city-playlist-wrapper{
 	@extend .clearfix;
 	position: relative;
-	width: 80%;
 	margin: 0 auto;
+
+	@include larger-than(extra-large){
+		width: 80%;
+	}
 }
 
 .gig-info-list{
