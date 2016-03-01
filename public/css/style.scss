@@ -215,7 +215,7 @@ a{
 		letter-spacing: 0.3em;
 		font-size: 8em;
 
-		a:hover{
+		a:hover, a:focus{
 			color: rgba(255,255,255,0.8);
 		}
 	}
@@ -233,7 +233,7 @@ a{
 			padding-left: 0.5em;
 		}
 
-		&:hover, &:hover:after{
+		&:hover, &:hover:after, &:focus, &:focus:after{
 			color: rgba(255,255,255,0.8);
 		}
 	}
@@ -273,7 +273,8 @@ a{
 	animation-fill-mode: both;
 	animation-name: fadeInUp;
 
-	&:hover{
+	&:hover, &:focus{
+		outline: 0;
 		svg{
 			display: inline-block;
 			color: transparent;
@@ -283,10 +284,12 @@ a{
 			opacity: 0;
 		}
 	}
+
 	a{
 		display: block;
 		padding: 0.25em 0 0.3em 0.5em;
 		color: white;
+		outline: 0;
 	}
 
 	svg{
@@ -309,7 +312,8 @@ a{
 	top: 1em;
 	left: 1.5em;
 	font-size: 1.2em;
-	&:hover{
+
+	&:hover, &:focus{
 		color: rgba(255,255,255,0.8);
 	}
 
@@ -358,22 +362,27 @@ a{
 			color: white;
 			font-size: 1.2em;
 		}
-
-		&:hover:after{
-			color: rgba(255,255,255,0.8);
+		&:focus{
+			outline: 0;
 		}
 	}
 
-	.twitter-icon:hover:after{
-		color: #00aced;
+	.twitter-icon{
+		&:hover:after, &:focus:after{
+			color: #00aced;
+		}
 	}
 
-	.fbook-icon:hover:after{
-		color: #3b5998;
+	.fbook-icon{
+		&:hover:after, &:focus:after{
+			color: #3b5998;
+		}
 	}
 
-	.link-icon:hover:after{
-		color: $black;
+	.link-icon{
+		&:hover:after, &:focus:after{
+			color: $black;
+		}
 	}
 }
 
@@ -388,8 +397,9 @@ a{
 		margin-left: 10px;
 	}
 
-	&:hover{
+	&:hover, &:focus{
 		background: $spotify-green;
+		outline: 0;
 	}
 }
 
@@ -450,6 +460,16 @@ a{
 		.gig-link a{
 			background: $songkick-pink;
 		}
+	}
+
+	.gig-listen a:focus{
+		background: $spotify-green;
+		outline: 0;
+	}
+
+	.gig-link a:focus{
+		background: $songkick-pink;
+		outline: 0;
 	}
 }
 

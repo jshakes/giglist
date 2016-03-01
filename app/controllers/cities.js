@@ -46,7 +46,7 @@ router.get('/test', function (req, res, next) {
 
         i++;
         setTimeout(function() {
-          
+
           console.log('called', i, 'times.', 'Track ID is', trackId);
           callback(null, trackId);
         }, 500);
@@ -59,7 +59,7 @@ router.get('/test', function (req, res, next) {
         return item !== 0;
       });
       spotify.addTracksToPlaylist(validTracks).then(function(data) {
-        
+
         res.json({
           response: data,
           tracksAdded: validTracks
