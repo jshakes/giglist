@@ -17,7 +17,7 @@
   box-sizing: border-box; }
 
 body {
-  padding: 8em 8.5em;
+  padding: 8em 6em;
   font: 400 14px "franklin-gothic-urw", Helvetica, Arial, sans-serif;
   color: white;
   background: #fdbd10;
@@ -249,6 +249,9 @@ a {
   margin-top: -1px;
   border-spacing: 0 1px; }
 
+@media (max-width: 40em) {
+  .gig-info-list-header {
+    display: none; } }
 .gig-info-list-header th {
   height: 80px;
   padding: 0 0 5px 14px;
@@ -263,19 +266,32 @@ a {
   font-size: 1em;
   background: rgba(255, 255, 255, 0.2);
   letter-spacing: 0.25px; }
+  @media (max-width: 40em) {
+    .gig-info-list-item td {
+      display: block;
+      padding-left: 80px;
+      position: relative; } }
   .gig-info-list-item span {
     display: inline-block;
     width: 100%;
     height: 45px;
-    padding: 15px; }
-  .gig-info-list-item:hover {
-    background: white; }
-    .gig-info-list-item:hover span {
-      color: #f36f21; }
-    .gig-info-list-item:hover .gig-listen a {
-      background: #1ed760; }
-    .gig-info-list-item:hover .gig-link a {
-      background: #f80046; }
+    padding: 15px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap; }
+    @media (max-width: 40em) {
+      .gig-info-list-item span {
+        height: 30px;
+        padding: 12px 10px 0 0; } }
+  @media (min-width: 40em) {
+    .gig-info-list-item:hover {
+      background: white; }
+      .gig-info-list-item:hover span {
+        color: #f36f21; }
+      .gig-info-list-item:hover .gig-listen a {
+        background: #1ed760; }
+      .gig-info-list-item:hover .gig-link a {
+        background: #f80046; } }
   .gig-info-list-item .gig-listen a:focus {
     background: #1ed760;
     outline: 0; }
@@ -283,20 +299,49 @@ a {
     background: #f80046;
     outline: 0; }
 
-.gig-listen, .gig-link {
+.gig-artist:after, .gig-date:after, .gig-venue:after {
+  position: absolute;
+  left: 15px;
+  top: 12px;
+  font-weight: 400; }
+  @media (min-width: 40em) {
+    .gig-artist:after, .gig-date:after, .gig-venue:after {
+      display: none; } }
+
+.gig-artist:after {
+  content: 'artist'; }
+
+.gig-date:after {
+  content: 'date'; }
+
+.gig-venue:after {
+  content: 'venue'; }
+
+td.gig-listen, td.gig-link {
   text-align: right; }
-  .gig-listen a, .gig-link a {
+  @media (max-width: 40em) {
+    td.gig-listen, td.gig-link {
+      padding: 15px 15px 10px;
+      width: 100%; } }
+  td.gig-listen a, td.gig-link a {
     height: 30px;
     padding: 0.25em 0.75em;
     background: rgba(255, 255, 255, 0.2); }
-    .gig-listen a:after, .gig-link a:after {
+    @media (max-width: 40em) {
+      td.gig-listen a, td.gig-link a {
+        display: block;
+        text-align: center; } }
+    td.gig-listen a:after, td.gig-link a:after {
       top: 3px;
       margin-left: 0.25em;
       font-size: 1.2em; }
 
-.gig-link {
-  padding-right: 15px;
-  width: 135px; }
+@media (min-width: 40em) {
+  td.gig-link {
+    padding-right: 15px; } }
+@media (max-width: 40em) {
+  td.gig-link {
+    padding-top: 0; } }
 
 .gig-link {
   text-align: right; }

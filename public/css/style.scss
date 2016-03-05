@@ -77,7 +77,7 @@ $mqs: (
 }
 
 body{
-	padding: 8em 8.5em;
+	padding: 8em 6em;
   font: 400 14px "franklin-gothic-urw", Helvetica, Arial, sans-serif;
   color: white;
   background: #fdbd10;
@@ -422,6 +422,10 @@ a{
 }
 
 .gig-info-list-header{
+	@include smaller-than(medium){
+		display: none;
+	}
+
 	th{
 		height: 80px;
 		padding: 0 0 5px 14px;
@@ -439,26 +443,44 @@ a{
 	background: $trans-white;
 	letter-spacing: 0.25px;
 
+	td{
+		@include smaller-than(medium){
+			display: block;
+			padding-left: 80px;
+			position: relative;
+		}
+	}
+
 	span{
 		display: inline-block;
 		width: 100%;
 		height: 45px;
 		padding: 15px;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+
+		@include smaller-than(medium){
+			height: 30px;
+			padding: 12px 10px 0 0;
+		}
 	}
 
 	&:hover{
-		background: white;
+		@include larger-than(medium){
+			background: white;
 
-		span{
-			color: $dark-orange;
-		}
+			span{
+				color: $dark-orange;
+			}
 
-		.gig-listen a{
-			background: $spotify-green;
-		}
+			.gig-listen a{
+				background: $spotify-green;
+			}
 
-		.gig-link a{
-			background: $songkick-pink;
+			.gig-link a{
+				background: $songkick-pink;
+			}
 		}
 	}
 
@@ -473,16 +495,49 @@ a{
 	}
 }
 
-.gig-listen, .gig-link{
+.gig-artist, .gig-date, .gig-venue{
+	&:after{
+		position: absolute;
+		left: 15px;
+		top: 12px;
+		font-weight: 400;
+
+		@include larger-than(medium){
+			display: none;
+		}
+	}
+}
+.gig-artist:after{
+	content: 'artist';
+}
+
+.gig-date:after{
+	content: 'date';
+}
+
+.gig-venue:after{
+	content: 'venue';
+}
+
+td.gig-listen, td.gig-link{
 	text-align: right;
+
+	@include smaller-than(medium){
+		padding: 15px 15px 10px;
+		width: 100%;
+	}
 
 	a{
 		height: 30px;
 		padding: 0.25em 0.75em;
 		background: $trans-white;
 
-		&:after{
+		@include smaller-than(medium){
+			display: block;
+			text-align: center;
+		}
 
+		&:after{
 			top: 3px;
 			margin-left: 0.25em;
 			font-size: 1.2em;
@@ -490,9 +545,14 @@ a{
 	}
 }
 
-.gig-link{
-	padding-right: 15px;
-	width: 135px;
+td.gig-link{
+	@include larger-than(medium){
+		padding-right: 15px;
+	}
+
+	@include smaller-than(medium){
+		padding-top: 0;
+	}
 }
 
 .gig-link{
