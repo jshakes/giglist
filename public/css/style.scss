@@ -456,13 +456,16 @@ a{
 		width: 100%;
 		height: 45px;
 		padding: 15px;
-		text-overflow: ellipsis;
-		overflow: hidden;
-		white-space: nowrap;
+
+		@include larger-than(large){
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
+		}
 
 		@include smaller-than(medium){
-			height: 30px;
-			padding: 12px 10px 0 0;
+			height: auto;
+			padding: 0 15px 5px 0;
 		}
 	}
 
@@ -498,8 +501,8 @@ a{
 .gig-artist, .gig-date, .gig-venue{
 	&:after{
 		position: absolute;
-		left: 15px;
-		top: 12px;
+		left: 20px;
+		top: 0;
 		font-weight: 400;
 
 		@include larger-than(medium){
@@ -507,8 +510,14 @@ a{
 		}
 	}
 }
-.gig-artist:after{
-	content: 'artist';
+.gig-artist{
+	@include smaller-than(large){
+		margin-top: 15px;
+	}
+
+	&:after{
+		content: 'artist';
+	}
 }
 
 .gig-date:after{
@@ -520,7 +529,13 @@ a{
 }
 
 td.gig-listen, td.gig-link{
-	text-align: right;
+	width: 100px;
+	padding-left: 10px;
+	text-align: center;
+
+	@include larger-than(medium){
+		box-sizing: content-box;
+	}
 
 	@include smaller-than(medium){
 		padding: 15px 15px 10px;
@@ -528,6 +543,7 @@ td.gig-listen, td.gig-link{
 	}
 
 	a{
+		width: 100%;
 		height: 30px;
 		padding: 0.25em 0.75em;
 		background: $trans-white;
