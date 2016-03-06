@@ -1,5 +1,6 @@
 var SpotifyWebApi = require('spotify-web-api-node');
 var _ = require('underscore');
+var config = require('../../config/config');
 
 var SPOTIFY_CONFIG = _.pluck(config.spotify, 'accessToken', 'refreshToken', 'clientId', 'clientSecret', 'redirectUri');
 
