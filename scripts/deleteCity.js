@@ -4,7 +4,6 @@
   Remove a city from the database given its name
  */
 
-
 var app = require('../app');
 var City = require('../app/models/city');
 

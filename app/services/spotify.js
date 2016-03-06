@@ -1,11 +1,7 @@
 var SpotifyWebApi = require('spotify-web-api-node');
-var SPOTIFY_CONFIG = {
-  accessToken: 'BQAiOOvGDhOHxXQVHT4E8Nx9PLYaIkyTbNUlMrXnBICOPHJ_llsx3JCpxkkypZWoBHUElvMhZrPGoWfKmYjUcDSJsdx8xp2rdvTw-QBisfUA5XRFVC4gvUakwsG5vZVks-1kHk_PFLtQT7Cy_FFaeRSBfW_oNgSYmA2FHVgV2Q0R0ekSDrBgQLY',
-  refreshToken: 'AQAxd_QaSh06fZbP_fjDXtUr-mAJNQ07HJVBwEau97sTjElpckbFJGjZwaqOvhBuUKbuYdfdiF-H7o7jEw4IsuzOmLVNGx6N8QHi3VC7K5KI5w9gdikbMxUsWN4mOcpe62E',
-  clientId: '29322511988c4e5a92ca78ba8f109842',
-  clientSecret: 'f52f057dd25c42108fdeb1216d4e9c73',
-  redirectUri: 'http://localhost:3000'
-};
+var _ = require('underscore');
+
+var SPOTIFY_CONFIG = _.pluck(config.spotify, 'accessToken', 'refreshToken', 'clientId', 'clientSecret', 'redirectUri');
 
 module.exports = {
   /**
@@ -59,7 +55,6 @@ module.exports = {
   addTracksToPlaylist: function(tracks) {
 
     var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
-    var code = 'AQAqma-1uuw4dGIYSaqUcsxUBAWYm08jRSEohtvbxA83E3kq7mYI2xBjgzPK2YygCBd38-fFrVJ7sPj961O9wWQ6PadwXKqrVw1c7Wk5_UOz_b5K8ZVTJrN2bhX-jRXRtp3ePDpnjn0Codsi7Kl7PtacjSc9s0Ln8yB1ITW34dER32Br_TYXQlmOoIn1u_IP26ve2SIHB3lg8-FQzV7J179GBw';
     return new Promise(function(resolve, reject) {
 
       spotifyApi.refreshAccessToken()
@@ -73,6 +68,24 @@ module.exports = {
         console.error('Something went wrong!', err);
         reject(err);
       });
+    });
+  },
+  createPlaylist: function(playlistName) {
+
+    var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
+    return new Promise(function(resolve, reject) {
+    
+      spotifyApi.refreshAccessToken()
+      .then(spotifyApi.createPlaylist(config.spotify.username, playlistName, { public: true }))
+      .then(function(data) {
+
+        console.log('Created new Spotify playlist \'playlistName\' with ID', data.id);
+        resolve(data);
+      }, function(err) {
+
+        console.error('Something went wrong!', err);
+        reject(err);
+      })
     });
   }
 };
