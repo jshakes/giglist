@@ -76,7 +76,7 @@ module.exports = {
     return new Promise(function(resolve, reject) {
     
       spotifyApi.refreshAccessToken()
-      .then(spotifyApi.createPlaylist(config.spotify.username, playlistName { public: true }))
+      .then(spotifyApi.createPlaylist(config.spotify.username, playlistName, { public: true }))
       .then(function(data) {
 
         console.log('Created new Spotify playlist \'playlistName\' with ID', data.id);
