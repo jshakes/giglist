@@ -5,5 +5,8 @@
     "**/.*",
     "node_modules",
     "components"
-  ]
+  ],
+  "dependencies": {
+    "clipboard": "^1.5.9"
+  }
 }

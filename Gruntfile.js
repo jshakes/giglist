@@ -62,7 +62,8 @@ module.exports = function (grunt) {
     concat: {
       vendor: {
         src: [
-          "public/components/jquery/dist/jquery.js"
+          "public/components/jquery/dist/jquery.js",
+          "public/components/clipboard/dist/clipboard.min.js"
         ],
         dest: "public/js/vendors.js"
       },
