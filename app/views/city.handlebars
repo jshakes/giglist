@@ -5,249 +5,113 @@
 		<h2>{{ city.name }}</h2>
 		<div class="social-wrapper">
 			<ul>
-				<li><a class="twitter-share-icon icon" href=""></a></li>
-				<li><a class="fbook-share-icon icon" href=""></a></li>
-				<li><a class="link-share-icon icon" href=""></a></li>
+				<li><a class="twitter-icon icon" href=""></a></li>
+				<li><a class="fbook-icon icon" href=""></a></li>
+				<li><a class="link-icon icon" href=""></a></li>
 			</ul>
 		</div>
-		<h3>Below is a list of tracks from artists performing in {{ city.name }} over the next few&nbsp;weeks.</h3>
+		<h3>Below is a list of tracks from artists with shows in {{ city.name }} over the next few&nbsp;weeks.</h3>
+		<a href="" target="_blank" class="playlist-subscribe-link btn-rounded icon spotify-icon">Follow this Playlist</a>
 	</div>
 
 	<div class="city-playlist-wrapper">
-		<iframe class="city-playlist" id="iframe" src="https://embed.spotify.com/?uri=spotify%3Auser%3Aspotifydiscover%3Aplaylist%3A6n4IVPh83RaQYAosOrBSWl" frameborder="0" allowtransparency="true">
-		</iframe>
+
 		<div class="gig-info-list">
 			<table>
 				<thead class="gig-info-list-header">
 					<tr>
+						<th><h4>Artist</h4></th>
 						<th><h4>Date</h4></th>
 						<th><h4>Venue</h4></th>
+						<th></th>
 						<th></th>
 					</tr>
 				</thead>
 				<tr class="gig-info-list-item">
-					<td class="gig-date"><a href="">2/16, Tue.</a></td>
-					<td class="gig-venue"><a href="">Mississippi Studios</a></td>
-					<td class="gig-link"><a href="">Show Info &raquo;</a></td>
+					<td class="gig-artist"><span>Artist name</span></td>
+					<td class="gig-date"><span>2/16, Tue.</span></td>
+					<td class="gig-venue"><span>Doug Fir Lounge and Bar</span></td>
+					<td class="gig-listen"><a href="" class="btn-rounded icon spotify-icon">Listen</span></td>
+					<td class="gig-link"><a href="" class="btn-rounded icon songkick-icon">Info</a></td>
 				</tr>
 				<tr class="gig-info-list-item">
-					<td class="gig-date"><a href="">2/16, Tue.</a></td>
-					<td class="gig-venue"><a href="">Doug Fir Lounge and Bar</a></td>
-					<td class="gig-link"><a href="">Show Info &raquo;</a></td>
+					<td class="gig-artist"><span>Artist name</span></td>
+					<td class="gig-date"><span>2/16, Tue.</span></td>
+					<td class="gig-venue"><span>Doug Fir Lounge and Bar</span></td>
+					<td class="gig-listen"><a href="" class="btn-rounded icon spotify-icon">Listen</a></td>
+					<td class="gig-link"><a href="" class="btn-rounded icon songkick-icon">Info</a></td>
 				</tr>
 				<tr class="gig-info-list-item">
-					<td class="gig-date"><a href="">2/17, Wed.</a></td>
-					<td class="gig-venue"><a href="">Mississippi Studios</a></td>
-					<td class="gig-link"><a href="">Show Info &raquo;</a></td>
+					<td class="gig-artist"><span>Artist name</span></td>
+					<td class="gig-date"><span>2/17, Wed.</span></td>
+					<td class="gig-venue"><span>Mississippi Studios</span></td>
+					<td class="gig-listen"><a href="" class="btn-rounded icon spotify-icon">Listen</a></td>
+					<td class="gig-link"><a href="" class="btn-rounded icon songkick-icon">Info</a></td>
 				</tr>
 				<tr class="gig-info-list-item">
-					<td class="gig-date"><a href="">2/16, Wed.</a></td>
-					<td class="gig-venue"><a href="">Mississippi Studios</a></td>
-					<td class="gig-link"><a href="">Show Info &raquo;</a></td>
+					<td class="gig-artist"><span>Artist name</span></td>
+					<td class="gig-date"><span>2/16, Wed.</span></td>
+					<td class="gig-venue"><span>Mississippi Studios</span></td>
+					<td class="gig-listen"><a href="" class="btn-rounded icon spotify-icon">Listen</a></td>
+					<td class="gig-link"><a href="" class="btn-rounded icon songkick-icon">Info</a></td>
 				</tr>
 				<tr class="gig-info-list-item">
-					<td class="gig-date"><a href="">2/16, Wed.</a></td>
-					<td class="gig-venue"><a href="">Doug Fir Lounge and Bar</a></td>
-					<td class="gig-link"><a href="">Show Info &raquo;</a></td>
+					<td class="gig-artist"><span>Artist name</span></td>
+					<td class="gig-date"><span>2/16, Wed.</span></td>
+					<td class="gig-venue"><span>Doug Fir Lounge and Bar</span></td>
+					<td class="gig-listen"><a href="" class="btn-rounded icon spotify-icon">Listen</a></td>
+					<td class="gig-link"><a href="" class="btn-rounded icon songkick-icon">Info</a></td>
 				</tr>
 				<tr class="gig-info-list-item">
-					<td class="gig-date"><a href="">2/17, Wed.</a></td>
-					<td class="gig-venue"><a href="">Mississippi Studios</a></td>
-					<td class="gig-link"><a href="">Show Info &raquo;</a></td>
+					<td class="gig-artist"><span>Artist name</span></td>
+					<td class="gig-date"><span>2/17, Wed.</span></td>
+					<td class="gig-venue"><span>Mississippi Studios</span></td>
+					<td class="gig-listen"><a href="" class="btn-rounded icon spotify-icon">Listen</a></td>
+					<td class="gig-link"><a href="" class="btn-rounded icon songkick-icon">Info</a></td>
 				</tr>
 				<tr class="gig-info-list-item">
-					<td class="gig-date"><a href="">2/16, Thu.</a></td>
-					<td class="gig-venue"><a href="">Mississippi Studios</a></td>
-					<td class="gig-link"><a href="">Show Info &raquo;</a></td>
+					<td class="gig-artist"><span>Artist name</span></td>
+					<td class="gig-date"><span>2/16, Thu.</span></td>
+					<td class="gig-venue"><span>Mississippi Studios</span></td>
+					<td class="gig-listen"><a href="" class="btn-rounded icon spotify-icon">Listen</a></td>
+					<td class="gig-link"><a href="" class="btn-rounded icon songkick-icon">Info</a></td>
 				</tr>
 				<tr class="gig-info-list-item">
-					<td class="gig-date"><a href="">2/16, Thu.</a></td>
-					<td class="gig-venue"><a href="">Doug Fir Lounge and Bar</a></td>
-					<td class="gig-link"><a href="">Show Info &raquo;</a></td>
+					<td class="gig-artist"><span>Artist name</span></td>
+					<td class="gig-date"><span>2/16, Thu.</span></td>
+					<td class="gig-venue"><span>Doug Fir Lounge and Bar</span></td>
+					<td class="gig-listen"><a href="" class="btn-rounded icon spotify-icon">Listen</a></td>
+					<td class="gig-link"><a href="" class="btn-rounded icon songkick-icon">Info</a></td>
 				</tr>
 				<tr class="gig-info-list-item">
-					<td class="gig-date"><a href="">2/17, Thu.</a></td>
-					<td class="gig-venue"><a href="">Mississippi Studios</a></td>
-					<td class="gig-link"><a href="">Show Info &raquo;</a></td>
+					<td class="gig-artist"><span>Artist name</span></td>
+					<td class="gig-date"><span>2/17, Thu.</span></td>
+					<td class="gig-venue"><span>Mississippi Studios</span></td>
+					<td class="gig-listen"><a href="" class="btn-rounded icon spotify-icon">Listen</a></td>
+					<td class="gig-link"><a href="" class="btn-rounded icon songkick-icon">Info</a></td>
 				</tr>
 				<tr class="gig-info-list-item">
-					<td class="gig-date"><a href="">2/16, Tue.</a></td>
-					<td class="gig-venue"><a href="">Mississippi Studios</a></td>
-					<td class="gig-link"><a href="">Show Info &raquo;</a></td>
+					<td class="gig-artist"><span>Artist name</span></td>
+					<td class="gig-date"><span>2/16, Tue.</span></td>
+					<td class="gig-venue"><span>Mississippi Studios</span></td>
+					<td class="gig-listen"><a href="" class="btn-rounded icon spotify-icon">Listen</a></td>
+					<td class="gig-link"><a href="" class="btn-rounded icon songkick-icon">Info</a></td>
 				</tr>
 				<tr class="gig-info-list-item">
-					<td class="gig-date"><a href="">2/16, Tue.</a></td>
-					<td class="gig-venue"><a href="">Doug Fir Lounge and Bar</a></td>
-					<td class="gig-link"><a href="">Show Info &raquo;</a></td>
+					<td class="gig-artist"><span>Artist name</span></td>
+					<td class="gig-date"><span>2/16, Tue.</span></td>
+					<td class="gig-venue"><span>Doug Fir Lounge and Bar</span></td>
+					<td class="gig-listen"><a href="" class="btn-rounded icon spotify-icon">Listen</a></td>
+					<td class="gig-link"><a href="" class="btn-rounded icon songkick-icon">Info</a></td>
 				</tr>
 				<tr class="gig-info-list-item">
-					<td class="gig-date"><a href="">2/17, Wed.</a></td>
-					<td class="gig-venue"><a href="">Mississippi Studios</a></td>
-					<td class="gig-link"><a href="">Show Info &raquo;</a></td>
+					<td class="gig-artist"><span>Artist name</span></td>
+					<td class="gig-date"><span>2/17, Wed.</span></td>
+					<td class="gig-venue"><span>Mississippi Studios</span></td>
+					<td class="gig-listen"><a href="" class="btn-rounded icon spotify-icon">Listen</a></td>
+					<td class="gig-link"><a href="" class="btn-rounded icon songkick-icon">Info</a></td>
 				</tr>
 			</table>
-<!-- 				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">2/17, Wed.</span>
-						<span class="gig-venue">Aladdin Theater</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">2/17, Wed.</span>
-						<span class="gig-venue">Dante's</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Thursday, 2/18</span>
-						<span class="gig-venue">Doug Fir Lounge and Bar</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Thursday, 2/18</span>
-						<span class="gig-venue">Mississippi Studios</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Friday, 2/19</span>
-						<span class="gig-venue">Aladdin Theater</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Friday, 2/19</span>
-						<span class="gig-venue">Mississippi Studios</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Friday, 2/19</span>
-						<span class="gig-venue">Dante's</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Friday, 2/19</span>
-						<span class="gig-venue">Dante's</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Friday, 2/19</span>
-						<span class="gig-venue">Aladdin Theater</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Friday, 2/19</span>
-						<span class="gig-venue">Dante's</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Saturday, 2/20</span>
-						<span class="gig-venue">Dante's</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Saturday, 2/20</span>
-						<span class="gig-venue">Doug Fir Lounge and Bar</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Saturday, 2/20</span>
-						<span class="gig-venue">Dante's</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Saturday, 2/20</span>
-						<span class="gig-venue">Mississippi Studios</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Saturday, 2/20</span>
-						<span class="gig-venue">Doug Fir Lounge and Bar</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Sunday, 2/21</span>
-						<span class="gig-venue">Aladdin Theater</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Sunday, 2/21</span>
-						<span class="gig-venue">Dante's</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Sunday, 2/21</span>
-						<span class="gig-venue">Doug Fir Lounge</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Sunday, 2/21</span>
-						<span class="gig-venue">Aladdin Theater</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Sunday, 2/21</span>
-						<span class="gig-venue">Aladdin Theater</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Sunday, 2/21</span>
-						<span class="gig-venue">Aladdin Theater</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Monday, 2/22</span>
-						<span class="gig-venue">Doug Fir Lounge</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-				<li>
-					<a href="" class="gig-link">
-						<span class="gig-date">Monday, 2/22</span>
-						<span class="gig-venue">Mississippi Studios</span>
-						<span class="gig-info-icon"></span>
-					</a>
-				</li>
-			</ul> -->
 		</div>
 	</div>
 </div>

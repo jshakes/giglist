@@ -20,6 +20,8 @@ $black: #222;
 $dark-orange: #f36f21;
 $light-orange: #fdbd10;
 $trans-white:rgba(255,255,255,0.2);
+$spotify-green: #1ed760;
+$songkick-pink: #f80046;
 
 
 // =======================
@@ -75,7 +77,7 @@ $mqs: (
 }
 
 body{
-	padding: 8em 8.5em;
+	padding: 8em 6em;
   font: 400 14px "franklin-gothic-urw", Helvetica, Arial, sans-serif;
   color: white;
   background: #fdbd10;
@@ -86,7 +88,7 @@ body{
   height: 100%;
 
   @include smaller-than(large){
-  	padding: 2.5em 3em;
+  	padding: 2.5em 2em;
   }
 }
 
@@ -134,6 +136,51 @@ a{
 
 
 // =======================
+// Form Elements
+// =======================
+.btn-rounded{
+	display: inline-block;
+	width: auto;
+	border-radius: 2em;
+	font-weight: 500;
+}
+
+
+// =======================
+// Icons
+// =======================
+.icon{
+	&:after{
+		font-family: 'icomoon';
+		position: relative;
+	}
+}
+
+.locate-icon:after{
+	content: '\e900';
+}
+
+.twitter-icon:after{
+	content: '\e902';
+}
+
+.fbook-icon:after{
+	content: '\e901';
+}
+
+.link-icon:after{
+	content: '\e903';
+}
+
+.spotify-icon:after{
+	content: '\e904';
+}
+
+.songkick-icon:after{
+	content: '\e905';
+}
+
+// =======================
 // Homepage
 // =======================
 .homepage{
@@ -168,7 +215,7 @@ a{
 		letter-spacing: 0.3em;
 		font-size: 8em;
 
-		a:hover{
+		a:hover, a:focus{
 			color: rgba(255,255,255,0.8);
 		}
 	}
@@ -182,13 +229,11 @@ a{
 		font-weight: 700;
 
 		&:after{
-			font-family: icomoon;
-			content: '\e900';
 			font-size: 0.5em;
 			padding-left: 0.5em;
 		}
 
-		&:hover, &:hover:after{
+		&:hover, &:hover:after, &:focus, &:focus:after{
 			color: rgba(255,255,255,0.8);
 		}
 	}
@@ -228,7 +273,8 @@ a{
 	animation-fill-mode: both;
 	animation-name: fadeInUp;
 
-	&:hover{
+	&:hover, &:focus{
+		outline: 0;
 		svg{
 			display: inline-block;
 			color: transparent;
@@ -238,10 +284,12 @@ a{
 			opacity: 0;
 		}
 	}
+
 	a{
 		display: block;
 		padding: 0.25em 0 0.3em 0.5em;
 		color: white;
+		outline: 0;
 	}
 
 	svg{
@@ -264,7 +312,8 @@ a{
 	top: 1em;
 	left: 1.5em;
 	font-size: 1.2em;
-	&:hover{
+
+	&:hover, &:focus{
 		color: rgba(255,255,255,0.8);
 	}
 
@@ -279,16 +328,18 @@ a{
 }
 
 .city-playlist-header{
-	margin-bottom: 4em;
-
 	h2{
 		display: inline;
 	}
 
 	h3{
-		width: 60%;
 		margin: 0 auto;
+
+		@include larger-than(large){
+			width: 60%;
+		}
 	}
+
 	@include smaller-than(large){
 		margin-top: 4em;
 	}
@@ -296,8 +347,8 @@ a{
 
 .social-wrapper{
 	display: inline-block;
-	width: 100px;
-	margin-right: -100px;
+	width: 80px;
+	margin-right: -80px;
 
 	ul, li{
 		display: inline-block;
@@ -308,48 +359,61 @@ a{
 		padding-left: 0.5em;
 
 		&:after{
-			font-family: 'icomoon';
 			color: white;
-			font-size: 1.6em;
+			font-size: 1.2em;
 		}
+		&:focus{
+			outline: 0;
+		}
+	}
 
-		&:hover:after{
-			color: rgba(255,255,255,0.8);
+	.twitter-icon{
+		&:hover:after, &:focus:after{
+			color: #00aced;
+		}
+	}
+
+	.fbook-icon{
+		&:hover:after, &:focus:after{
+			color: #3b5998;
+		}
+	}
+
+	.link-icon{
+		&:hover:after, &:focus:after{
+			color: $black;
 		}
 	}
 }
 
-.twitter-share-icon:after{
-	content: '\e902';
-}
+.playlist-subscribe-link{
+	padding: 0.4em 1em 0.5em;
+	margin: 2em 0 2.3em;
+	background: $black;
+	font-size: 1.4em;
 
-.fbook-share-icon:after{
-	content: '\e901';
-}
+	&:after{
+		top: 3px;
+		margin-left: 10px;
+	}
 
-.link-share-icon:after{
-	content: '\e903';
+	&:hover, &:focus{
+		background: $spotify-green;
+		outline: 0;
+	}
 }
-
 
 .city-playlist-wrapper{
 	@extend .clearfix;
-	width: 80%;
+	position: relative;
 	margin: 0 auto;
-}
 
-.city-playlist{
-	float: left;
-	width: 50%;
-	height: 800px;
-	border-radius: 1px 0 0 1px;
+	@include larger-than(extra-large){
+		width: 80%;
+	}
 }
 
 .gig-info-list{
-	float: left;
-	width: 50%;
-	border-radius: 0 1px 1px 0;
-
 	table{
 		width: 100%;
 		margin-top: -1px;
@@ -358,6 +422,10 @@ a{
 }
 
 .gig-info-list-header{
+	@include smaller-than(medium){
+		display: none;
+	}
+
 	th{
 		height: 80px;
 		padding: 0 0 5px 14px;
@@ -375,18 +443,131 @@ a{
 	background: $trans-white;
 	letter-spacing: 0.25px;
 
-	a{
+	td{
+		@include smaller-than(medium){
+			display: block;
+			padding-left: 80px;
+			position: relative;
+		}
+	}
+
+	span{
 		display: inline-block;
 		width: 100%;
 		height: 45px;
 		padding: 15px;
+
+		@include larger-than(large){
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
+		}
+
+		@include smaller-than(medium){
+			height: auto;
+			padding: 0 15px 5px 0;
+		}
 	}
 
 	&:hover{
-		background: white;
-		a{
-			color: $dark-orange;
+		@include larger-than(medium){
+			background: white;
+
+			span{
+				color: $dark-orange;
+			}
+
+			.gig-listen a{
+				background: $spotify-green;
+			}
+
+			.gig-link a{
+				background: $songkick-pink;
+			}
 		}
+	}
+
+	.gig-listen a:focus{
+		background: $spotify-green;
+		outline: 0;
+	}
+
+	.gig-link a:focus{
+		background: $songkick-pink;
+		outline: 0;
+	}
+}
+
+.gig-artist, .gig-date, .gig-venue{
+	&:after{
+		position: absolute;
+		left: 20px;
+		top: 0;
+		font-weight: 400;
+
+		@include larger-than(medium){
+			display: none;
+		}
+	}
+}
+.gig-artist{
+	@include smaller-than(large){
+		margin-top: 15px;
+	}
+
+	&:after{
+		content: 'artist';
+	}
+}
+
+.gig-date:after{
+	content: 'date';
+}
+
+.gig-venue:after{
+	content: 'venue';
+}
+
+td.gig-listen, td.gig-link{
+	width: 100px;
+	padding-left: 10px;
+	text-align: center;
+
+	@include larger-than(medium){
+		box-sizing: content-box;
+	}
+
+	@include smaller-than(medium){
+		padding: 15px 15px 10px;
+		width: 100%;
+	}
+
+	a{
+		width: 100%;
+		height: 30px;
+		padding: 0.25em 0.75em;
+		background: $trans-white;
+
+		@include smaller-than(medium){
+			display: block;
+			text-align: center;
+		}
+
+		&:after{
+			top: 3px;
+			margin-left: 0.25em;
+			font-size: 1.2em;
+		}
+	}
+}
+
+td.gig-link{
+	@include larger-than(medium){
+		padding-right: 15px;
+	}
+
+	@include smaller-than(medium){
+		padding-top: 0;
 	}
 }
 
