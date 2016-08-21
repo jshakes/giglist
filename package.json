@@ -19,9 +19,10 @@
     "mongoose": "^4.1.2",
     "mongoose-url-slugs": "^0.2.1",
     "morgan": "^1.6.1",
+    "prompt": "^1.0.0",
     "serve-favicon": "^2.3.0",
     "songkick-api": "0.0.2",
-    "spotify-web-api-node": "^2.2.0",
+    "spotify-web-api-node": "^2.3.5",
     "underscore": "^1.8.3"
   },
   "devDependencies": {

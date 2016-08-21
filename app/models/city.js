@@ -14,7 +14,6 @@ var schema = new Schema({
     type: Date,
     default: Date.now()
   },
-  slug: String,
   metroId: Number,
   latitude: String,
   longitude: String,
@@ -25,6 +24,6 @@ var schema = new Schema({
   }]
 });
 
-schema.plugin(URLSlugs('name'));
+schema.plugin(URLSlugs('name', {field: 'slug'}));
 
 module.exports = mongoose.model('City', schema);

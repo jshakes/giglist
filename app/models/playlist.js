@@ -27,21 +27,8 @@ var schema = new Schema({
 });
 
 schema.pre('update', function() {
-
+  
   this.update({},{ $set: { updated: new Date() } });
-});
-
-/**
- * Create a Spotify playlist and save its ID when a new model is created
- */
-schema.pre('init', function(next) {
-
-  spotify.createPlaylist()
-  .then(function(data) {
-
-    this.spotifyId = data.id;
-    next();
-  });
 });
 
 module.exports = mongoose.model('Playlist', schema);

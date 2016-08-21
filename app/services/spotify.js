@@ -1,8 +1,9 @@
+var prompt = require('prompt');
 var SpotifyWebApi = require('spotify-web-api-node');
 var _ = require('underscore');
 var config = require('../../config/config');
 
-var SPOTIFY_CONFIG = _.pluck(config.spotify, 'accessToken', 'refreshToken', 'clientId', 'clientSecret', 'redirectUri');
+var SPOTIFY_CONFIG = config.spotify;
 
 module.exports = {
   /**
@@ -25,6 +26,37 @@ module.exports = {
        
         console.error('Something went wrong!', err);
         reject(err);
+      });
+    });
+  },
+  _authenticate: function() {
+    
+    var scopes = ['playlist-modify-public'];
+    var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);    
+    var authorizeURL = spotifyApi.createAuthorizeURL(scopes);
+    return new Promise(function(resolve, reject) {
+      console.log('Login to the application here:', authorizeURL, 'then enter the access token provided');
+      prompt.start();
+      prompt.get(['accessToken'], function(err, result) {
+        if(err) {
+          console.error('Something went wrong!', err);
+          reject(err);
+        }
+        else {
+          console.log('Attempting to authorize application with code');
+          spotifyApi.authorizationCodeGrant(result.accessToken)
+          .then(function(data) {
+            console.log('Application successfully authorized');
+            // Set the access token on the API object to use it in later calls
+            spotifyApi.setAccessToken(data.body['access_token']);
+            spotifyApi.setRefreshToken(data.body['refresh_token']);
+            resolve(spotifyApi);
+          })
+          .catch(function(err) {
+            console.error('Something went wrong!', err);
+            reject(err);
+          })
+        }
       });
     });
   },
@@ -59,7 +91,7 @@ module.exports = {
     return new Promise(function(resolve, reject) {
 
       spotifyApi.refreshAccessToken()
-      .then(spotifyApi.addTracksToPlaylist('jshakes', '2hPN2te8wwnKrI4UoqtOUS', tracks))
+      .then(spotifyApi.replaceTracksInPlaylist('jshakes', '2hPN2te8wwnKrI4UoqtOUS', tracks))
       .then(function(data) {
           
         console.log('Added tracks to playlist!');
@@ -72,21 +104,26 @@ module.exports = {
     });
   },
   createPlaylist: function(playlistName) {
-
-    var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
+    
+    var _this = this;
     return new Promise(function(resolve, reject) {
     
-      spotifyApi.refreshAccessToken()
-      .then(spotifyApi.createPlaylist(config.spotify.username, playlistName, { public: true }))
-      .then(function(data) {
+      _this._authenticate()
+      .then(function(spotifyApi) {
+        console.log('trying to create a playlist called', playlistName);
+        spotifyApi.refreshAccessToken()
+        .then(spotifyApi.createPlaylist(SPOTIFY_CONFIG.username, playlistName, { public: true }))
+        .then(function(data) {
+          console.log(data);
+          console.log('Created new Spotify playlist', playlistName, 'with ID', data.id);
+          resolve(data);
+        })
+        .catch(function(err) {
 
-        console.log('Created new Spotify playlist \'playlistName\' with ID', data.id);
-        resolve(data);
-      }, function(err) {
-
-        console.error('Something went wrong!', err);
-        reject(err);
-      })
+          console.error('Something went wrong!', err);
+          reject(err);
+        })
+      });
     });
   }
 };

@@ -12,11 +12,10 @@ var config = {
     db: 'mongodb://giglist:aEyXVxuEpSmc8h6Q@candidate.43.mongolayer.com:10005/giglist_dev',
     spotify: {
       username: 'giglistdev',
-      accessToken: 'BQAiOOvGDhOHxXQVHT4E8Nx9PLYaIkyTbNUlMrXnBICOPHJ_llsx3JCpxkkypZWoBHUElvMhZrPGoWfKmYjUcDSJsdx8xp2rdvTw-QBisfUA5XRFVC4gvUakwsG5vZVks-1kHk_PFLtQT7Cy_FFaeRSBfW_oNgSYmA2FHVgV2Q0R0ekSDrBgQLY',
-      refreshToken: 'AQAxd_QaSh06fZbP_fjDXtUr-mAJNQ07HJVBwEau97sTjElpckbFJGjZwaqOvhBuUKbuYdfdiF-H7o7jEw4IsuzOmLVNGx6N8QHi3VC7K5KI5w9gdikbMxUsWN4mOcpe62E',
       clientId: '29322511988c4e5a92ca78ba8f109842',
       clientSecret: 'f52f057dd25c42108fdeb1216d4e9c73',
-      redirectUri: 'http://localhost:3000'
+      redirectUri: 'http://localhost:3000',
+      accessToken: 'AQBL06KHVSge-pSH9_ga3wBx2mD4fOVlgJ_2ty92xeAQLA3dWaihaKp0d0SW_Rfk_4LkbjIHPA1yLbNY9ZmNeq0cBqIWPlUnv53FS8y0HURpFMa_64aPol4RkfooT7P0Wp_jb6e_X7McHldh2HAWp3CiAyiQtf7r8IKp-x4d-U-_ghEasj4h5NzeShMALdMk4nVX1RT3yOnVZQNsvBDPlJEU1w'
     }
   },
 
