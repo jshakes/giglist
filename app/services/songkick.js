@@ -30,17 +30,15 @@ module.exports = {
       
       songkick.searchLocations({
         location: 'geo:' + coords
-      }).then(function(locations) {
-
-        if(locations.length) {
-          
-          resolve(locations[0]);
-        }
-        else {
-
-          reject('No locations found');
-        }
       })
+      .then(function(locations) {
+
+        resolve(locations[0]);
+      })
+      .catch(function(err) {
+        
+        reject('No locations found with those coordinates');
+      });
     });
   },
   getEventsArtists: function(metroID) {
