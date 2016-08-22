@@ -70,6 +70,10 @@ songkick.getMetroFromCoords(coords)
   var validTracks = _.filter(trackArr, function(item) {
     return item !== 0;
   });
+  validTracks = _.uniq(validTracks);
+  if(validTracks.length >= 100) {
+    validTracks = validTracks.slice(0, 100);
+  }
   return spotify.addTracksToPlaylist(playlist.spotifyId, validTracks);
 })
 .then(function() {

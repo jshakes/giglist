@@ -81,7 +81,8 @@ module.exports = {
       .then(function(data) {
           
         resolve(data);
-      }, function(err) {
+      })
+      .catch(function(err) {
         
         console.error('Something went wrong!', err);
         reject(err);
