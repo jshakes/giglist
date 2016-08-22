@@ -1,3 +1,4 @@
+var Promise = require('bluebird');
 var prompt = require('prompt');
 var SpotifyWebApi = require('spotify-web-api-node');
 var _ = require('underscore');
@@ -69,16 +70,16 @@ module.exports = {
       });
     })
   },
-  addTracksToPlaylist: function(tracks) {
+  addTracksToPlaylist: function(playlistId, tracks) {
 
+    var _this = this;
     var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
     return new Promise(function(resolve, reject) {
 
-      spotifyApi.refreshAccessToken()
-      .then(spotifyApi.replaceTracksInPlaylist('jshakes', '2hPN2te8wwnKrI4UoqtOUS', tracks))
+      _this._authenticate(spotifyApi)
+      .then(spotifyApi.replaceTracksInPlaylist(SPOTIFY_CONFIG.username, playlistId, tracks))
       .then(function(data) {
           
-        console.log('Added tracks to playlist!');
         resolve(data);
       }, function(err) {
         

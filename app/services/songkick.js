@@ -4,6 +4,7 @@
   Services object for interacting with the Songkick API
  */
 
+var Promise = require('bluebird');
 var SONGKICK_API_KEY = 'RpuYqxFiPPsJPs5l';
 var _ = require('underscore');
 var http = require('http');
