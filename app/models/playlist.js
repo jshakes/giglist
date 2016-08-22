@@ -6,7 +6,6 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var spotify = require('../services/spotify');
 
 var schema = new Schema({
   name: String,
@@ -19,7 +18,12 @@ var schema = new Schema({
     default: Date.now()
   },
   spotifyId: String,
-  genre: String,
+  externalUrl: String,
+  description: String,
+  followers: {
+    type: Number,
+    default: 0
+  },
   tracks: [{
     type: Schema.Types.ObjectId,
     ref: 'Track'

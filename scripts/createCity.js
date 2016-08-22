@@ -9,8 +9,8 @@
  */
 
 var app = require('../app');
-var City = require('../app/models/city');
 var Playlist = require('../app/models/playlist');
+var City = require('../app/models/city');
 var songkick = require('../app/services/songkick');
 var spotify = require('../app/services/spotify');
 
@@ -25,32 +25,32 @@ songkick.getMetroFromCoords(coords)
     if(location.metroArea.state) {
       cityName += ', ' + location.metroArea.state.displayName;
     }
-    var playlistName = 'Livelist ' + cityName;
     var params = {
       name: cityName,
       metroId: location.metroArea.id,
       latitude: location.metroArea.lat,
       longitude: location.metroArea.lng,
-      country: location.metroArea.country.displayName,
-      playlists: [
-        new Playlist({
-          name: playlistName
-        })
-      ]
+      country: location.metroArea.country.displayName
     };
-
     city = new City(params);
-    console.log('attempting to save', city);
+    console.log('Attempting to create new city:', cityName);
     return city.save();
   })
   .then(function(record) {
-    console.log(record);
-    return spotify.createPlaylist(record.playlists[0].name);
+    console.log('Created new city:', record.name);
+    return spotify.createPlaylist('Livelist ' + record.name);
   })
-  .then(function(playlist) {
-    
-    console.log('playlist data', playlist);
-    city.playlists[0] = playlist;
+  .then(function(playlistData) {
+    console.log('Associating new Spotify playlist details with city');
+    var playlist = new Playlist({
+      name: playlistData.name,
+      spotifyId: playlistData.id,
+      externalUrl: playlistData.external_urls.spotify
+    });
+    return playlist.save();
+  })
+  .then(function(record) {
+    city.playlists.push(record);
     return city.save();
   })
   .then(function() {

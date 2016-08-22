@@ -7,6 +7,7 @@
 var app = require('../app');
 var City = require('../app/models/city');
 var songkick = require('../app/services/songkick');
+var spotify = require('../app/services/spotify');
 
 var id = process.argv[2];
 

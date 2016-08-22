@@ -110,16 +110,17 @@ module.exports = {
     
       _this._authenticate()
       .then(function(spotifyApi) {
-        console.log('trying to create a playlist called', playlistName);
         spotifyApi.refreshAccessToken()
-        .then(spotifyApi.createPlaylist(SPOTIFY_CONFIG.username, playlistName, { public: true }))
+        .then(function() {
+          console.log('Attempting to create a playlist called', playlistName);
+          return spotifyApi.createPlaylist(SPOTIFY_CONFIG.username, playlistName, { public: true })
+        })
         .then(function(data) {
-          console.log(data);
-          console.log('Created new Spotify playlist', playlistName, 'with ID', data.id);
-          resolve(data);
+          var playlist = data.body;
+          console.log('Created new Spotify playlist', playlist.name, 'with id', playlist.id);
+          resolve(playlist);
         })
         .catch(function(err) {
-
           console.error('Something went wrong!', err);
           reject(err);
         })
