@@ -25,8 +25,11 @@ var schema = new Schema({
     default: 0
   },
   tracks: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Track'
+    artist: String,
+    track: String,
+    genres: [String],
+    spotify: {},
+    songkick: {}
   }]
 });
 

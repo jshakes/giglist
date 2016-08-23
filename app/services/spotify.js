@@ -8,22 +8,24 @@ var SPOTIFY_CONFIG = config.spotify;
 
 module.exports = {
   /**
-   * Search for an artist on Spotify and return the artist ID of the first result
+   * Search for an artist on Spotify and return the artist object of the first result
    * @param artistName {String} The artist to search form
    * @return artistID {String} The Spotify ID of the first artist result
    */
-  _getArtistId: function(artistName) {
+  _getArtistByName: function(artistName) {
 
     var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
 
     return new Promise(function(resolve, reject) {
 
-      spotifyApi.searchArtists(artistName).then(function(data) {
+      spotifyApi.searchArtists(artistName)
+      .then(function(data) {
 
         // get the artist ID, if it exists
-        var artistId = data.body.artists.items.length ? data.body.artists.items[0].id : 0;
-        resolve(artistId);
-      }, function(err) {
+        var artist = data.body.artists.items.length ? data.body.artists.items[0] : null;
+        resolve(artist);
+      })
+      .catch(function(err) {
        
         console.error('Something went wrong!', err);
         reject(err);
@@ -52,17 +54,33 @@ module.exports = {
 
     return new Promise(function(resolve, reject) {
 
-      _this._getArtistId(artistName).then(function(artistId) {
+      _this._getArtistByName(artistName)
+      .then(function(artist) {
 
-        if(artistId === 0) {
+        if(artist === null) {
 
-          return resolve(0);
+          // nullify the whole track if there were no artists
+          return resolve(null);
         }
-        spotifyApi.getArtistTopTracks(artistId, 'US').then(function(data) {
-
-          var trackId = data.body.tracks.length ? 'spotify:track:' + data.body.tracks[0].id : 0;
-          resolve(trackId);
-        }, function(err) {
+        var track = {
+          genres: artist.genres
+        };
+        spotifyApi.getArtistTopTracks(artist.id, 'US')
+        .then(function(data) {
+          
+          if(data.body.tracks.length) {
+            var topTrack = data.body.tracks[0];
+            track.topTrackId = topTrack.id;
+            track.topTrackName = topTrack.name;
+            track.topTrackUrl = topTrack.external_urls.spotify;
+          }
+          else {
+            // nullify the whole track if there were no tracks available
+            track = null;
+          }
+          resolve(track);
+        })
+        .catch(function(err) {
 
           console.error('Something went wrong!', err);
           reject(err);

@@ -18,8 +18,8 @@ module.exports = {
 
       songkick.searchEvents({
         location: 'sk:' + metroID
-      }).then(function(events) {
-
+      })
+      .then(function(events) {
         resolve(events);
       });
     });
@@ -42,15 +42,29 @@ module.exports = {
       });
     });
   },
-  getEventsArtists: function(metroID) {
+  getArtistsEvents: function(metroID) {
 
     var _this = this;
     return new Promise(function(resolve, reject) {
 
-      _this._getEvents(metroID).then(function(events) {
-
-        var performances = _.flatten(_.pluck(events, 'performance'));
-        var artists = _.pluck(performances, 'artist');
+      _this._getEvents(metroID)
+      .then(function(events) {  
+        var artists = [];
+        events.forEach(function(event) {
+          var songkickEvent = {
+            id: event.id,
+            url: event.uri,
+            name: event.displayName,
+            venue: event.venue.displayName,
+            date: event.start.date,
+          };
+          event.performance.forEach(function(performance) {
+            artists.push({
+              artist: performance.artist.displayName,
+              songkick: songkickEvent
+            })
+          });
+        });
         resolve(artists);
       });
     });
