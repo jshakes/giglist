@@ -18,12 +18,14 @@ router.get('/:citySlug', function (req, res, next) {
   .populate('playlists')
   .then(function(city) {
     if(city) {
-      tracks = city.playlists[0].tracks;
+      var tracks = city.playlists[0].tracks;
+      var playlistUrl = city.playlists[0].externalUrl;
       delete city.playlists;
       res.render('city', {
         title: city.name,
         city: city,
-        tracks: tracks
+        tracks: tracks,
+        playlistUrl: playlistUrl
       });
     }
     else {
