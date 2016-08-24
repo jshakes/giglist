@@ -104,7 +104,7 @@ songkick.getMetroFromCoords(coords)
   return spotify.addTracksToPlaylist(playlist.spotifyId, spotifyTracks);
 })
 .then(function() {
-  console.log('Saving tracks to playlist model:', playlist.tracks);
+  console.log('Saving tracks to playlist model');
   return playlist.save();
 })
 .then(function() {
