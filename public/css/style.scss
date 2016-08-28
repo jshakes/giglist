@@ -395,7 +395,7 @@ a{
 		position: absolute;
 		bottom: 150%;
 		left: 50%;
-		animation-duration: 2s;
+		animation-duration: 3s;
 		transition-timing-function: ease;
 		animation-name: tooltipFadeInOut;
 		opacity: 0;
@@ -422,12 +422,16 @@ a{
 	}
 }
 
-@keyframes tooltipFadeInOut {
-  0%, 90% {
+@keyframes tooltipFadeInOut{
+  10%{
+    opacity: 0;
+  }
+
+  20%, 90%{
     opacity: 1;
   }
 
-  100% {
+  100%{
   	opacity: 0;
   }
 }
@@ -514,6 +518,10 @@ a{
 		}
 	}
 
+	a{
+		border: 1px solid transparent;
+	}
+
 	&:hover{
 		@include larger-than(medium){
 			background: white;
@@ -523,22 +531,28 @@ a{
 			}
 
 			.gig-listen a{
-				background: $spotify-green;
+				border-color: $spotify-green;
+				color: $spotify-green;
 			}
 
 			.gig-link a{
-				background: $songkick-pink;
+				border-color: $songkick-pink;
+				color: $songkick-pink;
 			}
 		}
 	}
 
 	.gig-listen a:focus{
-		background: $spotify-green;
+		border-color: $spotify-green;
+		color: $spotify-green;
+		background: white;
 		outline: 0;
 	}
 
 	.gig-link a:focus{
-		background: $songkick-pink;
+		border-color: $songkick-pink;
+		color: $songkick-pink;
+		background: white;
 		outline: 0;
 	}
 }
@@ -546,6 +560,8 @@ a{
 .gig-artist, .gig-date, .gig-venue{
 	width: 1px;
 	white-space: nowrap;
+	font-size: 1.2em;
+	font-weight: 400;
 
 	&:after{
 		position: absolute;
@@ -558,6 +574,7 @@ a{
 		}
 	}
 }
+
 .gig-artist{
 	@include smaller-than(large){
 		margin-top: 15px;

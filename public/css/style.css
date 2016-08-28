@@ -233,7 +233,7 @@ a {
     position: absolute;
     bottom: 150%;
     left: 50%;
-    animation-duration: 2s;
+    animation-duration: 3s;
     transition-timing-function: ease;
     animation-name: tooltipFadeInOut;
     opacity: 0; }
@@ -255,7 +255,9 @@ a {
     border-left: 5px solid transparent; }
 
 @keyframes tooltipFadeInOut {
-  0%, 90% {
+  10% {
+    opacity: 0; }
+  20%, 90% {
     opacity: 1; }
   100% {
     opacity: 0; } }
@@ -318,25 +320,35 @@ a {
       .gig-info-list-item span {
         height: auto;
         padding: 0 15px 5px 0; } }
+  .gig-info-list-item a {
+    border: 1px solid transparent; }
   @media (min-width: 40em) {
     .gig-info-list-item:hover {
       background: white; }
       .gig-info-list-item:hover span {
         color: #f36f21; }
       .gig-info-list-item:hover .gig-listen a {
-        background: #1ed760; }
+        border-color: #1ed760;
+        color: #1ed760; }
       .gig-info-list-item:hover .gig-link a {
-        background: #f80046; } }
+        border-color: #f80046;
+        color: #f80046; } }
   .gig-info-list-item .gig-listen a:focus {
-    background: #1ed760;
+    border-color: #1ed760;
+    color: #1ed760;
+    background: white;
     outline: 0; }
   .gig-info-list-item .gig-link a:focus {
-    background: #f80046;
+    border-color: #f80046;
+    color: #f80046;
+    background: white;
     outline: 0; }
 
 .gig-artist, .gig-date, .gig-venue {
   width: 1px;
-  white-space: nowrap; }
+  white-space: nowrap;
+  font-size: 1.2em;
+  font-weight: 400; }
   .gig-artist:after, .gig-date:after, .gig-venue:after {
     position: absolute;
     left: 20px;

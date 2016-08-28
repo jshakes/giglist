@@ -1,6 +1,6 @@
 /*
-  Songkick 
-  
+  Songkick
+
   Services object for interacting with the Songkick API
  */
 
@@ -24,24 +24,24 @@ module.exports = {
     var query = Object.assign({
       apikey: SONGKICK_API.apiKey
     }, params);
-    var queryStr =  querystring.stringify(query);
+    var queryStr = querystring.stringify(query);
     return `${SONGKICK_API.uriRoot}?${queryStr}`;
   },
   getEvents: function(metroID, dayRange) {
-    
+
     var _this = this;
     var minDate = new Date();
     var maxDate = new Date();
     maxDate.setDate(minDate.getDate() + dayRange);
     var minDateStr = dates.toYYYYMMDD(minDate);
-    var maxDateStr = dates.toYYYYMMDD(maxDate);    
-    
+    var maxDateStr = dates.toYYYYMMDD(maxDate);
+
     return new Promise(function(resolve, reject) {
       var perPage = 50;
       var totalEvents = 1;
       var page = 1;
       var events = [];
-      
+
       function fetchEvents() {
         var url = _this._makeQueryUrl({
           location: 'sk:' + metroID,
@@ -69,7 +69,7 @@ module.exports = {
           reject(err);
         });
       }
-      
+
       promises.promiseWhile(function() {
         return events.length < totalEvents;
       }, _.throttle(fetchEvents, 500))
@@ -83,7 +83,7 @@ module.exports = {
 
     var songkick = new Songkick(SONGKICK_API.apiKey);
     return new Promise(function(resolve, reject) {
-      
+
       songkick.searchLocations({
         location: 'geo:' + coords
       })
@@ -92,7 +92,7 @@ module.exports = {
         resolve(locations[0]);
       })
       .catch(function(err) {
-        
+
         reject('No locations found with those coordinates');
       });
     });
@@ -103,7 +103,7 @@ module.exports = {
     return new Promise(function(resolve, reject) {
 
       _this.getEvents(metroID, 30)
-      .then(function(events) {  
+      .then(function(events) {
         var artists = [];
         events.forEach(function(event) {
           var songkickEvent = {
