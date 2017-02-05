@@ -3,7 +3,6 @@ var _ = require('underscore');
 const genres = [
   {
     name: 'Acoustic',
-<<<<<<< HEAD
     tags: ['singer-songwriter', 'acoustic', 'american', 'easy listening', 'Alt-country', 'americana', 'indie folk', 'bluegrass']
   },
   {
