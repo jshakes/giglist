@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
 var exphbs  = require('express-handlebars');
+var routes = require('./routes');
 
 module.exports = function(app, config) {
   var env = process.env.NODE_ENV || 'development';
@@ -32,11 +33,6 @@ module.exports = function(app, config) {
   app.use(compress());
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
-
-  var controllers = glob.sync(config.root + '/app/controllers/*.js');
-  controllers.forEach(function (controller) {
-    require(controller)(app);
-  });
 
   app.use(function (req, res, next) {
     var err = new Error('Not Found');

@@ -1,9 +1,7 @@
-
-
-var express = require('express'),
-  config = require('./config/config'),
-  glob = require('glob'),
-  mongoose = require('mongoose');
+var express = require('express');
+var config = require('./config/config');
+var glob = require('glob');
+var mongoose = require('mongoose');
 
 mongoose.connect(config.db, {
   promiseLibrary: require('bluebird')
@@ -14,6 +12,7 @@ db.on('error', function () {
 });
 var app = express();
 
+require('./config/routes')(app, config);
 require('./config/express')(app, config);
 
 module.exports = app;

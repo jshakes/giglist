@@ -88,6 +88,9 @@ const genres = [
 ];
 
 module.exports = {
+  allGenreNames: function() {
+    return _.pluck(genres, 'name');
+  },
   getGenreFromTag: function(tag) {
 
   	return _.filter(genres, function(genre) {
