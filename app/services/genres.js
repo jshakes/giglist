@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 const genres = [
   {
     name: 'Acoustic',
@@ -61,7 +63,7 @@ const genres = [
   },
   {
   	name: 'Reggae / Ska',
-  	tags: ['reggae', 'ska', 'dub', 'Stoner Rock', 'dancehall', 'ska punk', 'stoner', 'roots reggae'
+  	tags: ['reggae', 'ska', 'dub', 'Stoner Rock', 'dancehall', 'ska punk', 'stoner', 'roots reggae']
   },
   {
   	name: 'Rock',
@@ -87,6 +89,9 @@ const genres = [
 
 module.exports = {
   getGenreFromTag: function(tag) {
-    return tag;
+
+  	return _.filter(genres, function(genre) {
+  		return genre.tags.indexOf(tag) > -1;
+  	})[0].name;
   }
 }
