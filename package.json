@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "start": "grunt",
-    "create:city": "node scripts/createCity",
-    "delete:city": "node scripts/deleteCity"
+    "city:create": "node scripts/createCity",
+    "city:delete": "node scripts/deleteCity",
+    "city:update": "node scripts/updateCity",
+    "getGenre": "node scripts/getGenre"
   },
   "dependencies": {
     "async": "^1.5.2",
