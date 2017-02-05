@@ -5,11 +5,11 @@ var playlists = require('./playlists');
 module.exports = {
   createCityGenrePlaylists: function(city) {
     var _this = this;
-    var genreArr = genres.allGenreNames();
+    var genreArr = genres.getGenres();
     return new Promise(function(resolve, reject) {
       Promise.mapSeries(genreArr, function(genre) {
-        var playlistName = `Giglist ${city.name} - ${genre}`;
-        return playlists.createPlaylist(playlistName)
+        var playlistName = `Giglist ${city.name} - ${genre.name}`;
+        return playlists.createPlaylist(playlistName, genre.id)
         .then(function(record) {
           console.log('Associating new Spotify playlist details with city:', record.name);
           city.playlists.push(record);
