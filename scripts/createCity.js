@@ -11,10 +11,10 @@
 var _ = require('underscore');
 var Promise = require('bluebird');
 var app = require('../app');
-var Playlist = require('../app/models/playlist');
 var City = require('../app/models/city');
 var songkick = require('../app/services/songkick');
 var spotify = require('../app/services/spotify');
+var cities = require('../app/services/cities');
 
 var coords = process.argv[2];
 var city;
@@ -41,20 +41,7 @@ songkick.getMetroFromCoords(coords)
 })
 .then(function(record) {
   console.log('Created new city:', record.name);
-  return spotify.createPlaylist('Livelist ' + record.name);
-})
-.then(function(playlistData) {
-  console.log('Associating new Spotify playlist details with city');
-  playlist = new Playlist({
-    name: playlistData.name,
-    spotifyId: playlistData.id,
-    externalUrl: playlistData.external_urls.spotify
-  });
-  return playlist.save();
-})
-.then(function(record) {
-  city.playlists.push(record);
-  return city.save();
+  return cities.createCityGenrePlaylists(record);
 })
 .then(function() {
   console.log('Spotify playlist details associated with city');
