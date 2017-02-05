@@ -7,36 +7,39 @@
 			<ul>
 				<li>
 					<a class="twitter-icon icon"
-					  href="https://twitter.com/intent/tweet?text={{city.name}}">
+					  href="https://twitter.com/intent/tweet?text=Check out this Spotify playlist of upcoming shows in {{city.name}}: {{playlistUrl}}">
 					</a>
 				</li>
 				<li><a
 					class="fbook-icon icon"
 					href=""
 					onclick="popUp=window.open(
-					       'http://www.facebook.com/sharer/sharer.php?display=popup&u=google.com&title={{city.name}}',
+					       'http://www.facebook.com/sharer/sharer.php?display=popup&u={{playlistUrl}}&title=Check out this Spotify playlist of upcoming shows in {{city.name}}',
 					       'popupwindow',
 					       'scrollbars=yes,width=600,height=400');
 					   popUp.focus();
 					   return false">
 					</a>
 				</li>
-				<li class="copy-city-url" data-clipboard-text="http://giglist.com/{{city.name}}"><span class="link-icon icon"></span></li>
+				<li class="copy-city-url" data-clipboard-text="{{playlistUrl}}"><span class="link-icon icon"></span></li>
 			</ul>
 		</div>
 		<h3>Below is a list of tracks from artists with shows in {{ city.name }} over the next few&nbsp;weeks.</h3>
-		<a href="{{playlistUrl}}" target="_blank" class="playlist-subscribe-link btn-rounded icon spotify-icon">Follow this Playlist</a>
 	</div>
 
 	<div class="city-playlist-wrapper">
 
 		<div class="gig-info-list">
-			<table>
-				<thead class="gig-info-list-header">
+			<header class="gig-info-list-header">
+				<h4>Dance/Electronic</h4>
+				<a href="{{playlistUrl}}" target="_blank" class="playlist-subscribe-link btn-rounded icon spotify-icon">Follow this Playlist</a>
+			</header>
+			<table class="gig-info-table">
+				<thead>
 					<tr>
-						<th><h4>Artist</h4></th>
-						<th><h4>Date</h4></th>
-						<th><h4>Venue</h4></th>
+						<th>Artist</th>
+						<th>Date</th>
+						<th>Venue</th>
 						<th></th>
 						<th></th>
 					</tr>

@@ -22,6 +22,7 @@ $light-orange: #fdbd10;
 $trans-white:rgba(255,255,255,0.2);
 $spotify-green: #1ed760;
 $songkick-pink: #f80046;
+$grey: #ddd;
 
 
 // =======================
@@ -283,6 +284,22 @@ a{
 		a{
 			opacity: 0;
 		}
+
+		&:after{
+			color: $dark-orange;
+		}
+	}
+
+	&:after{
+		content: "\0003E";
+    font-weight: 900;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 100%;
+    line-height: 1.6;
+    right: 0.5em;
 	}
 
 	a{
@@ -347,9 +364,10 @@ a{
 
 .social-wrapper{
 	display: inline-block;
-	width: 90px;
+	width: 140px;
 	padding-left: 10px;
-	margin-right: -90px;
+	margin-right: -140px;
+	text-align: left;
 
 	ul, li{
 		display: inline-block;
@@ -357,12 +375,12 @@ a{
 
 	.icon{
 		display: inline-block;
-		padding: 0 0.25em;
+		padding: 0 0.4em;
 		cursor: pointer;
 
 		&:after{
 			color: white;
-			font-size: 1.2em;
+			font-size: 1.8em;
 		}
 		&:focus{
 			outline: 0;
@@ -437,10 +455,12 @@ a{
 }
 
 .playlist-subscribe-link{
+	float: left;
 	padding: 0.4em 1em 0.5em;
-	margin: 2em 0 2.3em;
+	margin: 0 0 0 1em;
+	font-size: 1.2em;
+	line-height: 1.5;
 	background: $black;
-	font-size: 1.4em;
 
 	&:after{
 		top: 3px;
@@ -451,6 +471,18 @@ a{
 		background: $spotify-green;
 		outline: 0;
 	}
+}
+
+
+// Playlist table
+
+.gig-info-list-header{
+	margin: 8em 0 1.5em;
+  float: left;
+
+  h4{
+  	float: left;
+  }
 }
 
 .city-playlist-wrapper{
@@ -471,7 +503,7 @@ a{
 	}
 }
 
-.gig-info-list-header{
+.gig-info-table thead{
 	@include smaller-than(medium){
 		display: none;
 	}
@@ -482,6 +514,9 @@ a{
 		text-align: left;
 		background: $trans-white;
 		vertical-align: bottom;
+		text-transform: uppercase;
+		font-weight: 500;
+		letter-spacing: 1px;
 	}
 }
 
@@ -489,7 +524,7 @@ a{
 	position: relative;
 	font-weight: 500;
 	text-align: left;
-	font-size: 1em;
+	font-size: 1.2em;
 	background: $trans-white;
 	letter-spacing: 0.25px;
 
@@ -519,37 +554,30 @@ a{
 	}
 
 	a{
+		opacity: 0;
+		position: relative;
 		border: 1px solid transparent;
 	}
 
 	&:hover{
 		@include larger-than(medium){
 			background: white;
+			color: $dark-orange;
 
-			span{
-				color: $dark-orange;
-			}
-
-			.gig-listen a{
-				border-color: $spotify-green;
-				color: $spotify-green;
-			}
-
-			.gig-link a{
-				border-color: $songkick-pink;
-				color: $songkick-pink;
+			a{
+				opacity: 1;
 			}
 		}
 	}
 
-	.gig-listen a:focus{
+	.gig-listen a:focus, .gig-listen a:hover{
 		border-color: $spotify-green;
 		color: $spotify-green;
 		background: white;
 		outline: 0;
 	}
 
-	.gig-link a:focus{
+	.gig-link a:focus, .gig-link a:hover{
 		border-color: $songkick-pink;
 		color: $songkick-pink;
 		background: white;
@@ -560,7 +588,7 @@ a{
 .gig-artist, .gig-date, .gig-venue{
 	width: 1px;
 	white-space: nowrap;
-	font-size: 1.2em;
+	font-size: 1em;
 	font-weight: 400;
 
 	&:after{
