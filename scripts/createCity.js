@@ -15,6 +15,7 @@ var City = require('../app/models/city');
 var songkick = require('../app/services/songkick');
 var spotify = require('../app/services/spotify');
 var cities = require('../app/services/cities');
+var genres = require('../app/services/genres');
 
 var coords = process.argv[2];
 var city;
@@ -48,7 +49,6 @@ songkick.getMetroFromCoords(coords)
   return songkick.getArtistsEvents(city.metroId);
 })
 .mapSeries(function(track) {
-  var track = {};
   console.log('Finding a track for', track.artist);
   // Get each artist's most popular track and save it to an array
   return spotify.getArtistMostPopularTrack(track.artist)
@@ -65,7 +65,7 @@ songkick.getMetroFromCoords(coords)
         url: spotifyTrack.topTrackUrl
       }
     });
-    return genres.getArtistGenreId();
+    return genres.getArtistGenre().id;
   })
   .then(function(genre) {
     track = Object.assign(track, {

@@ -29,9 +29,9 @@ module.exports = {
         return res.json();
       })
       .then(function(json) {
-        return json.toptags.tag.map(function(tag) {
+        return json.toptags ? json.toptags.tag.map(function(tag) {
           return tag.name;
-        });
+        }) : '';
       })
       .then(resolve)
       .catch(function(err) {

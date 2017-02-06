@@ -12,6 +12,7 @@ var dates = require('../lib/dates');
 var promises = require('../lib/promises');
 var fetch = require('node-fetch');
 var querystring = require('querystring');
+var MAX_DAYS = 30;
 
 var SONGKICK_API = {
   uriRoot: 'http://api.songkick.com/api/3.0/events.json',
@@ -102,7 +103,7 @@ module.exports = {
     var _this = this;
     return new Promise(function(resolve, reject) {
 
-      _this.getEvents(metroID, 30)
+      _this.getEvents(metroID, MAX_DAYS)
       .then(function(events) {
         var artists = [];
         events.forEach(function(event) {

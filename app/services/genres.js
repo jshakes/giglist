@@ -1,4 +1,5 @@
 var _ = require('underscore');
+var lastfm = require('./lastfm');
 
 const genres = [
   {
