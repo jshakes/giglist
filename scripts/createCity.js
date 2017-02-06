@@ -18,7 +18,6 @@ var cities = require('../app/services/cities');
 
 var coords = process.argv[2];
 var city;
-var playlist;
 
 songkick.getMetroFromCoords(coords)
 .then(function(location) {
@@ -49,6 +48,7 @@ songkick.getMetroFromCoords(coords)
   return songkick.getArtistsEvents(city.metroId);
 })
 .mapSeries(function(track) {
+  var track = {};
   console.log('Finding a track for', track.artist);
   // Get each artist's most popular track and save it to an array
   return spotify.getArtistMostPopularTrack(track.artist)
@@ -57,7 +57,6 @@ songkick.getMetroFromCoords(coords)
     if(spotifyTrack === null) {
       throw 'No suitable track found for ' + track.artist;
     }
-    console.log('Adding track', spotifyTrack.topTrackName, 'for artist', track.artist);
     track = Object.assign(track, {
       name: spotifyTrack.topTrackName,
       genres: spotifyTrack.genres,
@@ -65,6 +64,12 @@ songkick.getMetroFromCoords(coords)
         id: spotifyTrack.topTrackId,
         url: spotifyTrack.topTrackUrl
       }
+    });
+    return genres.getArtistGenreId();
+  })
+  .then(function(genre) {
+    track = Object.assign(track, {
+      genreId: genre.id
     });
     return track;
   })
@@ -77,22 +82,25 @@ songkick.getMetroFromCoords(coords)
   var cleanArr = _.filter(trackArr, function(track) {
     return track !== null;
   });
-  // temporary - we must return no more than 100 tracks or spotify will cry
-  if(cleanArr.length >= 100) {
-    cleanArr = cleanArr.slice(0, 100);
-  }
-  // Adding tracks to playlist model
-  playlist.tracks = cleanArr;
-  // Create an array of spotify track ids to pass to the endpoint
-  var spotifyTracks = cleanArr.map(function(track) {
-    return 'spotify:track:' + track.spotify.id;
+  // Split tracks by genre
+  var genreArr = genres.getGenres();
+  return Promise.mapSeries(genreArr, function(genre) {
+    var genreTracks = _.where(cleanArr, {
+      genreId: genre.id
+    });
+    var playlist = city.playlists.findWhere({
+      genreId: genre.id
+    });
+    // Adding tracks to playlist model
+    playlist.tracks = genreTracks;
+    // Create an array of spotify track ids to pass to the endpoint
+    var spotifyTracks = cleanArr.map(function(track) {
+      return 'spotify:track:' + track.spotify.id;
+    });
+    // Add tracks to spotify
+    return spotify.addTracksToPlaylist(playlist.spotifyId, spotifyTracks)
+    .then(playlist.save());
   });
-  // Add tracks to spotify
-  return spotify.addTracksToPlaylist(playlist.spotifyId, spotifyTracks);
-})
-.then(function() {
-  console.log('Saving tracks to playlist model');
-  return playlist.save();
 })
 .then(function() {
   return console.log('Playlist model saved, exiting');

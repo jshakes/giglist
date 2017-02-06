@@ -119,5 +119,16 @@ module.exports = {
   	return _.filter(genres, function(genre) {
   		return genre.tags.indexOf(tag) > -1;
   	})[0].id;
+  },
+  getArtistGenre: function(artist) {
+    var _this = this;
+    // todo: run down tags until we match a genre
+    return lastfm.getArtistTagArray(artist)
+    .then(function(tags) {
+      if(tags.length) {
+        return {};
+      }
+      return _this.getGenreFromTag(tags[0]);
+    });
   }
 }
