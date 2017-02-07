@@ -13,7 +13,7 @@ module.exports = {
     });
   },
   city: function(req, res) {
-    const genreArr = genres.allGenreNames();
+    const genreArr = genres.getGenreNames();
     City.findOne({
       slug: req.params.citySlug
     })
