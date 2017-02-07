@@ -17,6 +17,7 @@ var schema = new Schema({
     type: Date,
     default: Date.now()
   },
+  genreId: Number,
   spotifyId: String,
   externalUrl: String,
   description: String,
