@@ -44,7 +44,18 @@ var cities = {
         };        
         return cities._createCityPlaylist(city, playlistData);
       })
-      .then(resolve);
+      .then(function() {
+        resolve(city);
+      });
+    });
+  },
+  getCityEvents: function(city) {
+    // Get upcoming events for the city
+    return songkick.getArtistsEvents(city.metroId)
+    .mapSeries(function(track) {
+      return Object.assign(track, {
+        cityId: city.id
+      });
     });
   }
 };

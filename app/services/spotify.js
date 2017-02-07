@@ -6,7 +6,7 @@ var config = require('../../config/config');
 
 var SPOTIFY_CONFIG = config.spotify;
 
-module.exports = {
+var spotify = {
   /**
    * Search for an artist on Spotify and return the artist object of the first result
    * @param artistName {String} The artist to search form
@@ -49,12 +49,11 @@ module.exports = {
   },
   getArtistMostPopularTrack: function(artistName) {
 
-    _this = this;
     var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
 
     return new Promise(function(resolve, reject) {
 
-      _this._getArtistByName(artistName)
+      spotify._getArtistByName(artistName)
       .then(function(artist) {
 
         if(artist === null) {
@@ -90,11 +89,10 @@ module.exports = {
   },
   addTracksToPlaylist: function(playlistId, tracks) {
 
-    var _this = this;
     var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
     return new Promise(function(resolve, reject) {
 
-      _this._authenticate(spotifyApi)
+      spotify._authenticate(spotifyApi)
       .then(spotifyApi.replaceTracksInPlaylist(SPOTIFY_CONFIG.username, playlistId, tracks))
       .then(function(data) {
           
@@ -109,11 +107,10 @@ module.exports = {
   },
   createPlaylist: function(playlistName) {
     
-    var _this = this;
     var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
     return new Promise(function(resolve, reject) {
       
-      _this._authenticate(spotifyApi)
+      spotify._authenticate(spotifyApi)
       .then(function() {
         console.log('Attempting to create a playlist called', playlistName);
         return spotifyApi.createPlaylist(SPOTIFY_CONFIG.username, playlistName, { public: true })
@@ -130,3 +127,5 @@ module.exports = {
     });
   }
 };
+
+module.exports = spotify;

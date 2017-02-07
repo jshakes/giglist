@@ -116,20 +116,23 @@ module.exports = {
   getGenreNames: function() {
     return _.pluck(genres, 'name');
   },
-  getGenreFromTag: function(tag) {
-  	return _.filter(genres, function(genre) {
+  getGenresFromTag: function(tag) {
+  	return _.pluck(_.filter(genres, function(genre) {
   		return genre.tags.indexOf(tag) > -1;
-  	})[0].id;
+  	}), 'id');
   },
-  getArtistGenre: function(artist) {
+  getArtistGenres: function(artist) {
     var _this = this;
     // todo: run down tags until we match a genre
     return lastfm.getArtistTagArray(artist)
     .then(function(tags) {
-      if(tags.length) {
-        return {};
+      if(!tags.length) {
+        return [];
       }
-      return _this.getGenreFromTag(tags[0]);
+      return _this.getGenresFromTag(tags[0]);
+    })
+    .catch(function(err) {
+      console.error('Could not get genre for', artist);
     });
   }
 }

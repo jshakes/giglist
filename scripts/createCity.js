@@ -11,50 +11,17 @@
 var _ = require('underscore');
 var Promise = require('bluebird');
 var app = require('../app');
-var spotify = require('../app/services/spotify');
 var cities = require('../app/services/cities');
 var genres = require('../app/services/genres');
+var tracks = require('../app/services/tracks');
 
 var coords = process.argv[2];
-var city;
 
 cities.createCity(coords)
 .then(cities.createCityGenrePlaylists)
-// .then(function() {
-//   console.log('Spotify playlist details associated with city');
-//   // Get upcoming events for the city
-//   return songkick.getArtistsEvents(city.metroId);
-// })
-// .mapSeries(function(track) {
-//   console.log('Finding a track for', track.artist);
-//   // Get each artist's most popular track and save it to an array
-//   return spotify.getArtistMostPopularTrack(track.artist)
-//   .then(function(spotifyTrack) {
-//     // scrap anything we couldn't find a spotify track for
-//     if(spotifyTrack === null) {
-//       throw 'No suitable track found for ' + track.artist;
-//     }
-//     track = Object.assign(track, {
-//       name: spotifyTrack.topTrackName,
-//       genres: spotifyTrack.genres,
-//       spotify: {
-//         id: spotifyTrack.topTrackId,
-//         url: spotifyTrack.topTrackUrl
-//       }
-//     });
-//     return genres.getArtistGenre().id;
-//   })
-//   .then(function(genre) {
-//     track = Object.assign(track, {
-//       genreId: genre.id
-//     });
-//     return track;
-//   })
-//   .catch(function(err) {
-//     console.error(err);
-//     return null;
-//   });
-// })
+.then(cities.getCityEvents)
+.mapSeries(tracks.getArtistTrack)
+//.then(cities.dispenseTracksToPlaylists)
 // .then(function(trackArr) {
 //   var cleanArr = _.filter(trackArr, function(track) {
 //     return track !== null;
