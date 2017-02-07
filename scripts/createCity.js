@@ -11,8 +11,6 @@
 var _ = require('underscore');
 var Promise = require('bluebird');
 var app = require('../app');
-var City = require('../app/models/city');
-var songkick = require('../app/services/songkick');
 var spotify = require('../app/services/spotify');
 var cities = require('../app/services/cities');
 var genres = require('../app/services/genres');
@@ -20,29 +18,8 @@ var genres = require('../app/services/genres');
 var coords = process.argv[2];
 var city;
 
-songkick.getMetroFromCoords(coords)
-.then(function(location) {
-  
-  var cityName = location.metroArea.displayName;
-  // Add the state if it's a US city
-  if(location.metroArea.state) {
-    cityName += ', ' + location.metroArea.state.displayName;
-  }
-  var params = {
-    name: cityName,
-    metroId: location.metroArea.id,
-    latitude: location.metroArea.lat,
-    longitude: location.metroArea.lng,
-    country: location.metroArea.country.displayName
-  };
-  city = new City(params);
-  console.log('Attempting to create new city:', cityName);
-  return city.save();
-})
-.then(function(record) {
-  console.log('Created new city:', record.name);
-  return cities.createCityGenrePlaylists(record);
-})
+cities.createCity(coords)
+.then(cities.createCityGenrePlaylists)
 // .then(function() {
 //   console.log('Spotify playlist details associated with city');
 //   // Get upcoming events for the city
