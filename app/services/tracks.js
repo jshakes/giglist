@@ -1,8 +1,9 @@
+var Promise = require('bluebird');
 var genres = require('./genres');
 var spotify = require('./spotify');
 
 var tracks = {
-  getArtistTrack: function(track) {
+  _getArtistTrack: function(track) {
     console.log('Finding a track for', track.artist);
     // Get each artist's genre and most popular track
     return genres.getArtistGenres(track.artist)
@@ -25,13 +26,28 @@ var tracks = {
       console.log('Found track', spotifyTrack.topTrackName, 'for', track.artist);
       track = Object.assign(track, {
         name: spotifyTrack.topTrackName,
-        genres: spotifyTrack.genres,
         spotify: {
           id: spotifyTrack.topTrackId,
-          url: spotifyTrack.topTrackUrl
+          url: spotifyTrack.topTrackUrl,
+          genres: spotifyTrack.genres
         }
       });
       return track;
+    })
+    .catch(function(err) {
+      console.error(err);
+    });
+  },
+  getArtistTracks: function(eventObj) {
+    return Promise.mapSeries(eventObj.events, tracks._getArtistTrack)
+    .then(function(events) {
+      // Remove any null events
+      var cleanEvents = events.filter(function(event) {
+        return !!event;
+      });
+      return Object.assign(eventObj, {
+        events: cleanEvents
+      });
     })
     .catch(function(err) {
       console.error(err);

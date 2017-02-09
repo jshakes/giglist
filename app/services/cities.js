@@ -3,6 +3,7 @@ var genres = require('./genres');
 var playlists = require('./playlists');
 var songkick = require('./songkick');
 var City = require('../models/city');
+var _ = require('underscore');
 
 var cities = {
   _createCityPlaylist: function(city, playlistData) {
@@ -51,11 +52,30 @@ var cities = {
   },
   getCityEvents: function(city) {
     // Get upcoming events for the city
-    return songkick.getArtistsEvents(city.metroId)
-    .mapSeries(function(track) {
-      return Object.assign(track, {
-        cityId: city.id
+    return songkick.getEvents(city.metroId)
+    .then(function(events) {
+      return {
+        city: city,
+        events: events
+      }
+    });
+  },
+  dispenseTracksToPlaylists: function(trackObj) {
+    // Sort the tracks into a map by genreId
+    var genreTracks = {};
+    trackObj.events.forEach(function(event) {
+      event.genres.forEach(function(genreId) {
+        if(typeof(genreTracks[genreId]) === 'undefined') {
+          genreTracks[genreId] = [];
+        }
+        genreTracks[genreId].push(event);
       });
+    });
+    return Promise.mapSeries(Object.keys(genreTracks), function(genreId, index) {
+      var playlist = trackObj.city.playlists.find(function(playlist) {
+        return playlist.genreId == genreId;
+      });
+      return playlists.replacePlaylistTracks(playlist, genreTracks[genreId]);
     });
   }
 };

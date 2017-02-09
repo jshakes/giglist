@@ -88,18 +88,29 @@ var spotify = {
     })
   },
   addTracksToPlaylist: function(playlistId, tracks) {
-
     var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
     return new Promise(function(resolve, reject) {
-
       spotify._authenticate(spotifyApi)
-      .then(spotifyApi.replaceTracksInPlaylist(SPOTIFY_CONFIG.username, playlistId, tracks))
+      .then(spotifyApi.addTracksToPlaylist(SPOTIFY_CONFIG.username, playlistId, tracks))
       .then(function(data) {
-          
+        console.log('added tracks', tracks, 'to playlist', playlistId);
         resolve(data);
       })
       .catch(function(err) {
-        
+        console.error('Something went wrong!', err);
+        reject(err);
+      });
+    });
+  },
+  deleteTracksFromPlaylist: function(playlistId, tracks) {
+    var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
+    return new Promise(function(resolve, reject) {
+      spotify._authenticate(spotifyApi)
+      .then(spotifyApi.removeTracksFromPlaylist(SPOTIFY_CONFIG.username, playlistId, tracks))
+      .then(function(data) {
+        resolve(data);
+      })
+      .catch(function(err) {
         console.error('Something went wrong!', err);
         reject(err);
       });

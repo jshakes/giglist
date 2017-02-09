@@ -30,8 +30,7 @@ var schema = new Schema({
     track: String,
     genres: [String],
     spotify: {},
-    songkick: {},
-    cityId: String
+    songkick: {}
   }]
 });
 

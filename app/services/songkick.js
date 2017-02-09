@@ -12,7 +12,7 @@ var dates = require('../lib/dates');
 var promises = require('../lib/promises');
 var fetch = require('node-fetch');
 var querystring = require('querystring');
-var MAX_DAYS = 30;
+var MAX_DAYS = 14;
 
 var SONGKICK_API = {
   uriRoot: 'http://api.songkick.com/api/3.0/events.json',
@@ -28,7 +28,7 @@ module.exports = {
     var queryStr = querystring.stringify(query);
     return `${SONGKICK_API.uriRoot}?${queryStr}`;
   },
-  getEvents: function(metroID, dayRange) {
+  _getSkEvents: function(metroID, dayRange) {
 
     var _this = this;
     var minDate = new Date();
@@ -75,7 +75,7 @@ module.exports = {
         return events.length < totalEvents;
       }, _.throttle(fetchEvents, 500))
       .then(function() {
-        console.log('Fetched', events.length, 'events');
+        console.log('Fetched', totalEvents, 'events');
         resolve(events);
       });
     })
@@ -98,12 +98,10 @@ module.exports = {
       });
     });
   },
-  getArtistsEvents: function(metroID) {
-
+  getEvents: function(metroID) {
     var _this = this;
     return new Promise(function(resolve, reject) {
-
-      _this.getEvents(metroID, MAX_DAYS)
+      _this._getSkEvents(metroID, MAX_DAYS)
       .then(function(events) {
         var artists = [];
         events.forEach(function(event) {
@@ -122,6 +120,9 @@ module.exports = {
           });
         });
         resolve(artists);
+      })
+      .catch(function(err) {
+        console.error(err);
       });
     });
   }
