@@ -113,10 +113,14 @@ module.exports = {
             date: event.start.date,
           };
           event.performance.forEach(function(performance) {
-            artists.push({
-              artist: performance.artist.displayName,
-              songkick: songkickEvent
-            })
+            var artist = performance.artist.displayName;
+            // add an artist only if they aren't already in the array
+            if(!_.findWhere(artists, {artist: artist})) {
+              artists.push({
+                artist: performance.artist.displayName,
+                songkick: songkickEvent
+              });
+            }
           });
         });
         resolve(artists);
