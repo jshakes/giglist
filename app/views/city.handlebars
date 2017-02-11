@@ -1,6 +1,7 @@
+<a href="/" class="global-home-link"><span>&#8592;</span> Find another city</a>
 <h2>{{ city.name }}</h2>
 <ul>
-  {{#each genres}}
-  <li><a href="#">{{this}}</a></li>
+  {{#each playlists}}
+  <li><a href="/{{../city.slug}}/{{slug}}">{{name}}</a></li>
   {{/each}}
 </ul>

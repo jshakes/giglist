@@ -1,6 +1,6 @@
 module.exports = function(app, config) {
   const cities = require(config.root + '/app/controllers/Cities');
   app.get('/', cities.index);
-  app.get('/:citySlug', cities.city);
-  //app.get('/:city/:genre', Cities.playlist);
+  app.get('/:citySlug([a-z-]+)', cities.city);
+  app.get('/:citySlug([a-z-]+)/:genreSlug([a-z-]+)', cities.playlist);
 };

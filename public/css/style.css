@@ -345,7 +345,6 @@ a {
         height: auto;
         padding: 0 15px 5px 0; } }
   .gig-info-list-item a {
-    opacity: 0;
     position: relative;
     border: 1px solid transparent; }
   @media (min-width: 40em) {

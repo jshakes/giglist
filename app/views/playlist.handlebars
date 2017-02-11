@@ -1,8 +1,8 @@
-<a href="/" class="global-home-link"><span>&#8592;</span> Find another city</a>
+<a href="/{{city.slug}}" class="global-home-link"><span>&#8592;</span> Find another genre</a>
 
 <div class="city-playlist-page">
   <header class="city-playlist-header">
-    <h2>{{ city.name }}</h2>
+    <h2>{{ city.name }}, {{playlist.name}}</h2>
     <div class="social-wrapper">
       <ul>
         <li>
@@ -21,18 +21,18 @@
              return false">
           </a>
         </li>
-        <li class="copy-city-url" data-clipboard-text="{{playlistUrl}}"><span class="link-icon icon"></span></li>
+        <li class="copy-city-url" data-clipboard-text="{{playlist.externalUrl}}"><span class="link-icon icon"></span></li>
       </ul>
     </div>
-    <h3>Below is a list of tracks from artists with shows in {{ city.name }} over the next few&nbsp;weeks.</h3>
+    <h3>Below is a list of tracks from {{playlist.name}} artists with shows in {{ city.name }} over the next few&nbsp;weeks.</h3>
   </div>
 
   <div class="city-playlist-wrapper">
 
     <div class="gig-info-list">
       <header class="gig-info-list-header">
-        <h4>Dance/Electronic</h4>
-        <a href="{{playlistUrl}}" target="_blank" class="playlist-subscribe-link btn-rounded icon spotify-icon">Follow this Playlist</a>
+        <h4>{{playlist.name}}</h4>
+        <a href="{{playlist.externalUrl}}" target="_blank" class="playlist-subscribe-link btn-rounded icon spotify-icon">Follow this Playlist</a>
       </header>
       <table class="gig-info-table">
         <thead>
