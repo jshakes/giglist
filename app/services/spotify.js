@@ -108,6 +108,7 @@ var spotify = {
       spotify._authenticate(spotifyApi)
       .then(spotifyApi.removeTracksFromPlaylist(SPOTIFY_CONFIG.username, playlistId, tracks))
       .then(function(data) {
+        console.log('deleted tracks', tracks, 'from playlist', playlistId);
         resolve(data);
       })
       .catch(function(err) {

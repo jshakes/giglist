@@ -8,6 +8,7 @@
     "city:create": "node scripts/createCity",
     "city:delete": "node scripts/deleteCity",
     "city:update": "node scripts/updateCity",
+    "city:truncate": "node scripts/truncatePlaylists",
     "getGenre": "node scripts/getGenre"
   },
   "dependencies": {
