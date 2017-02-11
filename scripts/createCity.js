@@ -25,6 +25,9 @@ cities.createCity(coords)
   return fs.ensureDir('./cache')
   .then(function() {
     fs.writeFile(`./cache/tracks-${Date.now()}`, JSON.stringify(tracks));
+  })
+  .then(function() {
+    return tracks;
   });
 })
 .then(cities.dispenseTracksToPlaylists)

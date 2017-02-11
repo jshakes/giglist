@@ -4,7 +4,7 @@ var _ = require('underscore');
 
 module.exports = {
   createPlaylist: function(playlistData) {      
-    return spotify.createPlaylist(playlistData.name)
+    return spotify.createPlaylist(playlistData.spotifyName)
     .then(function(spotifyPlaylistData) {
       playlistData = Object.assign(playlistData, {
         spotifyId: spotifyPlaylistData.id,

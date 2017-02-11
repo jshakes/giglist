@@ -23,7 +23,5 @@ var schema = new Schema({
     ref: 'Playlist'
   }]
 });
-
 schema.plugin(URLSlugs('name', {field: 'slug'}));
-
 module.exports = mongoose.model('City', schema);

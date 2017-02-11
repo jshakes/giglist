@@ -6,9 +6,11 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var URLSlugs = require('mongoose-url-slugs');
 
 var schema = new Schema({
   name: String,
+  spotifyName: String,
   created: {
     type: Date,
     default: Date.now()
@@ -35,8 +37,7 @@ var schema = new Schema({
 });
 
 schema.pre('update', function() {
-  
   this.update({},{ $set: { updated: new Date() } });
 });
-
+schema.plugin(URLSlugs('name', {field: 'slug'}));
 module.exports = mongoose.model('Playlist', schema);

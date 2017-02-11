@@ -40,7 +40,8 @@ var cities = {
     return new Promise(function(resolve, reject) {
       Promise.mapSeries(genreArr, function(genre) {
         var playlistData = {
-          name: `Giglist ${city.name} - ${genre.name}`,
+          name: genre.name,
+          spotifyName: `Giglist ${city.name} - ${genre.name}`,
           genreId: genre.id
         };        
         return cities._createCityPlaylist(city, playlistData);
