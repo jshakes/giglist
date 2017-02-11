@@ -30,6 +30,8 @@ module.exports = {
     .then(function() {
       return spotify.deleteTracksFromPlaylist(playlist.spotifyId, spotifyIdsToDelete);
     })
-    .then(playlist.save);
+    .then(function() {
+      return playlist.save()
+    });
   }
 };
