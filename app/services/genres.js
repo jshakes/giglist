@@ -95,7 +95,7 @@ const genres = [
   {
   	id: 19,
     name: 'Punk',
-  	tags: ['punk', 'punk rock', 'british', 'post-punk', 'pop punk', 'hardcore punk', 'emocore', 'Crust', 'psychobilly', 'ska punk', 'Oi', 'Post punk', 'horror punk']
+  	tags: ['punk', 'punk rock', 'post-punk', 'pop punk', 'hardcore punk', 'emocore', 'Crust', 'psychobilly', 'ska punk', 'Oi', 'Post punk', 'horror punk']
   },
   {
   	id: 20,
@@ -116,9 +116,9 @@ module.exports = {
   getGenreNames: function() {
     return _.pluck(genres, 'name');
   },
-  getGenresFromTag: function(tag) {
+  getGenresFromTags: function(tags) {
   	return _.pluck(_.filter(genres, function(genre) {
-  		return genre.tags.indexOf(tag) > -1;
+  		return _.intersection(genre.tags, tags).length;
   	}), 'id');
   },
   getArtistGenres: function(artist) {
@@ -129,7 +129,7 @@ module.exports = {
       if(!tags.length) {
         return [];
       }
-      return _this.getGenresFromTag(tags[0]);
+      return _this.getGenresFromTags(tags);
     })
     .catch(function(err) {
       console.error('Could not get genre for', artist);
