@@ -6,6 +6,7 @@ var config = require('../../config/config');
 var arrayLib = require('../lib/arrays');
 
 var SPOTIFY_CONFIG = config.spotify;
+var MAX_TRACK_ARRAY = 50;
 
 var spotify = {
   /**
@@ -90,11 +91,13 @@ var spotify = {
   },
   addTracksToPlaylist: function(playlistId, tracks) {
     var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
-    var chunkedTrackArr = arrayLib.chunkArray(tracks);
+    var chunkedTrackArr = arrayLib.chunkArray(tracks, MAX_TRACK_ARRAY);
     return new Promise(function(resolve, reject) {
       spotify._authenticate(spotifyApi)
       .then(function() {
-        return Promise.mapSeries(chunkedTrackArr, spotifyApi.addTracksToPlaylist(SPOTIFY_CONFIG.username, playlistId, tracks));
+        return Promise.mapSeries(chunkedTrackArr, function(trackChunk) {
+          return spotifyApi.addTracksToPlaylist(SPOTIFY_CONFIG.username, playlistId, trackChunk)
+        });
       })
       .then(function(data) {
         console.log('added tracks', tracks, 'to playlist', playlistId);
@@ -108,11 +111,13 @@ var spotify = {
   },
   deleteTracksFromPlaylist: function(playlistId, tracks) {
     var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
-    var chunkedTrackArr = arrayLib.chunkArray(tracks);
+    var chunkedTrackArr = arrayLib.chunkArray(tracks, MAX_TRACK_ARRAY);
     return new Promise(function(resolve, reject) {
       spotify._authenticate(spotifyApi)
       .then(function() {
-        return Promise.mapSeries(chunkedTrackArr, spotifyApi.removeTracksFromPlaylist(SPOTIFY_CONFIG.username, playlistId, tracks));
+        return Promise.mapSeries(chunkedTrackArr, function(trackChunk) {
+          return spotifyApi.removeTracksFromPlaylist(SPOTIFY_CONFIG.username, playlistId, trackChunk)
+        });
       })
       .then(function(data) {
         console.log('deleted tracks', tracks, 'from playlist', playlistId);
