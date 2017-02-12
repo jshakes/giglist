@@ -5,12 +5,12 @@ const genres = [
   {
     id: 1,
     name: 'Acoustic',
-    tags: ['singer-songwriter', 'acoustic', 'american', 'easy listening', 'Alt-country', 'americana', 'indie folk', 'bluegrass']
+    tags: ['singer-songwriter', 'acoustic', 'easy listening', 'Alt-country', 'americana', 'indie folk', 'bluegrass']
   },
   {
   	id: 2,
     name: 'Ambient',
-  	tags: ['experimental', 'chillout', 'downtempo', 'Mellow', 'dark ambient', 'new age', 'minimal', 'easy listening', 'atmospheric', 'drone', 'ethereal', 'relaxing', 'minimalism', 'Dreamy', 'cinematic', 'minimalist', 'goa', 'chill out', 'ninja tune', 'piano ambient', 'ambient piano', 'chillwave']
+  	tags: ['ambient', 'chillout', 'downtempo', 'dark ambient', 'new age', 'minimal', 'atmospheric', 'drone', 'ethereal', 'relaxing', 'minimalism', 'Dreamy', 'cinematic', 'minimalist', 'chill out', 'piano ambient', 'ambient piano']
   },
   {
   	id: 3,
@@ -35,12 +35,12 @@ const genres = [
   {
   	id: 7,
     name: 'Electronic/Dance',
-  	tags: ['electronic', 'experimental', 'instrumental', 'dance', 'chillout', 'electronica', 'industrial', 'psychedelic', 'trance', 'House', 'electro', 'synthpop', 'noise', 'Drum and bass', 'dubstep', 'Disco', 'drone', 'electropop', 'psytrance', 'party', 'progressive trance', 'synth pop', 'remix', 'noise rock', 'club', 'glitch', 'trip hop', 'dancehall', 'deep house', 'minimal techno', 'Progressive House', 'breakcore', 'bass', 'dnb', 'vocal trance', 'Drum n Bass', 'Electroclash', 'eurodance', 'indietronica', 'electro house', 'synth', 'goa', '8-bit', 'chill out', 'jungle', 'ninja tune', 'big beat', 'new rave', 'psychill', 'electro-industrial', 'psychedelic trance', 'uplifting trance', 'Rave', 'chillwave']
+  	tags: ['electronic', 'experimental', 'instrumental', 'breakbeat', 'dance', 'chillout', 'electronica', 'industrial', 'psychedelic', 'trance', 'House', 'electro', 'synthpop', 'noise', 'Drum and bass', 'dubstep', 'Disco', 'drone', 'electropop', 'psytrance', 'party', 'progressive trance', 'synth pop', 'remix', 'club', 'glitch', 'trip hop', 'dancehall', 'deep house', 'minimal techno', 'Progressive House', 'breakcore', 'bass', 'dnb', 'vocal trance', 'Drum n Bass', 'Electroclash', 'eurodance', 'indietronica', 'electro house', 'synth', 'goa', '8-bit', 'chill out', 'jungle', 'ninja tune', 'big beat', 'new rave', 'psychill', 'electro-industrial', 'psychedelic trance', 'uplifting trance', 'Rave', 'chillwave']
   },
   {
     id: 9,
     name: 'House and Techno',
-    tags: ['techno', 'downtempo', 'idm', 'darkwave', 'ebm', 'dark electro', 'noise rock', 'club', 'glitch', 'trip hop', 'dancehall', 'deep house', 'minimal techno', 'Progressive House', 'tech house']
+    tags: ['techno', 'downtempo', 'idm', 'darkwave', 'ebm', 'dark electro', 'deep house', 'minimal techno', 'Progressive House', 'tech house']
   },
   {
   	id: 9,
@@ -80,7 +80,7 @@ const genres = [
   {
   	id: 16,
     name: 'Rap/Hip Hop',
-  	tags: ['Hip-Hop', 'rap', 'hip hop', 'underground hip-hop', 'breakbeat', 'hiphop', 'Gangsta Rap', 'underground hip hop', 'breaks', 'instrumental hip-hop', 'urban', 'turntablism']
+  	tags: ['Hip-Hop', 'rap', 'hip hop', 'underground hip-hop', 'hiphop', 'Gangsta Rap', 'underground hip hop', 'breaks', 'instrumental hip-hop', 'urban', 'turntablism']
   },
   {
   	id: 17,
@@ -90,12 +90,12 @@ const genres = [
   {
   	id: 18,
     name: 'Rock',
-  	tags: ['rock', 'alternative rock', 'classic rock', 'indie rock', 'hard rock', 'Progressive rock', 'punk rock', 'post-rock', 'new wave', 'emo', 'Psychedelic Rock', 'Grunge', 'britpop', 'ska', 'blues rock', 'pop rock', 'Progressive', 'shoegaze', 'J-rock', 'Stoner Rock', 'folk rock', 'Garage Rock', 'art rock', 'soft rock', 'rockabilly', 'glam rock', 'space rock', 'rock n roll', 'Rock and Roll', 'krautrock', 'post rock', 'Southern Rock', 'emocore', 'industrial rock', 'rapcore', 'Experimental Rock', 'christian rock', 'math rock', 'psychobilly', 'garage', 'post-grunge', 'jrock', 'power pop', 'stoner', 'Pop-Rock', 'powerpop', 'Surf', 'prog', 'folk-rock', 'melodic rock', 'Deutschrock']
+  	tags: ['rock', 'alternative rock', 'classic rock', 'indie rock', 'hard rock', 'Progressive rock', 'punk rock', 'post-rock', 'new wave', 'emo', 'Psychedelic Rock', 'Grunge', 'blues rock', 'pop rock', 'Progressive', 'shoegaze', 'J-rock', 'Stoner Rock', 'folk rock', 'Garage Rock', 'art rock', 'soft rock', 'rockabilly', 'glam rock', 'space rock', 'rock n roll', 'Rock and Roll', 'krautrock', 'post rock', 'Southern Rock', 'emocore', 'industrial rock', 'rapcore', 'Experimental Rock', 'christian rock', 'math rock', 'psychobilly', 'garage', 'post-grunge', 'jrock', 'power pop', 'stoner', 'Pop-Rock', 'powerpop', 'Surf', 'prog', 'folk-rock', 'melodic rock', 'Deutschrock', 'noise rock']
   },
   {
   	id: 19,
     name: 'Heavy Rock / Metal',
-  	tags: ['metal', 'hard rock', 'black metal', 'death metal', 'hardcore', 'heavy metal', 'thrash metal', 'metalcore', 'Progressive metal', 'Melodic Death Metal', 'Power metal', 'emo', 'post-hardcore', 'doom metal', 'Gothic Metal', 'Gothic', 'screamo', 'Nu Metal', 'symphonic metal', 'grindcore', 'darkwave', 'folk metal', 'deathcore', 'industrial metal', 'alternative metal', 'Brutal Death Metal', 'hardcore punk', 'Gothic Rock', 'Sludge', 'Female fronted metal', 'Technical Death Metal', 'speed metal', 'viking metal', 'visual kei', 'noise rock', 'melodic hardcore', 'russian rock', 'post rock', 'atmospheric black metal', 'goth', 'depressive black metal', 'Post-Metal', 'melodic metal', 'mathcore', 'industrial rock', 'pagan metal', 'progressive death metal', 'melodic black metal', 'Symphonic Black Metal', 'math rock', 'groove metal', 'Nu-metal', 'Symphonic Rock', 'thrash', 'hair metal', 'goregrind', 'old school death metal', 'stoner metal', 'Doom', 'martial industrial', 'deathrock', 'raw black metal', 'NWOBHM', 'nsbm', 'Blackened Death Metal', 'sludge metal', 'Avant-garde Metal', 'hardstyle', 'post hardcore', 'heavy']
+  	tags: ['metal', 'hard rock', 'black metal', 'death metal', 'hardcore', 'heavy metal', 'thrash metal', 'metalcore', 'Progressive metal', 'Melodic Death Metal', 'Power metal', 'emo', 'post-hardcore', 'doom metal', 'Gothic Metal', 'Gothic', 'screamo', 'Nu Metal', 'symphonic metal', 'grindcore', 'darkwave', 'folk metal', 'deathcore', 'industrial metal', 'alternative metal', 'Brutal Death Metal', 'hardcore punk', 'Gothic Rock', 'Sludge', 'Female fronted metal', 'Technical Death Metal', 'speed metal', 'viking metal', 'visual kei', 'melodic hardcore', 'russian rock', 'post rock', 'atmospheric black metal', 'goth', 'depressive black metal', 'Post-Metal', 'melodic metal', 'mathcore', 'industrial rock', 'pagan metal', 'progressive death metal', 'melodic black metal', 'Symphonic Black Metal', 'math rock', 'groove metal', 'Nu-metal', 'Symphonic Rock', 'thrash', 'hair metal', 'goregrind', 'old school death metal', 'stoner metal', 'Doom', 'martial industrial', 'deathrock', 'raw black metal', 'NWOBHM', 'nsbm', 'Blackened Death Metal', 'sludge metal', 'Avant-garde Metal', 'hardstyle', 'post hardcore', 'heavy']
   },
   {
   	id: 20,
