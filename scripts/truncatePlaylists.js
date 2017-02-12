@@ -17,7 +17,7 @@ City.findById(id)
 .then(function(city) {
   return Promise.mapSeries(city.playlists, function(playlist) {
     var spotifyTrackArr = playlist.tracks.map(function(track) {
-      return `spotify:track:${track.spotifyId}`;
+      return `spotify:track:${track.spotify.id}`;
     });
     return spotify.deleteTracksFromPlaylist(playlist.spotifyId, spotifyTrackArr)
     .then(function() {
