@@ -38,9 +38,9 @@ const genres = [
   	tags: ['electronic', 'experimental', 'instrumental', 'breakbeat', 'dance', 'chillout', 'electronica', 'industrial', 'psychedelic', 'trance', 'House', 'electro', 'synthpop', 'noise', 'Drum and bass', 'dubstep', 'Disco', 'drone', 'electropop', 'psytrance', 'party', 'progressive trance', 'synth pop', 'remix', 'club', 'glitch', 'trip hop', 'dancehall', 'deep house', 'minimal techno', 'Progressive House', 'breakcore', 'bass', 'dnb', 'vocal trance', 'Drum n Bass', 'Electroclash', 'eurodance', 'indietronica', 'electro house', 'synth', 'goa', '8-bit', 'chill out', 'jungle', 'ninja tune', 'big beat', 'new rave', 'psychill', 'electro-industrial', 'psychedelic trance', 'uplifting trance', 'Rave', 'chillwave']
   },
   {
-    id: 9,
+    id: 8,
     name: 'House and Techno',
-    tags: ['techno', 'downtempo', 'idm', 'darkwave', 'ebm', 'dark electro', 'deep house', 'minimal techno', 'Progressive House', 'tech house']
+    tags: ['techno', 'darkwave', 'ebm', 'dark electro', 'deep house', 'minimal techno', 'Progressive House', 'tech house']
   },
   {
   	id: 9,
@@ -118,7 +118,6 @@ module.exports = {
   },
   getArtistGenres: function(artist) {
     var _this = this;
-    // todo: run down tags until we match a genre
     return lastfm.getArtistTagArray(artist)
     .then(function(tags) {
       if(!tags.length) {
