@@ -44,7 +44,7 @@ var spotify = {
       })
       .catch(function(err) {
         
-        console.error('Something went wrong!', err);
+        console.error('Failed to authenticate Spotify', err);
         reject(err);
       });
     });
@@ -66,6 +66,7 @@ var spotify = {
         var track = {
           genres: artist.genres
         };
+        // todo: customize for region
         spotifyApi.getArtistTopTracks(artist.id, 'US')
         .then(function(data) {
           
@@ -104,14 +105,19 @@ var spotify = {
         resolve(data);
       })
       .catch(function(err) {
-        console.error('Something went wrong!', err);
+        console.error('Something went wrong trying to add', tracks.length, 'to', playlistId, err);
         reject(err);
       });
     });
   },
   deleteTracksFromPlaylist: function(playlistId, tracks) {
     var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
-    var chunkedTrackArr = arrayLib.chunkArray(tracks, MAX_TRACK_ARRAY);
+    var parsedTrackArr = tracks.map(function(track) {
+      return {
+        uri: track
+      }
+    });
+    var chunkedTrackArr = arrayLib.chunkArray(parsedTrackArr, MAX_TRACK_ARRAY);
     return new Promise(function(resolve, reject) {
       spotify._authenticate(spotifyApi)
       .then(function() {
@@ -124,7 +130,7 @@ var spotify = {
         resolve(data);
       })
       .catch(function(err) {
-        console.error('Something went wrong!', err);
+        console.error('Something went wrong attempting to delete', tracks.length, 'tracks from', playlistId, err);
         reject(err);
       });
     });
