@@ -55,7 +55,7 @@ const genres = [
   {
   	id: 11,
     name: 'Indie',
-  	tags: ['alternative', 'indie', 'alternative rock', 'indie rock', 'chillout', 'psychedelic', 'post-rock', 'new wave', 'american', 'indie pop', 'emo', 'Grunge', 'britpop', 'synthpop', 'Mellow', 'new age', 'shoegaze', 'Lo-Fi', 'Garage Rock', 'dream pop', 'art rock', 'soft rock', 'Alt-country', 'emocore', 'indie folk', 'Dreamy', 'post-grunge', 'indietronica', 'chill out', 'underground', 'twee', 'freak folk', 'chillwave']
+  	tags: ['alternative', 'indie', 'alternative rock', 'indie rock', 'psychedelic', 'post-rock', 'new wave', 'american', 'indie pop', 'emo', 'Grunge', 'britpop', 'synthpop', 'Mellow', 'new age', 'shoegaze', 'Lo-Fi', 'Garage Rock', 'dream pop', 'art rock', 'soft rock', 'Alt-country', 'emocore', 'indie folk', 'Dreamy', 'post-grunge', 'indietronica', 'chill out', 'underground', 'twee', 'freak folk', 'chillwave']
   },
   {
   	id: 12,
