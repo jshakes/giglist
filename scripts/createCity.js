@@ -5,7 +5,6 @@
   - fetches Songkick metro ID
   - adds city to the DB
   - creates a playlist for each specified genre
-  - populates the playlist with tracks
  */
 
 var _ = require('underscore');
