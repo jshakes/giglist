@@ -12,7 +12,6 @@ var tracks = require('../app/services/tracks');
 var fs = require('fs-promise');
 
 var CACHE_DIR = './cache';
-var CACHE_EXPIRES = 86400000; // 24 hours
 var id = process.argv[2];
 
 City.findById(id)
@@ -22,33 +21,14 @@ City.findById(id)
     city: city
   };
   // try and get the tracks from the cache first
-  return fs.readdir(CACHE_DIR)
-  .then(function(files) {
-    if(!files.length) {
-      throw('No cache available');
-    }
-    var cacheMinAge = Date.now() - CACHE_EXPIRES;
-    var validCaches = files.filter(function(file) {
-      var parts = file.split('-');
-      var cachePrefix = parts[0];
-      var cacheCityId = parts[1];
-      var cacheDate = parseInt(parts[2], 10);
-      return cachePrefix === 'tracks' && cacheCityId === city.id && cacheDate > cacheMinAge;
-    });
-    if(!validCaches.length) {
-      throw('No cache available');
-    }
-    console.log('Found valid cache, not fetching new data');
-    return fs.readFile(`./${CACHE_DIR}/${validCaches[0]}`)
-    .then(function(contents) {
-      var parsedCache = JSON.parse(contents);
-      return Object.assign(trackObj, {
+  return getCache('tracks', city.id)
+  .then(function(cacheContents) {
+    if(cacheContents) {
+      var parsedCache = JSON.parse(cacheContents);
+      trackObj = Object.assign(trackObj, {
         events: parsedCache.events
       });
-    })
-  })
-  .catch(function(err) {
-    console.error(err);
+    }
     return trackObj;
   })
 })
@@ -57,16 +37,28 @@ City.findById(id)
     return cities.dispenseTracksToPlaylists(trackObj);
   }
   else {
-    return cities.getCityEvents(trackObj.city)
+    return getCache('events', trackObj.city.id)
+    .then(function(cacheContents) {
+      if(cacheContents) {
+        var parsedCache = JSON.parse(cacheContents);
+        trackObj = Object.assign(trackObj, {
+          events: parsedCache.events
+        });
+        return Promise.resolve(trackObj);
+      }
+      else {
+        return cities.getCityEvents(trackObj.city)
+        .then(function(trackObj) {
+          return writeCache('events', trackObj.city.id, trackObj.events)
+          .then(function() {
+            return trackObj;
+          });
+        });
+      }
+    })
     .then(tracks.getArtistTracks)
     .then(function(tracks) {
-      return fs.ensureDir(CACHE_DIR)
-      .then(function() {
-        fs.writeFile(`./${CACHE_DIR}/tracks-${trackObj.city.id}-${Date.now()}`, JSON.stringify(tracks));
-      })
-      .then(function() {
-        return tracks;
-      });
+      return writeCache('events', trackObj.city.id, tracks);
     })
     .then(cities.dispenseTracksToPlaylists)
   }
@@ -80,3 +72,42 @@ City.findById(id)
   process.exit();
 });
 
+function getCache(prefix, cityId) {
+  var CACHE_EXPIRES = 86400000; // 24 hours
+  return fs.readdir(CACHE_DIR)
+  .then(function(files) {
+    if(!files.length) {
+      throw('No cache available');
+    }
+    var cacheMinAge = Date.now() - CACHE_EXPIRES;
+    var validCaches = files.filter(function(file) {
+      var parts = file.split('-');
+      var cachePrefix = parts[0];
+      var cacheCityId = parts[1];
+      var cacheDate = parseInt(parts[2], 10);
+      return cachePrefix === prefix && cacheCityId === cityId && cacheDate > cacheMinAge;
+    });
+    if(!validCaches.length) {
+      throw('No cache available');
+    }
+    console.log('Found valid cache:', validCaches[0], 'not fetching new data');
+    return fs.readFile(`./${CACHE_DIR}/${validCaches[0]}`)
+    .then(function(contents) {
+      return contents;
+    });
+  })
+  .catch(function(err) {
+    console.error(err);
+  });
+}
+
+function writeCache(prefix, cityId, contents) {
+  return fs.ensureDir(CACHE_DIR)
+  .then(function() {
+    return fs.writeFile(`./${CACHE_DIR}/${prefix}-${cityId}-${Date.now()}`, JSON.stringify(contents));
+  })
+  .then(function() {
+    console.log('Wrote to cache');
+    return contents;
+  });
+}
