@@ -58,7 +58,7 @@ City.findById(id)
     })
     .then(tracks.getArtistTracks)
     .then(function(tracks) {
-      return writeCache('events', trackObj.city.id, tracks);
+      return writeCache('tracks', trackObj.city.id, tracks);
     })
     .then(cities.dispenseTracksToPlaylists)
   }
