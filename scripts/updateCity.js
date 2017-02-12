@@ -42,7 +42,7 @@ City.findById(id)
       if(cacheContents) {
         var parsedCache = JSON.parse(cacheContents);
         trackObj = Object.assign(trackObj, {
-          events: parsedCache.events
+          events: parsedCache
         });
         return Promise.resolve(trackObj);
       }

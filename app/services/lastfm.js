@@ -1,6 +1,7 @@
 var fetch = require('node-fetch');
 var querystring = require('querystring');
 var Promise = require('bluebird');
+var _ = require('underscore');
 
 var LASTFM_API = {
   uriRoot: 'http://ws.audioscrobbler.com/2.0/', 
@@ -29,9 +30,9 @@ module.exports = {
         return res.json();
       })
       .then(function(json) {
-        return json.toptags ? json.toptags.tag.map(function(tag) {
-          return tag.name;
-        }) : '';
+        return json.toptags ? _.pluck(json.toptags.tag.filter(function(tag) {
+          return parseInt(tag.count, 10) > 50;
+        }), 'name') : [];
       })
       .then(resolve)
       .catch(function(err) {
