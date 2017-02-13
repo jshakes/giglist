@@ -34,8 +34,8 @@ const genres = [
   },
   {
   	id: 7,
-    name: 'Electronic/Dance',
-  	tags: ['electronic', 'experimental', 'instrumental', 'breakbeat', 'dance', 'chillout', 'electronica', 'industrial', 'psychedelic', 'trance', 'House', 'electro', 'synthpop', 'noise', 'Drum and bass', 'dubstep', 'Disco', 'drone', 'electropop', 'psytrance', 'party', 'progressive trance', 'synth pop', 'remix', 'club', 'glitch', 'trip hop', 'dancehall', 'deep house', 'minimal techno', 'Progressive House', 'breakcore', 'bass', 'dnb', 'vocal trance', 'Drum n Bass', 'Electroclash', 'eurodance', 'indietronica', 'electro house', 'synth', 'goa', '8-bit', 'chill out', 'jungle', 'ninja tune', 'big beat', 'new rave', 'psychill', 'electro-industrial', 'psychedelic trance', 'uplifting trance', 'Rave', 'chillwave']
+    name: 'Electronic / Dance',
+  	tags: ['electronic', 'experimental', 'breakbeat', 'dance', 'chillout', 'electronica', 'industrial', 'psychedelic', 'trance', 'House', 'electro', 'synthpop', 'noise', 'Drum and bass', 'dubstep', 'Disco', 'drone', 'electropop', 'psytrance', 'party', 'progressive trance', 'synth pop', 'remix', 'club', 'glitch', 'trip hop', 'dancehall', 'deep house', 'minimal techno', 'Progressive House', 'breakcore', 'bass', 'dnb', 'vocal trance', 'Drum n Bass', 'Electroclash', 'eurodance', 'indietronica', 'electro house', 'synth', 'goa', '8-bit', 'chill out', 'jungle', 'ninja tune', 'big beat', 'new rave', 'psychill', 'electro-industrial', 'psychedelic trance', 'uplifting trance', 'Rave', 'chillwave']
   },
   {
     id: 8,
@@ -79,7 +79,7 @@ const genres = [
   },
   {
   	id: 16,
-    name: 'Rap/Hip Hop',
+    name: 'Rap / Hip Hop',
   	tags: ['Hip-Hop', 'rap', 'hip hop', 'underground hip-hop', 'hiphop', 'Gangsta Rap', 'underground hip hop', 'breaks', 'instrumental hip-hop', 'urban', 'turntablism']
   },
   {

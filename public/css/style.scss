@@ -19,6 +19,8 @@
 $black: #222;
 $dark-orange: #f36f21;
 $light-orange: #fdbd10;
+$lime: #CEFFAA;
+$light-lime: rgba($lime, 0.5);
 $trans-white:rgba(255,255,255,0.2);
 $spotify-green: #1ed760;
 $songkick-pink: #f80046;
@@ -80,12 +82,12 @@ $mqs: (
 body{
 	padding: 8em 6em;
   font: 400 14px "franklin-gothic-urw", Helvetica, Arial, sans-serif;
-  color: white;
-  background: #fdbd10;
-  background: -moz-linear-gradient(45deg,  $light-orange 1%, $dark-orange 100%);
-  background: -webkit-linear-gradient(45deg,  $light-orange 1%,$dark-orange 100%);
-  background: linear-gradient(45deg,  $light-orange 1%,$dark-orange 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdbd10', endColorstr='#f36f21',GradientType=1 );
+  color: $black;
+  background: white;
+  // background: -moz-linear-gradient(45deg,  $light-lime 1%, $lime 100%);
+  // background: -webkit-linear-gradient(45deg,  $light-lime 1%,$lime 100%);
+  // background: linear-gradient(45deg,  $light-lime 1%,$lime 100%);
+  // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d8ff60', endColorstr='#CEFFAA',GradientType=1 );
   height: 100%;
 
   @include smaller-than(large){
@@ -127,7 +129,7 @@ p{
 
 a{
   text-decoration: none;
-  color: white;
+  color: $black;
   cursor: pointer;
 
   &:hover{
@@ -151,35 +153,123 @@ a{
 // Icons
 // =======================
 .icon{
-	&:after{
+	&:before{
 		font-family: 'icomoon';
 		position: relative;
 	}
 }
 
-.locate-icon:after{
+.locate-icon:before{
 	content: '\e900';
 }
 
-.twitter-icon:after{
+.twitter-icon:before{
 	content: '\e902';
 }
 
-.fbook-icon:after{
+.fbook-icon:before{
 	content: '\e901';
 }
 
-.link-icon:after{
+.link-icon:before{
 	content: '\e903';
 }
 
-.spotify-icon:after{
+.spotify-icon:before{
 	content: '\e904';
 }
 
-.songkick-icon:after{
+.songkick-icon:before{
 	content: '\e905';
 }
+
+
+// =======================
+// Global styles
+// =======================
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(0.2em);
+    transform: translateY(0.2em);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@for $i from 1 to 5 {
+  .main-list-item:nth-child(#{$i}) { animation-delay: $i * 0.15s; }
+}
+
+.main-list-item{
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	margin-bottom: 0.5em;
+	font-size: 4em;
+	font-weight: 700;
+	border: 6px solid $black;
+	border-radius: 1px;
+	cursor: pointer;
+	opacity: 0;
+	animation-duration: 2s;
+	transition-timing-function: ease-out;
+	animation-fill-mode: both;
+	animation-name: fadeInUp;
+
+	&:hover, &:focus{
+		outline: 0;
+		svg{
+			display: inline-block;
+			color: transparent;
+		}
+
+		a{
+			opacity: 0;
+		}
+
+		&:after{
+			color: $lime;
+			opacity: 1;
+		}
+	}
+
+	&:after{
+		opacity: 0;
+		content: "\0003E";
+    font-weight: 900;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 100%;
+    line-height: 1.6;
+    right: 0.5em;
+	}
+
+	a{
+		display: block;
+		padding: 0.25em 0 0.3em 0.5em;
+		color: $black;
+		outline: 0;
+	}
+
+	svg{
+		display: none;
+		fill: $black;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: -1px;
+		bottom: -1px;
+	}
+}
+
 
 // =======================
 // Homepage
@@ -209,11 +299,7 @@ a{
 	animation-name: fadeIn;
 
 	h1{
-		margin-bottom: 0.2em;
-		line-height: 1.1;
 		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.3em;
 		font-size: 8em;
 
 		a:hover, a:focus{
@@ -221,104 +307,33 @@ a{
 		}
 	}
 
+	h2{
+		text-indent: 5.65em;
+    font-size: 2em;
+    margin-top: -25px;
+    font-style: italic;
+    margin-bottom: 4em;
+    font-weight: 500;
+	}
+
 	span{
 		display: block;
 		margin-top: 1em;
 	}
+}
 
-	.locate-me-btn{
-		font-weight: 700;
 
-		&:after{
-			font-size: 0.5em;
-			padding-left: 0.5em;
-		}
-
-		&:hover, &:hover:after, &:focus, &:focus:after{
-			color: rgba(255,255,255,0.8);
-		}
+// =======================
+// Genre List Page
+// =======================
+.genre-list{
+	h2{
+		margin-bottom: 1em;
+		border-bottom: 6px $black solid;
+		display: inline-block;
 	}
 }
 
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(0.2em);
-    transform: translateY(0.2em);
-  }
-
-  100% {
-    opacity: 1;
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
-}
-
-@for $i from 1 to 5 {
-  .city-list-item:nth-child(#{$i}) { animation-delay: $i * 0.15s; }
-}
-
-.city-list-item{
-	display: inline-block;
-	position: relative;
-	width: 100%;
-	margin-bottom: 0.5em;
-	font-size: 4em;
-	font-weight: 700;
-	border: 6px solid white;
-	border-radius: 1px;
-	cursor: pointer;
-	opacity: 0;
-	animation-duration: 2s;
-	transition-timing-function: ease-out;
-	animation-fill-mode: both;
-	animation-name: fadeInUp;
-
-	&:hover, &:focus{
-		outline: 0;
-		svg{
-			display: inline-block;
-			color: transparent;
-		}
-
-		a{
-			opacity: 0;
-		}
-
-		&:after{
-			color: $dark-orange;
-		}
-	}
-
-	&:after{
-		content: "\0003E";
-    font-weight: 900;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    height: 100%;
-    line-height: 1.6;
-    right: 0.5em;
-	}
-
-	a{
-		display: block;
-		padding: 0.25em 0 0.3em 0.5em;
-		color: white;
-		outline: 0;
-	}
-
-	svg{
-		display: none;
-		fill: white;
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: -1px;
-		bottom: -1px;
-	}
-}
 
 
 // =======================
@@ -326,35 +341,20 @@ a{
 // =======================
 .global-home-link{
 	position: absolute;
-	top: 1em;
-	left: 1.5em;
-	font-size: 1.2em;
+	top: 2em;
+	left: 6em;
 
 	&:hover, &:focus{
-		color: rgba(255,255,255,0.8);
+		span{
+			text-decoration: underline;
+		}
 	}
-
-	span{
-		font-size: 1.5em;
-		vertical-align: sub;
-	}
-}
-
-.city-playlist-page{
-	text-align: center;
 }
 
 .city-playlist-header{
 	h2{
 		display: inline;
-	}
-
-	h3{
-		margin: 0 auto;
-
-		@include larger-than(large){
-			width: 60%;
-		}
+		max-width: 800px;
 	}
 
 	@include smaller-than(large){
@@ -365,8 +365,7 @@ a{
 .social-wrapper{
 	display: inline-block;
 	width: 140px;
-	padding-left: 10px;
-	margin-right: -140px;
+	padding-left: 5px;
 	text-align: left;
 
 	ul, li{
@@ -378,8 +377,8 @@ a{
 		padding: 0 0.4em;
 		cursor: pointer;
 
-		&:after{
-			color: white;
+		&:before{
+			color: $black;
 			font-size: 1.8em;
 		}
 		&:focus{
@@ -388,20 +387,20 @@ a{
 	}
 
 	.twitter-icon{
-		&:hover:after, &:focus:after{
+		&:hover:before, &:focus:before{
 			color: #00aced;
 		}
 	}
 
 	.fbook-icon{
-		&:hover:after, &:focus:after{
+		&:hover:before, &:focus:before{
 			color: #3b5998;
 		}
 	}
 
 	.link-icon{
-		&:hover:after, &:focus:after{
-			color: $black;
+		&:hover:before, &:focus:before{
+			color: tomato;
 		}
 	}
 }
@@ -421,13 +420,15 @@ a{
 
 	&:before{
 		content: 'Link Copied!';
-		margin-left: -50px;
+		margin-left: -45px;
 		margin-bottom: 5px;
 		padding: 10px;
-		width: 100px;
+		width: 90px;
 		border-radius: 3px;
 		background-color: $black;
 		font-size: 0.9em;
+		color: white;
+		text-align: center;
 	}
 
 	&:after{
@@ -455,20 +456,27 @@ a{
 }
 
 .playlist-subscribe-link{
-	float: left;
-	padding: 0.4em 1em 0.5em;
-	margin: 0 0 0 1em;
+	position: relative;
+	padding: 0.4em 1em 0.5em 2.25em;
+	margin-top: 1em;
 	font-size: 1.2em;
 	line-height: 1.5;
 	background: $black;
+	color: $spotify-green;
 
-	&:after{
-		top: 3px;
-		margin-left: 10px;
+	&:before{
+		position: absolute;
+		font-size: 1.4em;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		height: 1.5em;
+		left: 8px;
 	}
 
 	&:hover, &:focus{
 		background: $spotify-green;
+		color: $black;
 		outline: 0;
 	}
 }
@@ -477,29 +485,24 @@ a{
 // Playlist table
 
 .gig-info-list-header{
-	margin: 8em 0 1.5em;
-  float: left;
-
-  h4{
-  	float: left;
-  }
+	margin-bottom: 1.5em;
 }
 
 .city-playlist-wrapper{
 	@extend .clearfix;
 	position: relative;
-	margin: 0 auto;
-
-	@include larger-than(extra-large){
-		width: 80%;
-	}
+	max-width: 800px;
 }
 
 .gig-info-list{
 	table{
 		width: 100%;
-		margin-top: -1px;
-		border-spacing: 0 1px;
+		margin-top: 4em;
+		border-spacing: 0;
+	}
+
+	tr:nth-child(odd) td{
+		background-color: #f7f7f7;
 	}
 }
 
@@ -509,26 +512,45 @@ a{
 	}
 
 	th{
-		height: 80px;
-		padding: 0 0 5px 14px;
+		padding: 0 0 5px 15px;
 		text-align: left;
-		background: $trans-white;
 		vertical-align: bottom;
 		text-transform: uppercase;
 		font-weight: 500;
 		letter-spacing: 1px;
+		border-bottom: 2px solid;
 	}
 }
 
-.gig-info-list-item{
+tr.gig-info-list-item{
 	position: relative;
 	font-weight: 500;
 	text-align: left;
 	font-size: 1.2em;
-	background: $trans-white;
 	letter-spacing: 0.25px;
 
+	&:hover td{
+		background-color: $black;
+		color: white;
+
+		&.gig-listen a{
+			border-color: $spotify-green;
+			color: $spotify-green;
+			background: $black;
+			outline: 0;
+		}
+
+		&.gig-link a{
+			border-color: $songkick-pink;
+			color: $songkick-pink;
+			background: $black;
+			outline: 0;
+		}
+	}
+
 	td{
+		border-bottom: 2px solid;
+
 		@include smaller-than(medium){
 			display: block;
 			padding-left: 80px;
@@ -555,42 +577,16 @@ a{
 
 	a{
 		position: relative;
-		border: 1px solid transparent;
-	}
-
-	&:hover{
-		@include larger-than(medium){
-			background: white;
-			color: $dark-orange;
-
-			a{
-				opacity: 1;
-			}
-		}
-	}
-
-	.gig-listen a:focus, .gig-listen a:hover{
-		border-color: $spotify-green;
-		color: $spotify-green;
-		background: white;
-		outline: 0;
-	}
-
-	.gig-link a:focus, .gig-link a:hover{
-		border-color: $songkick-pink;
-		color: $songkick-pink;
-		background: white;
-		outline: 0;
+		border: 2px solid transparent;
 	}
 }
 
 .gig-artist, .gig-date, .gig-venue{
-	width: 1px;
 	white-space: nowrap;
 	font-size: 1em;
 	font-weight: 400;
 
-	&:after{
+	&:before{
 		position: absolute;
 		left: 20px;
 		top: 0;
@@ -607,16 +603,16 @@ a{
 		margin-top: 15px;
 	}
 
-	&:after{
+	&:before{
 		content: 'artist';
 	}
 }
 
-.gig-date:after{
+.gig-date:before{
 	content: 'date';
 }
 
-.gig-venue:after{
+.gig-venue:before{
 	content: 'venue';
 }
 
@@ -637,18 +633,19 @@ td.gig-listen, td.gig-link{
 	a{
 		width: 100%;
 		height: 30px;
-		padding: 0.25em 0.75em;
-		background: $trans-white;
+		padding: 0.25em 0.75em 0.25em 1.5em;
+		line-height: 16px;
 
 		@include smaller-than(medium){
 			display: block;
 			text-align: center;
 		}
 
-		&:after{
-			top: 3px;
-			margin-left: 0.25em;
+		&:before{
+			top: 5px;
 			font-size: 1.2em;
+			left: 3px;
+			position: absolute;
 		}
 	}
 }
