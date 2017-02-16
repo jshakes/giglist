@@ -24,7 +24,7 @@ var spotify = {
         // get the first artist name with a levenshtein distance of less than 5(?)
         if(data.body.artists.items.length) {
           artist = data.body.artists.items.find(function(artist) {
-            return levenshtein.get(query, artist.name) < 5;
+            return levenshtein.get(query, artist.name, {useCollator:true}) < 5;
           });
         }
         resolve(artist);
