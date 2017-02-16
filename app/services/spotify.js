@@ -1,6 +1,7 @@
 var Promise = require('bluebird');
 var prompt = require('prompt');
 var SpotifyWebApi = require('spotify-web-api-node');
+var levenshtein = require('fast-levenshtein');
 var _ = require('underscore');
 var config = require('../../config/config');
 var arrayLib = require('../lib/arrays');
@@ -14,21 +15,21 @@ var spotify = {
    * @param artistName {String} The artist to search form
    * @return artistID {String} The Spotify ID of the first artist result
    */
-  _getArtistByName: function(artistName) {
-
+  _getArtistByName: function(query) {
     var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
-
     return new Promise(function(resolve, reject) {
-
-      spotifyApi.searchArtists(artistName)
+      spotifyApi.searchArtists(query)
       .then(function(data) {
-
-        // get the artist ID, if it exists
-        var artist = data.body.artists.items.length ? data.body.artists.items[0] : null;
+        var artist;
+        // get the first artist name with a levenshtein distance of less than 5(?)
+        if(data.body.artists.items.length) {
+          artist = data.body.artists.items.find(function(artist) {
+            return levenshtein.get(query, artist.name) < 5;
+          });
+        }
         resolve(artist);
       })
       .catch(function(err) {
-       
         console.error('Something went wrong!', err);
         reject(err);
       });
@@ -57,10 +58,9 @@ var spotify = {
 
       spotify._getArtistByName(artistName)
       .then(function(artist) {
-
-        if(artist === null) {
-
+        if(!artist) {
           // nullify the whole track if there were no artists
+          console.log('No artist on Spotify called', artistName);
           return resolve(null);
         }
         var track = {
@@ -74,9 +74,14 @@ var spotify = {
             var topTrack = data.body.tracks.find(function(track) {
               return track.artists.length === 1;
             });
-            track.topTrackId = topTrack.id;
-            track.topTrackName = topTrack.name;
-            track.topTrackUrl = topTrack.external_urls.spotify;
+            if(topTrack) {
+              track.topTrackId = topTrack.id;
+              track.topTrackName = topTrack.name;
+              track.topTrackUrl = topTrack.external_urls.spotify;
+            }
+            else {
+              track = null;
+            }
           }
           else {
             // nullify the whole track if there were no tracks available
