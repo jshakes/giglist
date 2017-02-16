@@ -69,9 +69,11 @@ var spotify = {
         // todo: customize for region
         spotifyApi.getArtistTopTracks(artist.id, 'US')
         .then(function(data) {
-          
           if(data.body.tracks.length) {
-            var topTrack = data.body.tracks[0];
+            // Get the most popular track that isn't a collab with another artist
+            var topTrack = data.body.tracks.find(function(track) {
+              return track.artists.length === 1;
+            });
             track.topTrackId = topTrack.id;
             track.topTrackName = topTrack.name;
             track.topTrackUrl = topTrack.external_urls.spotify;
