@@ -121,7 +121,8 @@ var genres = {
     })
     .then(function(genres) {
       console.log('Found genres', genres, 'for', track.artist);
-      if(genres && genres.length) {
+      // reject a track if it has no genres or matches too many genres
+      if(genres && genres.length && genres.length < 5) {
         return Object.assign(track, {
           genres: genres
         });
