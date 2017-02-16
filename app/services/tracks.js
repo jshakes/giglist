@@ -5,19 +5,8 @@ var spotify = require('./spotify');
 var tracks = {
   _getArtistTrack: function(track) {
     console.log('Finding a track for', track.artist);
-    // Get each artist's genre and most popular track
-    return genres.getArtistGenres(track.artist)
-    .then(function(genreArr) {
-      if(!genreArr || !genreArr.length) {
-        throw 'No genres found for ' + track.artist;        
-      }
-      console.log('Found the following genres for', track.artist, genreArr);
-      track = Object.assign(track, {
-        genres: genreArr
-      });
-      return track.artist;
-    })
-    .then(spotify.getArtistMostPopularTrack)
+    // Get a track for the artist
+    return spotify.getArtistMostPopularTrack(track.artist)
     .then(function(spotifyTrack) {
       // scrap anything we couldn't find a spotify track for
       if(spotifyTrack === null) {

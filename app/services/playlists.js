@@ -18,12 +18,14 @@ module.exports = {
     });
   },
   replacePlaylistTracks: function(playlist, tracks) {
-    var spotifyIdsToAdd = _.difference(tracks, playlist.tracks).map(function(track) {
+    var existingTrackIds = playlist.tracks.map(function(track) {
       return `spotify:track:${track.spotify.id}`;
     });
-    var spotifyIdsToDelete = _.difference(playlist.tracks, tracks).map(function(track) {
+    var newTrackIds = tracks.map(function(track) {
       return `spotify:track:${track.spotify.id}`;
     });
+    var spotifyIdsToAdd = _.difference(newTrackIds, existingTrackIds);
+    var spotifyIdsToDelete = _.difference(existingTrackIds, newTrackIds);
     // Replace the playlist track array with the current events
     playlist.tracks = tracks;
     return spotify.addTracksToPlaylist(playlist.spotifyId, spotifyIdsToAdd)

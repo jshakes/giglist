@@ -56,6 +56,7 @@ City.findById(id)
         });
       }
     })
+    .then(genres.getEventGenres)
     .then(tracks.getArtistTracks)
     .then(function(tracks) {
       return writeCache('tracks', trackObj.city.id, tracks);

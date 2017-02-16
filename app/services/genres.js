@@ -1,7 +1,8 @@
+var Promise = require('bluebird');
 var _ = require('underscore');
 var lastfm = require('./lastfm');
 
-const genres = [
+var genreMap = [
   {
     id: 1,
     name: 'Acoustic',
@@ -39,8 +40,8 @@ const genres = [
   },
   {
     id: 8,
-    name: 'House and Techno',
-    tags: ['techno', 'darkwave', 'ebm', 'dark electro', 'deep house', 'minimal techno', 'Progressive House', 'tech house']
+    name: 'Techno',
+    tags: ['techno']
   },
   {
   	id: 9,
@@ -104,29 +105,65 @@ const genres = [
   }
 ];
 
-module.exports = {
-  getGenres: function() {
-    return genres;
-  },
-  getGenreNames: function() {
-    return _.pluck(genres, 'name');
-  },
-  getGenresFromTags: function(tags) {
-  	return _.pluck(_.filter(genres, function(genre) {
-  		return _.intersection(genre.tags, tags).length;
-  	}), 'id');
-  },
-  getArtistGenres: function(artist) {
+var genres = {
+  _getArtistGenres: function(track) {
+    console.log('Finding a genre for', track.artist);
     var _this = this;
-    return lastfm.getArtistTagArray(artist)
+    return checkExistingTags()
     .then(function(tags) {
-      if(!tags.length) {
-        return [];
+      console.log('Found tags', tags, 'for', track.artist);
+      track = Object.assign(track, {
+        lastfm: {
+          tags: tags
+        }
+      });
+      return genres._getGenresFromTags(tags);
+    })
+    .then(function(genres) {
+      console.log('Found genres', genres, 'for', track.artist);
+      if(genres && genres.length) {
+        return Object.assign(track, {
+          genres: genres
+        });
       }
-      return _this.getGenresFromTags(tags);
     })
     .catch(function(err) {
-      console.error('Could not get genre for', artist);
+      console.error('Could not get genre for', track.name);
+    });
+    function checkExistingTags() {
+      if(track.tags) {
+        return Promise.resolve(track.tags);
+      }
+      else {
+        return lastfm.getArtistTagArray(track.artist)
+      }
+    }
+  },
+  _getGenresFromTags: function(tags) {
+    return _.pluck(_.filter(genreMap, function(genre) {
+      return _.intersection(genre.tags, tags).length;
+    }), 'id');
+  },
+  getGenres: function() {
+    return genreMap;
+  },
+  getGenreNames: function() {
+    return _.pluck(genreMap, 'name');
+  },
+  getEventGenres: function(eventObj) {
+    return Promise.mapSeries(eventObj.events, genres._getArtistGenres)
+    .then(function(events) {
+      var cleanEvents = events.filter(function(event) {
+        return !!event;
+      });
+      return Object.assign(eventObj, {
+        events: cleanEvents
+      });
+    })
+    .catch(function(err) {
+      console.error(err);
     });
   }
-}
+};
+
+module.exports = genres;
