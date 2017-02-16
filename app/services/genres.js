@@ -36,12 +36,12 @@ var genreMap = [
   {
   	id: 7,
     name: 'Electronic/Dance',
-  	tags: ['electronic', 'experimental', 'instrumental', 'breakbeat', 'dance', 'chillout', 'electronica', 'industrial', 'psychedelic', 'trance', 'House', 'electro', 'synthpop', 'noise', 'Drum and bass', 'dubstep', 'Disco', 'drone', 'electropop', 'psytrance', 'party', 'progressive trance', 'synth pop', 'remix', 'club', 'glitch', 'trip hop', 'dancehall', 'deep house', 'minimal techno', 'Progressive House', 'breakcore', 'bass', 'dnb', 'vocal trance', 'Drum n Bass', 'Electroclash', 'eurodance', 'indietronica', 'electro house', 'synth', 'goa', '8-bit', 'chill out', 'jungle', 'ninja tune', 'big beat', 'new rave', 'psychill', 'electro-industrial', 'psychedelic trance', 'uplifting trance', 'Rave', 'chillwave']
+  	tags: ['electronic', 'breakbeat', 'dance', 'electronica', 'trance', 'House', 'electro', 'synthpop', 'Drum and bass', 'dubstep', 'electropop', 'psytrance', 'progressive trance', 'synth pop', 'club', 'glitch', 'trip hop', 'deep house', 'breakcore', 'bass', 'dnb', 'vocal trance', 'Drum n Bass', 'Electroclash', 'eurodance', 'indietronica', 'electro house', 'synth', 'goa', '8-bit', 'chill out', 'jungle', 'ninja tune', 'big beat', 'new rave', 'psychill', 'electro-industrial', 'psychedelic trance', 'uplifting trance', 'Rave', 'chillwave']
   },
   {
     id: 8,
-    name: 'Techno',
-    tags: ['techno']
+    name: 'Deep House and Techno',
+    tags: ['techno', 'acid house', 'microhouse', 'deep house', 'minimal techno', 'tech house', 'acid', '303', 'Progressive House']
   },
   {
   	id: 9,
