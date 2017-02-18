@@ -257,7 +257,6 @@ var genreMap = [
     tags: [
       'pop',
       'indie pop',
-      'britpop',
       'synthpop',
       'pop rock',
       'j-pop',
@@ -323,6 +322,7 @@ var genreMap = [
     tags: [
       'rock',
       'alternative rock',
+      'britpop',
       'classic rock',
       'indie rock',
       'hard rock',
