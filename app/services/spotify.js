@@ -21,10 +21,10 @@ var spotify = {
       spotifyApi.searchArtists(query)
       .then(function(data) {
         var artist;
-        // get the first artist name with a levenshtein distance of less than 5(?)
+        // get the first artist name with a levenshtein distance of less than n
         if(data.body.artists.items.length) {
           artist = data.body.artists.items.find(function(artist) {
-            return levenshtein.get(query, artist.name, {useCollator:true}) < 5;
+            return levenshtein.get(query, artist.name, {useCollator:true}) < 2;
           });
         }
         resolve(artist);
