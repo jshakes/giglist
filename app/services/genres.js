@@ -37,6 +37,7 @@ var genreMap = [
   	id: 7,
     name: 'Electronic and Dance',
   	tags: ['electronic', 'breakbeat', 'dance', 'electronica', 'trance', 'House', 'electro', 'synthpop', 'Drum and bass', 'dubstep', 'electropop', 'psytrance', 'progressive trance', 'synth pop', 'club', 'glitch', 'trip hop', 'deep house', 'breakcore', 'bass', 'dnb', 'vocal trance', 'Drum n Bass', 'Electroclash', 'eurodance', 'indietronica', 'electro house', 'synth', 'goa', '8-bit', 'chill out', 'jungle', 'ninja tune', 'big beat', 'new rave', 'psychill', 'electro-industrial', 'psychedelic trance', 'uplifting trance', 'Rave', 'chillwave']
+  },
   {
     id: 8,
     name: 'Deep House and Techno',
