@@ -111,6 +111,7 @@ var genreMap = [
       'electropop',
       'psytrance',
       'progressive trance',
+      'progressive house',
       'synth pop',
       'club',
       'glitch',
@@ -138,11 +139,12 @@ var genreMap = [
       'psychedelic trance',
       'uplifting trance',
       'Rave',
+      'garage',
       'chillwave'
     ]
   }, {
     id: 8,
-    name: 'Deep House and Techno',
+    name: 'House and Techno',
 
     tags: [
       'techno',
@@ -152,8 +154,7 @@ var genreMap = [
       'minimal techno',
       'tech house',
       'acid',
-      '303',
-      'Progressive House'
+      '303'
     ]
   }, {
     id: 9,
@@ -358,7 +359,6 @@ var genreMap = [
       'christian rock',
       'math rock',
       'psychobilly',
-      'garage',
       'post-grunge',
       'jrock',
       'power pop',
