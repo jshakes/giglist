@@ -8,6 +8,7 @@ var arrayLib = require('../lib/arrays');
 
 var SPOTIFY_CONFIG = config.spotify;
 var MAX_TRACK_ARRAY = 50;
+var ARTIST_BLACKLIST = ['djs', 'various artists']; // Lowercase array of artist queries to ignore
 
 var spotify = {
   /**
@@ -16,6 +17,10 @@ var spotify = {
    * @return artistID {String} The Spotify ID of the first artist result
    */
   _getArtistByName: function(query) {
+    if(spotify._inBlacklist(query)) {
+      console.log('Artist query found in blacklist:', query);
+      return Promise.resolve();
+    }
     var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
     return new Promise(function(resolve, reject) {
       spotifyApi.searchArtists(query)
@@ -49,6 +54,10 @@ var spotify = {
         reject(err);
       });
     });
+  },
+  _inBlacklist: function(query) {
+    var lower = query.toLowerCase();
+    return ARTIST_BLACKLIST.indexOf(lower) !== -1;
   },
   getArtistMostPopularTrack: function(artistName) {
 
