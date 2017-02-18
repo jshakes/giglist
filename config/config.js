@@ -8,7 +8,7 @@ var config = {
     app: {
       name: 'livelist'
     },
-    port: 80,
+    port: process.env.PORT || 3000,
     db: 'mongodb://giglist:aEyXVxuEpSmc8h6Q@candidate.43.mongolayer.com:10005/giglist_dev',
     spotify: {
       username: 'giglistdev',
