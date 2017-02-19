@@ -6,5 +6,6 @@ var app = express();
 require('./config/db')(app, config);
 require('./config/routes')(app, config);
 require('./config/express')(app, config);
+require('./config/cron')(app, config);
 
 module.exports = app;
