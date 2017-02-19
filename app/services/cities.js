@@ -1,9 +1,11 @@
+var _ = require('underscore');
 var Promise = require('bluebird');
+var City = require('../models/city');
+var cache = require('../lib/cache');
 var genres = require('./genres');
 var playlists = require('./playlists');
 var songkick = require('./songkick');
-var City = require('../models/city');
-var _ = require('underscore');
+var tracks = require('./tracks');
 
 var cities = {
   _createCityPlaylist: function(city, playlistData) {
@@ -51,7 +53,7 @@ var cities = {
       });
     });
   },
-  getCityEvents: function(city) {
+  _getCityEvents: function(city) {
     // Get upcoming events for the city
     return songkick.getEvents(city.metroId)
     .then(function(events) {
@@ -61,7 +63,7 @@ var cities = {
       }
     });
   },
-  dispenseTracksToPlaylists: function(trackObj) {
+  _dispenseTracksToPlaylists: function(trackObj) {
     // Sort the tracks into a map by genreId
     var genreTracks = {};
     trackObj.events.forEach(function(event) {
@@ -78,6 +80,58 @@ var cities = {
       });
       return playlists.replacePlaylistTracks(playlist, genreTracks[genreId]);
     });
+  },
+  updateCityPlaylists: function(id) {
+    return City.findById(id)
+    .populate('playlists')
+    .then(function(city) {
+      var trackObj = {
+        city: city
+      };
+      // try and get the tracks from the cache first
+      return cache.tryCache(`tracks-${city.id}`)
+      .then(function(cacheContents) {
+        if(cacheContents) {
+          var parsedCache = JSON.parse(cacheContents);
+          trackObj = Object.assign(trackObj, {
+            events: parsedCache.events
+          });
+        }
+        return trackObj;
+      });
+    })
+    .then(function(trackObj) {
+      if(trackObj.events) {
+        return cities._dispenseTracksToPlaylists(trackObj);
+      }
+      else {
+        return cache.tryCache(`events-${trackObj.city.id}`)
+        .then(function(cacheContents) {
+          if(cacheContents) {
+            var parsedCache = JSON.parse(cacheContents);
+            trackObj = Object.assign(trackObj, {
+              events: parsedCache
+            });
+            return Promise.resolve(trackObj);
+          }
+          else {
+            return cities._getCityEvents(trackObj.city)
+            .then(function(trackObj) {
+              return writeCache('events', trackObj.city.id, trackObj.events)
+              .then(function() {
+                return trackObj;
+              });
+            });
+          }
+        })
+        .then(genres.getEventGenres)
+        .then(tracks.getArtistTracks)
+        .then(function(tracks) {
+          return cache.writeCache(`tracks-${trackObj.city.id}`, tracks);
+        })
+        .then(cities._dispenseTracksToPlaylists)
+      }
+    })
   }
 };
 
