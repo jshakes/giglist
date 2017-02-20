@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "pm2 start server.js",
-    "stop": "pm2 stop server.js",
+    "start": "node server.js",
     "dev": "grunt",
     "city:create": "node scripts/createCity",
     "city:delete": "node scripts/deleteCity",
@@ -29,7 +28,6 @@
     "morgan": "^1.6.1",
     "node-cron": "^1.1.3",
     "node-fetch": "^1.6.0",
-    "pm2": "^2.4.0",
     "prompt": "^1.0.0",
     "request": "^2.60.0",
     "serve-favicon": "^2.3.0",
