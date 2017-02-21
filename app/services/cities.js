@@ -53,6 +53,9 @@ var cities = {
       });
     });
   },
+  _updatePlaylistsMeta: function(trackObj) {
+    return Promise.mapSeries(trackObj.city.playlists, playlists.updatePlaylistMeta);
+  },
   _getCityEvents: function(city) {
     // Get upcoming events for the city
     return songkick.getEvents(city.metroId)
@@ -79,7 +82,10 @@ var cities = {
         return playlist.genreId == genreId;
       });
       return playlists.replacePlaylistTracks(playlist, genreTracks[genreId]);
-    });
+    })
+    .then(function() {
+      return trackObj;
+    });;
   },
   updateCityPlaylists: function(id) {
     return City.findById(id)
@@ -102,7 +108,8 @@ var cities = {
     })
     .then(function(trackObj) {
       if(trackObj.events) {
-        return cities._dispenseTracksToPlaylists(trackObj);
+        return cities._dispenseTracksToPlaylists(trackObj)
+        .then(cities._updatePlaylistsMeta);
       }
       else {
         return cache.tryCache(`events-${trackObj.city.id}`)
@@ -117,7 +124,7 @@ var cities = {
           else {
             return cities._getCityEvents(trackObj.city)
             .then(function(trackObj) {
-              return writeCache('events', trackObj.city.id, trackObj.events)
+              return cache.writeCache(`events-${trackObj.city.id}`, trackObj.events)
               .then(function() {
                 return trackObj;
               });
@@ -130,6 +137,7 @@ var cities = {
           return cache.writeCache(`tracks-${trackObj.city.id}`, tracks);
         })
         .then(cities._dispenseTracksToPlaylists)
+        .then(cities._updatePlaylistsMeta)
       }
     })
   }

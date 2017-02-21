@@ -21,12 +21,18 @@ var schema = new Schema({
   },
   genreId: Number,
   spotifyId: String,
+  coverImage: String,
   externalUrl: String,
   description: String,
   followers: {
     type: Number,
     default: 0
   },
+  artists: [{
+    name: String,
+    popularity: Number,
+    spotifyId: String
+  }],
   tracks: [{
     artist: String,
     track: String,

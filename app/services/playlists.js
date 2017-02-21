@@ -35,5 +35,27 @@ module.exports = {
     .then(function() {
       return playlist.save()
     });
+  },
+  updatePlaylistMeta: function(playlist) {
+    console.log('Updating playlist meta for', playlist.id);
+    // get the latest top artists, followers and cover image for a playlist from spotify
+    return spotify.getPlaylistMeta(playlist.spotifyId)
+    .then(function(spotifyMeta) {
+      // update number of followers
+      playlist.followers = spotifyMeta.followers.total;
+      // update cover art mosaic image
+      playlist.coverImage = spotifyMeta.images[0].url;
+      // find the most popular artists featured in this playlist
+      var artistIdArr = spotifyMeta.tracks.items.map(function(item) {
+        if(item && item.track && item.track.artists && item.track.artists.length) {
+          return item.track.artists[0].id;
+        }
+      });
+      return spotify.getArtistsMeta(artistIdArr)
+    })
+    .then(function(artistInfoArr) {
+      playlist.artists = artistInfoArr;
+      return playlist.save();
+    });
   }
 };

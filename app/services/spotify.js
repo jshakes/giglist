@@ -11,6 +11,19 @@ var MAX_TRACK_ARRAY = 50;
 var ARTIST_BLACKLIST = ['djs', 'various artists']; // Lowercase array of artist queries to ignore
 
 var spotify = {
+  _authenticate: function(spotifyApi) {
+    return new Promise(function(resolve, reject) {
+      spotifyApi.refreshAccessToken()
+      .then(function(data) {
+        spotifyApi.setAccessToken(data.body['access_token']);
+        resolve(spotifyApi);
+      })
+      .catch(function(err) {
+        console.error('Failed to authenticate Spotify', err);
+        reject(err);
+      });
+    });
+  },
   /**
    * Search for an artist on Spotify and return the artist object of the first result
    * @param artistName {String} The artist to search form
@@ -40,29 +53,44 @@ var spotify = {
       });
     });
   },
-  _authenticate: function(spotifyApi) {
-    
-    return new Promise(function(resolve, reject) {
-      spotifyApi.refreshAccessToken()
-      .then(function(data) {
-        spotifyApi.setAccessToken(data.body['access_token']);
-        resolve(spotifyApi);
-      })
-      .catch(function(err) {
-        
-        console.error('Failed to authenticate Spotify', err);
-        reject(err);
-      });
-    });
-  },
   _inBlacklist: function(query) {
     var lower = query.toLowerCase();
     return ARTIST_BLACKLIST.indexOf(lower) !== -1;
   },
-  getArtistMostPopularTrack: function(artistName) {
-
+  getPlaylistMeta: function(playlistId) {
     var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
-
+    return spotify._authenticate(spotifyApi)
+    .then(function() {
+      return spotifyApi.getPlaylist(SPOTIFY_CONFIG.username, playlistId);
+    })
+    .then(function(data) {
+      return data.body;
+    });
+  },
+  getArtistsMeta: function(artistIdArr) {
+    var artistInfoArr = [];
+    var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
+    return spotify._authenticate(spotifyApi)
+    .then(function() {
+      return Promise.mapSeries(artistIdArr, function(artistId) {
+        return spotifyApi.getArtist(artistId)
+        .then(function(data) {
+          var artistInfo = data.body;
+          console.log('Found data for', artistInfo.name);
+          artistInfoArr.push({
+            name: artistInfo.name,
+            popularity: artistInfo.popularity,
+            spotifyId: artistInfo.id
+          });
+        });
+      });
+    })
+    .then(function() {
+      return artistInfoArr;
+    });
+  },
+  getArtistMostPopularTrack: function(artistName) {
+    var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
     return new Promise(function(resolve, reject) {
 
       spotify._getArtistByName(artistName)
@@ -107,6 +135,10 @@ var spotify = {
     })
   },
   addTracksToPlaylist: function(playlistId, tracks) {
+    if(!tracks.length) {
+      console.log('No tracks to add to', playlistId);
+      return Promise.resolve();
+    }
     var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
     var chunkedTrackArr = arrayLib.chunkArray(tracks, MAX_TRACK_ARRAY);
     return new Promise(function(resolve, reject) {
@@ -127,6 +159,10 @@ var spotify = {
     });
   },
   deleteTracksFromPlaylist: function(playlistId, tracks) {
+    if(!tracks.length) {
+      console.log('No tracks to delete from', playlistId);
+      return Promise.resolve();
+    }
     var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
     var parsedTrackArr = tracks.map(function(track) {
       return {
