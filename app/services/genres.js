@@ -495,8 +495,8 @@ var genres = {
       console.error('Could not get genre for', track.name);
     });
     function checkExistingTags() {
-      if(track.tags) {
-        return Promise.resolve(track.tags);
+      if(track.lastfm && track.lastfm.tags) {
+        return Promise.resolve(track.lastfm.tags);
       }
       else {
         return lastfm.getArtistTagArray(track.artist)
