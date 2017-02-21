@@ -3,19 +3,21 @@
 <div class="city-playlist-page">
   <header class="city-playlist-header">
     <h2>{{playlist.name}} shows in {{ city.name }}</h2>
-    <p>Including {{#each playlist.topArtists }}{{this}}, {{/each}}</p>
     <div class="social-wrapper">
       <ul>
         <li>
+          <a href="{{playlist.externalUrl}}" target="_blank" class="playlist-subscribe-link btn-rounded icon spotify-icon">Follow this Playlist</a>
+        </li>
+        <li>
           <a class="twitter-icon icon"
-            href="https://twitter.com/intent/tweet?text=Check out this Spotify playlist of upcoming shows in {{city.name}}: {{playlistUrl}}">
+            href="https://twitter.com/intent/tweet?text=Check out this Spotify playlist of upcoming shows in {{city.name}}: {{playlist.externalUrl}}">
           </a>
         </li>
         <li><a
           class="fbook-icon icon"
           href=""
           onclick="popUp=window.open(
-                 'http://www.facebook.com/sharer/sharer.php?display=popup&u={{playlistUrl}}&title=Check out this Spotify playlist of upcoming shows in {{city.name}}',
+                 'http://www.facebook.com/sharer/sharer.php?display=popup&u={{playlist.externalUrl}}&title=Check out this Spotify playlist of upcoming shows in {{city.name}}',
                  'popupwindow',
                  'scrollbars=yes,width=600,height=400');
              popUp.focus();
@@ -30,9 +32,6 @@
   <div class="city-playlist-wrapper">
 
     <div class="gig-info-list">
-      <header class="gig-info-list-header">
-        <a href="{{playlist.externalUrl}}" target="_blank" class="playlist-subscribe-link btn-rounded icon spotify-icon">Follow this Playlist</a>
-      </header>
       <table class="gig-info-table">
         <thead>
           <tr>

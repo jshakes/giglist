@@ -33,7 +33,8 @@ li {
 h2 {
   font-weight: 700;
   font-size: 4em;
-  margin-bottom: 1em; }
+  margin-bottom: 0.5em;
+  margin-top: 1em; }
 
 h3 {
   margin-bottom: 0.25em;
@@ -59,6 +60,7 @@ a {
 .btn-rounded {
   display: inline-block;
   width: auto;
+  padding: 0.4em 1em 0.5em;
   border-radius: 2em;
   font-weight: 500; }
 
@@ -187,10 +189,6 @@ a {
     display: block;
     margin-top: 1em; }
 
-.city-page h2 {
-  margin-bottom: 0.5em;
-  margin-top: 1em; }
-
 @media (min-width: 40em) {
   .playlist-items {
     max-width: 1000px;
@@ -202,15 +200,32 @@ a {
     flex: 50%;
     padding-right: 5em;
     margin-bottom: 5em; } }
+.playlist-item:hover .btn-rounded {
+  display: inline-block; }
 .playlist-item h3 {
   padding: 0.2em 0.5em 0.3em;
   background: #222;
   z-index: 1000;
   position: relative;
   color: white; }
-.playlist-item img {
-  display: block;
-  width: 100%; }
+
+.playlist-image-container {
+  position: relative;
+  text-align: center; }
+  .playlist-image-container img {
+    display: block;
+    width: 100%; }
+  .playlist-image-container .btn-rounded {
+    display: none;
+    background: #222;
+    color: white;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 40px;
+    line-height: 30px;
+    margin: auto;
+    transform: translateX(-50%); }
 
 .top-playlist-artists {
   padding: 0.75em 0.5em 0 0;
@@ -224,28 +239,50 @@ a {
     text-decoration: underline; }
 
 .city-playlist-header h2 {
-  display: inline;
-  max-width: 800px; }
-@media (max-width: 50em) {
-  .city-playlist-header {
-    margin-top: 4em; } }
+  max-width: 800px;
+  margin-bottom: 0; }
 
 .social-wrapper {
   display: inline-block;
-  width: 140px;
-  padding-left: 5px;
-  text-align: left; }
+  margin: 1.5em 0 8em; }
   .social-wrapper ul, .social-wrapper li {
     display: inline-block; }
   .social-wrapper .icon {
     display: inline-block;
-    padding: 0 0.4em;
-    cursor: pointer; }
+    margin: 0 0.5em;
+    cursor: pointer;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    vertical-align: bottom; }
     .social-wrapper .icon:before {
       color: #222;
       font-size: 1.8em; }
     .social-wrapper .icon:focus {
       outline: 0; }
+  .social-wrapper .playlist-subscribe-link {
+    position: relative;
+    padding-left: 2.25em;
+    margin: 0;
+    font-size: 1.2em;
+    line-height: 1.5;
+    background: #222;
+    color: #1ed760; }
+    .social-wrapper .playlist-subscribe-link:before {
+      position: absolute;
+      font-size: 1.4em;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      height: 1.5em;
+      left: 8px;
+      color: #1ed760; }
+    .social-wrapper .playlist-subscribe-link:hover, .social-wrapper .playlist-subscribe-link:focus {
+      background: #1ed760;
+      color: #222;
+      outline: 0; }
+      .social-wrapper .playlist-subscribe-link:hover:before, .social-wrapper .playlist-subscribe-link:focus:before {
+        color: #222; }
   .social-wrapper .twitter-icon:hover:before, .social-wrapper .twitter-icon:focus:before {
     color: #00aced; }
   .social-wrapper .fbook-icon:hover:before, .social-wrapper .fbook-icon:focus:before {
@@ -289,27 +326,6 @@ a {
     opacity: 1; }
   100% {
     opacity: 0; } }
-.playlist-subscribe-link {
-  position: relative;
-  padding: 0.4em 1em 0.5em 2.25em;
-  margin-top: 1em;
-  font-size: 1.2em;
-  line-height: 1.5;
-  background: #222;
-  color: #1ed760; }
-  .playlist-subscribe-link:before {
-    position: absolute;
-    font-size: 1.4em;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    height: 1.5em;
-    left: 8px; }
-  .playlist-subscribe-link:hover, .playlist-subscribe-link:focus {
-    background: #1ed760;
-    color: #222;
-    outline: 0; }
-
 .gig-info-list-header {
   margin-bottom: 1.5em; }
 
@@ -319,7 +335,6 @@ a {
 
 .gig-info-list table {
   width: 100%;
-  margin-top: 4em;
   border-spacing: 0; }
 .gig-info-list tr:nth-child(odd) td {
   background-color: #f7f7f7; }

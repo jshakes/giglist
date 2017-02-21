@@ -99,7 +99,8 @@ li{
 h2{
 	font-weight: 700;
 	font-size: 4em;
-	margin-bottom: 1em;
+	margin-bottom: 0.5em;
+	margin-top: 1em;
 }
 
 h3{
@@ -138,6 +139,7 @@ a{
 .btn-rounded{
 	display: inline-block;
 	width: auto;
+	padding: 0.4em 1em 0.5em;
 	border-radius: 2em;
 	font-weight: 500;
 }
@@ -318,14 +320,8 @@ a{
 
 
 // =======================
-// Playlists Page
+// City Playlists Page
 // =======================
-.city-page{
-	h2{
-		margin-bottom: 0.5em;
-		margin-top: 1em;
-	}
-}
 .playlist-items{
 	@include larger-than(medium){
 		max-width: 1000px;
@@ -341,6 +337,11 @@ a{
 		margin-bottom: 5em;
 	}
 
+	&:hover{
+		.btn-rounded{
+			display: inline-block;
+		}
+	}
 
 	h3{
 		padding: 0.2em 0.5em 0.3em;
@@ -349,10 +350,28 @@ a{
 		position: relative;
 		color: white;
 	}
+}
+
+.playlist-image-container{
+	position: relative;
+	text-align: center;
 
 	img{
 		display: block;
 		width: 100%;
+	}
+
+	.btn-rounded{
+		display: none;
+		background: $black;
+		color: white;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		height: 40px;
+		line-height: 30px;
+		margin: auto;
+		transform: translateX(-50%);
 	}
 }
 
@@ -380,20 +399,14 @@ a{
 
 .city-playlist-header{
 	h2{
-		display: inline;
 		max-width: 800px;
-	}
-
-	@include smaller-than(large){
-		margin-top: 4em;
+		margin-bottom: 0;
 	}
 }
 
 .social-wrapper{
 	display: inline-block;
-	width: 140px;
-	padding-left: 5px;
-	text-align: left;
+	margin: 1.5em 0 8em;
 
 	ul, li{
 		display: inline-block;
@@ -401,8 +414,12 @@ a{
 
 	.icon{
 		display: inline-block;
-		padding: 0 0.4em;
+		margin: 0 0.5em;
 		cursor: pointer;
+		height: 40px;
+		line-height: 40px;
+		position: relative;
+		vertical-align: bottom;
 
 		&:before{
 			color: $black;
@@ -410,6 +427,37 @@ a{
 		}
 		&:focus{
 			outline: 0;
+		}
+	}
+
+	.playlist-subscribe-link{
+		position: relative;
+		padding-left: 2.25em;
+		margin: 0;
+		font-size: 1.2em;
+		line-height: 1.5;
+		background: $black;
+		color: $spotify-green;
+
+		&:before{
+			position: absolute;
+			font-size: 1.4em;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+			height: 1.5em;
+			left: 8px;
+			color: $spotify-green;
+		}
+
+		&:hover, &:focus{
+			background: $spotify-green;
+			color: $black;
+			outline: 0;
+
+			&:before{
+				color: $black;
+			}
 		}
 	}
 
@@ -482,32 +530,6 @@ a{
   }
 }
 
-.playlist-subscribe-link{
-	position: relative;
-	padding: 0.4em 1em 0.5em 2.25em;
-	margin-top: 1em;
-	font-size: 1.2em;
-	line-height: 1.5;
-	background: $black;
-	color: $spotify-green;
-
-	&:before{
-		position: absolute;
-		font-size: 1.4em;
-		top: 0;
-		bottom: 0;
-		margin: auto;
-		height: 1.5em;
-		left: 8px;
-	}
-
-	&:hover, &:focus{
-		background: $spotify-green;
-		color: $black;
-		outline: 0;
-	}
-}
-
 
 // Playlist table
 
@@ -524,7 +546,6 @@ a{
 .gig-info-list{
 	table{
 		width: 100%;
-		margin-top: 4em;
 		border-spacing: 0;
 	}
 
