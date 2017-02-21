@@ -28,11 +28,7 @@ var schema = new Schema({
     type: Number,
     default: 0
   },
-  artists: [{
-    name: String,
-    popularity: Number,
-    spotifyId: String
-  }],
+  topArtists: [String],
   tracks: [{
     artist: String,
     track: String,

@@ -54,7 +54,10 @@ module.exports = {
       return spotify.getArtistsMeta(artistIdArr)
     })
     .then(function(artistInfoArr) {
-      playlist.artists = artistInfoArr;
+      var topArtists = _.pluck(_.sortBy(artistInfoArr, function(artist) {
+        return -artist.popularity;
+      }), 'name').slice(0, 5);
+      playlist.topArtists = topArtists;
       return playlist.save();
     });
   }

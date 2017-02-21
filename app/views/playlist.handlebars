@@ -3,6 +3,7 @@
 <div class="city-playlist-page">
   <header class="city-playlist-header">
     <h2>{{playlist.name}} shows in {{ city.name }}</h2>
+    <p>Including {{#each playlist.topArtists }}{{this}}, {{/each}}</p>
     <div class="social-wrapper">
       <ul>
         <li>
