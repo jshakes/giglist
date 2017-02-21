@@ -8,24 +8,26 @@ var app = require('../app');
 var City = require('../app/models/city');
 var genres = require('../app/services/genres');
 var cities = require('../app/services/cities');
+var cache = require('../app/lib/cache');
 
 City.find({})
 .populate('playlists')
 .then(function(cityArr) {
   return Promise.mapSeries(cityArr, function(city) {
-    var allTracks = [];
-    city.playlists.forEach(function(playlist) {
-      allTracks = allTracks.concat(playlist.tracks);
-    });
-    var uniqueTracks = _.uniq(allTracks, function(item, key) { 
-      return item.spotify.id;
-    });
-    console.log('Found', uniqueTracks.length, 'unique tracks total for', city.name);
     var trackObj = {
-      city: city,
-      events: uniqueTracks
+      city: city
     };
-    return genres.getEventGenres(trackObj)
+    return cache.tryCache(`tracks-${city.id}`)
+    .then(function(cacheContents) {
+      if(cacheContents) {
+        var parsedCache = JSON.parse(cacheContents);
+        trackObj = Object.assign(trackObj, {
+          events: parsedCache.events
+        });
+      }
+      return trackObj;
+    })
+    .then(genres.getEventGenres)
     .then(cities._dispenseTracksToPlaylists);
   });
 });
