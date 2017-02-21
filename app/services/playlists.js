@@ -33,7 +33,7 @@ module.exports = {
       return spotify.deleteTracksFromPlaylist(playlist.spotifyId, spotifyIdsToDelete);
     })
     .then(function() {
-      return playlist.save()
+      return playlist.save();
     });
   },
   updatePlaylistMeta: function(playlist) {
