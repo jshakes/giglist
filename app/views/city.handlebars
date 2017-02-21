@@ -1,7 +1,23 @@
-<a href="/" class="global-home-link">&lt; <span>Find another city</span></a>
-<h2>{{ city.name }}</h2>
-<ul>
-  {{#each playlists}}
-  <li><a href="/{{../city.slug}}/{{slug}}">{{name}}</a></li>
-  {{/each}}
-</ul>
+<a href="/" class="global-home-link">&lt; <span>Back to city list</span></a>
+<div class="city-page">
+
+	<h2>{{ city.name }} Playlists</h2>
+	<ul class="playlist-items">
+	  {{#each playlists}}
+	  <li class="playlist-item">
+	  	<a href="/{{../city.slug}}/{{slug}}">
+	  	<figure>
+	  		<h3>{{name}}</h3>
+	  		<img src="{{coverImage}}" alt="{{slug}} cover image">
+	  		<figcaption class="top-playlist-artists">
+	  			{{#each topArtists}}
+	  			<span>{{this}}{{#unless @last}},{{/unless}}</span>
+	  			{{/each}}
+	  		</figcaption>
+	  	</figure>
+	  	</a>
+	  </li>
+	  {{/each}}
+	</ul>
+
+</div>
