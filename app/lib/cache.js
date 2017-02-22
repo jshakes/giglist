@@ -4,7 +4,7 @@ var CACHE_DIR = './cache';
 
 var cache = {
   tryCache: function(prefix) {
-    var CACHE_EXPIRES = 86400000; // 24 hours
+    var CACHE_EXPIRES = 43200000; // 12 hours
     return fs.readdir(CACHE_DIR)
     .then(function(files) {
       if(!files.length) {
