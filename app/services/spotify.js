@@ -3,12 +3,15 @@ var prompt = require('prompt');
 var SpotifyWebApi = require('spotify-web-api-node');
 var levenshtein = require('fast-levenshtein');
 var _ = require('underscore');
+var Bottleneck = require("bottleneck");
 var config = require('../../config/config');
 var arrayLib = require('../lib/arrays');
 
 var SPOTIFY_CONFIG = config.spotify;
 var MAX_TRACK_ARRAY = 50;
 var ARTIST_BLACKLIST = ['djs', 'various artists']; // Lowercase array of artist queries to ignore
+
+var limiter = new Bottleneck(1, 500);
 
 var spotify = {
   _authenticate: function(spotifyApi) {
@@ -35,22 +38,20 @@ var spotify = {
       return Promise.resolve();
     }
     var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
-    return new Promise(function(resolve, reject) {
-      spotifyApi.searchArtists(query)
-      .then(function(data) {
-        var artist;
-        // get the first artist name with a levenshtein distance of less than n
-        if(data.body.artists.items.length) {
-          artist = data.body.artists.items.find(function(artist) {
-            return levenshtein.get(query, artist.name, {useCollator:true}) < 2;
-          });
-        }
-        resolve(artist);
-      })
-      .catch(function(err) {
-        console.error('Something went wrong!', err);
-        reject(err);
-      });
+    return spotifyApi.searchArtists(query)
+    .then(function(data) {
+      var artist;
+      // get the first artist name with a levenshtein distance of less than n
+      if(data.body.artists.items.length) {
+        artist = data.body.artists.items.find(function(artist) {
+          return levenshtein.get(query, artist.name, {useCollator:true}) < 2;
+        });
+      }
+      return artist;
+    })
+    .catch(function(err) {
+      console.error('Something went wrong!', err);
+      return err;
     });
   },
   _inBlacklist: function(query) {
@@ -73,7 +74,7 @@ var spotify = {
     return spotify._authenticate(spotifyApi)
     .then(function() {
       return Promise.mapSeries(artistIdArr, function(artistId) {
-        return spotifyApi.getArtist(artistId)
+        return limiter.schedule(spotifyApi.getArtist.bind(spotifyApi), artistId)
         .then(function(data) {
           var artistInfo = data.body;
           console.log('Found data for', artistInfo.name);
@@ -91,48 +92,45 @@ var spotify = {
   },
   getArtistMostPopularTrack: function(artistName) {
     var spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
-    return new Promise(function(resolve, reject) {
-
-      spotify._getArtistByName(artistName)
-      .then(function(artist) {
-        if(!artist) {
-          // nullify the whole track if there were no artists
-          console.log('No artist on Spotify called', artistName);
-          return resolve(null);
-        }
-        var track = {
-          genres: artist.genres
-        };
-        // todo: customize for region
-        spotifyApi.getArtistTopTracks(artist.id, 'US')
-        .then(function(data) {
-          if(data.body.tracks.length) {
-            // Get the most popular track that isn't a collab with another artist
-            var topTrack = data.body.tracks.find(function(track) {
-              return track.artists.length === 1;
-            });
-            if(topTrack) {
-              track.topTrackId = topTrack.id;
-              track.topTrackName = topTrack.name;
-              track.topTrackUrl = topTrack.external_urls.spotify;
-            }
-            else {
-              track = null;
-            }
+    return spotify._getArtistByName(artistName)
+    .then(function(artist) {
+      if(!artist) {
+        // nullify the whole track if there were no artists
+        console.log('No artist on Spotify called', artistName);
+        return null;
+      }
+      var track = {
+        genres: artist.genres
+      };
+      // todo: customize for region
+      return limiter.schedule(spotifyApi.getArtistTopTracks.bind(spotifyApi), artist.id, 'US')
+      .then(function(data) {
+        if(data.body.tracks.length) {
+          // Get the most popular track that isn't a collab with another artist
+          var topTrack = data.body.tracks.find(function(track) {
+            return track.artists.length === 1;
+          });
+          if(topTrack) {
+            track.topTrackId = topTrack.id;
+            track.topTrackName = topTrack.name;
+            track.topTrackUrl = topTrack.external_urls.spotify;
           }
           else {
-            // nullify the whole track if there were no tracks available
             track = null;
           }
-          resolve(track);
-        })
-        .catch(function(err) {
+        }
+        else {
+          // nullify the whole track if there were no tracks available
+          track = null;
+        }
+        return track;
+      })
+      .catch(function(err) {
 
-          console.error('Something went wrong!', err);
-          reject(err);
-        });
+        console.error('Something went wrong!', err);
+        reject(err);
       });
-    })
+    });
   },
   addTracksToPlaylist: function(playlistId, tracks) {
     if(!tracks.length) {
