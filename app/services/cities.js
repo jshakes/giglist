@@ -4,7 +4,7 @@ var City = require('../models/city');
 var cache = require('../lib/cache');
 var genres = require('./genres');
 var playlists = require('./playlists');
-var songkick = require('./songkick');
+var songkick = require('./songkick')();
 var tracks = require('./tracks');
 
 var cities = {
