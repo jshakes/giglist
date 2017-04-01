@@ -454,7 +454,6 @@ var genreMap = [
     tags: [
       'punk',
       'punk rock',
-      'post-punk',
       'pop punk',
       'hardcore punk',
       'emocore',
@@ -462,7 +461,6 @@ var genreMap = [
       'psychobilly',
       'ska punk',
       'Oi',
-      'Post punk',
       'horror punk'
     ]
   }  
