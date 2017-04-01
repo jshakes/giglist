@@ -1,6 +1,6 @@
 var Promise = require('bluebird');
 var _ = require('underscore');
-var lastfm = require('./lastfm');
+var lastfm = require('./lastfm')();
 
 var genreMap = [
   {

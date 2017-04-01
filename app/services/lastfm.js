@@ -1,7 +1,7 @@
 /*
   Songkick
 
-  Services object for interacting with the Last FM API
+  Services object for interacting with the Last.fm API
  */
 
 const _ = require('underscore');
