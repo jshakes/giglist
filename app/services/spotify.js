@@ -14,10 +14,9 @@ const SPOTIFY_CONFIG = {
 const MAX_TRACK_ARRAY = 50;
 const ARTIST_BLACKLIST = ['djs', 'various artists'];
 
-const limiter = new Bottleneck(1, 500);
-
 module.exports = () => {
-  
+
+  const limiter = new Bottleneck(1, 500);  
   let spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
   
   function _authenticate() {
