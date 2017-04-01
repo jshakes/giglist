@@ -10,20 +10,20 @@ var methodOverride = require('method-override');
 var exphbs  = require('express-handlebars');
 var routes = require('./routes');
 
-module.exports = function(app, config) {
+module.exports = function(app) {
   var env = process.env.NODE_ENV || 'development';
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env == 'development';
   
   app.engine('handlebars', exphbs({
-    layoutsDir: config.root + '/app/views/layouts/',
+    layoutsDir: '../app/views/layouts/',
     defaultLayout: 'main',
-    partialsDir: [config.root + '/app/views/partials/']
+    partialsDir: ['../app/views/partials/']
   }));
-  app.set('views', config.root + '/app/views');
+  app.set('views', '../app/views');
   app.set('view engine', 'handlebars');
 
-  // app.use(favicon(config.root + '/public/img/favicon.ico'));
+  // app.use(favicon('../public/img/favicon.ico'));
   app.use(logger('dev'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
@@ -31,7 +31,7 @@ module.exports = function(app, config) {
   }));
   app.use(cookieParser());
   app.use(compress());
-  app.use(express.static(config.root + '/public'));
+  app.use(express.static('../public'));
   app.use(methodOverride());
 
   app.use(function (req, res, next) {

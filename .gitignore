@@ -7,3 +7,4 @@ npm-debug.log
 public/js/*.min.js
 public/css/style.css
 public/css/style.css.map
+.env

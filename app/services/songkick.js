@@ -5,7 +5,6 @@
  */
 
 var Promise = require('bluebird');
-var SONGKICK_API_KEY = 'RpuYqxFiPPsJPs5l';
 var _ = require('underscore');
 var Songkick = require('songkick-api');
 var dates = require('../lib/dates');
@@ -14,19 +13,16 @@ var fetch = require('node-fetch');
 var querystring = require('querystring');
 var MAX_DAYS = 14;
 
-var SONGKICK_API = {
-  uriRoot: 'http://api.songkick.com/api/3.0/events.json',
-  apiKey: 'RpuYqxFiPPsJPs5l'
-};
+var SONGKICK_API_URI_ROOT = 'http://api.songkick.com/api/3.0/events.json';
 
 module.exports = {
   _makeQueryUrl: function(params) {
     params = params || {};
     var query = Object.assign({
-      apikey: SONGKICK_API.apiKey
+      apikey: process.env.SONGKICK_API_KEY
     }, params);
     var queryStr = querystring.stringify(query);
-    return `${SONGKICK_API.uriRoot}?${queryStr}`;
+    return `${SONGKICK_API_URI_ROOT}?${queryStr}`;
   },
   _getSkEvents: function(metroID, dayRange) {
 
@@ -82,7 +78,7 @@ module.exports = {
   },
   getMetroFromCoords: function(coords) {
 
-    var songkick = new Songkick(SONGKICK_API.apiKey);
+    var songkick = new Songkick(process.env.SONGKICK_API_KEY);
     return new Promise(function(resolve, reject) {
 
       songkick.searchLocations({

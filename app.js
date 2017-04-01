@@ -1,11 +1,12 @@
+require('dotenv').config()
+
 var express = require('express');
-var config = require('./config/config');
 var glob = require('glob');
 var app = express();
 
-require('./config/db')(app, config);
-require('./config/routes')(app, config);
-require('./config/express')(app, config);
-require('./config/cron')(app, config);
+require('./config/db')(app);
+require('./config/routes')(app);
+require('./config/express')(app);
+require('./config/cron')(app);
 
 module.exports = app;

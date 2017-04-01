@@ -3,21 +3,17 @@ var querystring = require('querystring');
 var Promise = require('bluebird');
 var _ = require('underscore');
 
-var LASTFM_API = {
-  uriRoot: 'http://ws.audioscrobbler.com/2.0/', 
-  apiKey: '6ee3283f5fc7908343674bb728234129',
-  secret: 'e5c7b2fa9d230e62effad9919bd2928f'
-};
+var LASTFM_API_URI_ROOT = 'http://ws.audioscrobbler.com/2.0/';
 
 module.exports = {
   _makeQueryUrl: function(params) {
     params = params || {};
     var query = Object.assign({
-      api_key: LASTFM_API.apiKey,
+      api_key: process.env.LASTFM_API_KEY,
       format: 'json'
     }, params);
     var queryStr =  querystring.stringify(query);
-    return `${LASTFM_API.uriRoot}?${queryStr}`;
+    return `${LASTFM_API_URI_ROOT}?${queryStr}`;
   },
   getArtistTagArray: function(artist) {
     var url = this._makeQueryUrl({

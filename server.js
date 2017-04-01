@@ -1,7 +1,7 @@
 var app = require('./app');
-var config = require('./config/config');
 
-app.listen(config.port, function () {
+var port = process.env.PORT || 3000;
 
-  console.log('Express server listening on port ' + config.port);
+app.listen(port, function () {
+  console.log('Express server listening on port ' + port);
 });

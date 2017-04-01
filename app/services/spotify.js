@@ -4,10 +4,14 @@ var SpotifyWebApi = require('spotify-web-api-node');
 var levenshtein = require('fast-levenshtein');
 var _ = require('underscore');
 var Bottleneck = require("bottleneck");
-var config = require('../../config/config');
 var arrayLib = require('../lib/arrays');
 
-var SPOTIFY_CONFIG = config.spotify;
+var SPOTIFY_CONFIG = {
+  clientId: process.env.SPOTIFY_CLIENT_ID,
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+  refreshToken: process.env.SPOTIFY_REFRESH_TOKEN,
+  redirectUri: 'http://localhost:3000'
+};
 var MAX_TRACK_ARRAY = 50;
 var ARTIST_BLACKLIST = ['djs', 'various artists']; // Lowercase array of artist queries to ignore
 
