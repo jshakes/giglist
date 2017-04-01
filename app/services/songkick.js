@@ -4,112 +4,99 @@
   Services object for interacting with the Songkick API
  */
 
-var Promise = require('bluebird');
-var _ = require('underscore');
-var Songkick = require('songkick-api');
-var dates = require('../lib/dates');
-var promises = require('../lib/promises');
-var fetch = require('node-fetch');
-var querystring = require('querystring');
-var MAX_DAYS = 14;
+const Promise = require('bluebird');
+const _ = require('underscore');
+const Songkick = require('songkick-api');
+const dates = require('../lib/dates');
+const promises = require('../lib/promises');
+const fetch = require('node-fetch');
+const querystring = require('querystring');
 
-var SONGKICK_API_URI_ROOT = 'http://api.songkick.com/api/3.0/events.json';
+const MAX_DAYS = 14;
+const SONGKICK_API_URI_ROOT = 'http://api.songkick.com/api/3.0/events.json';
 
-module.exports = {
-  _makeQueryUrl: function(params) {
-    params = params || {};
-    var query = Object.assign({
-      apikey: process.env.SONGKICK_API_KEY
-    }, params);
-    var queryStr = querystring.stringify(query);
-    return `${SONGKICK_API_URI_ROOT}?${queryStr}`;
-  },
-  _getSkEvents: function(metroID, dayRange) {
+module.exports = () => {
+  
+  const songkickApi = new Songkick(process.env.SONGKICK_API_KEY);
+  
+  const songkick = {
+    _makeQueryUrl: (params = {}) => {
+      const query = Object.assign({
+        apikey: process.env.SONGKICK_API_KEY
+      }, params);
+      const queryStr = querystring.stringify(query);
+      return `${SONGKICK_API_URI_ROOT}?${queryStr}`;
+    },
+    _getSkEvents: (metroID, dayRange) => {
+      const minDate = new Date();
+      let maxDate = new Date();
+      maxDate.setDate(minDate.getDate() + dayRange);
+      const minDateStr = dates.toYYYYMMDD(minDate);
+      const maxDateStr = dates.toYYYYMMDD(maxDate);
+      return new Promise((resolve, reject) => {
+        const perPage = 50;
+        let totalEvents = 1;
+        let page = 1;
+        let events = [];
 
-    var _this = this;
-    var minDate = new Date();
-    var maxDate = new Date();
-    maxDate.setDate(minDate.getDate() + dayRange);
-    var minDateStr = dates.toYYYYMMDD(minDate);
-    var maxDateStr = dates.toYYYYMMDD(maxDate);
-
-    return new Promise(function(resolve, reject) {
-      var perPage = 50;
-      var totalEvents = 1;
-      var page = 1;
-      var events = [];
-
-      function fetchEvents() {
-        var url = _this._makeQueryUrl({
-          location: 'sk:' + metroID,
-          page: page,
-          per_page: perPage,
-          min_date: minDateStr,
-          max_date: maxDateStr
+        const fetchEvents = () => {
+          const url = songkick._makeQueryUrl({
+            location: 'sk:' + metroID,
+            page: page,
+            per_page: perPage,
+            min_date: minDateStr,
+            max_date: maxDateStr
+          });
+          console.log('fetching', url);
+          return fetch(url)
+          .then((res) => res.json())
+          .then((json) => {
+            page++;
+            const pagedEvents = json.resultsPage.results.event;
+            totalEvents = json.resultsPage.totalEntries;
+            if(pagedEvents) {
+              events = events.concat(pagedEvents);
+              console.log('Fetched results', events.length, 'to', events.length + pagedEvents.length);
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            reject(err);
+          });
+        };
+        promises.promiseWhile(() => {
+          return events.length < totalEvents;
+        }, _.throttle(fetchEvents, 500))
+        .then(() => {
+          console.log('Fetched', totalEvents, 'events');
+          resolve(events);
         });
-        console.log('fetching', url);
-        return fetch(url)
-        .then(function(res) {
-          return res.json();
-        })
-        .then(function(json) {
-          page++;
-          var pagedEvents = json.resultsPage.results.event;
-          totalEvents = json.resultsPage.totalEntries;
-          if(pagedEvents) {
-            events = events.concat(pagedEvents);
-            console.log('Fetched results', events.length, 'to', events.length + pagedEvents.length);
-          }
-        })
-        .catch(function(err) {
-          console.error(err);
-          reject(err);
-        });
-      }
-
-      promises.promiseWhile(function() {
-        return events.length < totalEvents;
-      }, _.throttle(fetchEvents, 500))
-      .then(function() {
-        console.log('Fetched', totalEvents, 'events');
-        resolve(events);
-      });
-    })
-  },
-  getMetroFromCoords: function(coords) {
-
-    var songkick = new Songkick(process.env.SONGKICK_API_KEY);
-    return new Promise(function(resolve, reject) {
-
-      songkick.searchLocations({
+      })
+    },
+    getMetroFromCoords: (coords) => {
+      return songkickApi.searchLocations({
         location: 'geo:' + coords
       })
-      .then(function(locations) {
-
-        resolve(locations[0]);
-      })
-      .catch(function(err) {
-
-        reject('No locations found with those coordinates');
+      .then((locations) => locations[0])
+      .catch((err) => {
+        console.log('No locations found with those coordinates');
+        return err;
       });
-    });
-  },
-  getEvents: function(metroID) {
-    var _this = this;
-    return new Promise(function(resolve, reject) {
-      _this._getSkEvents(metroID, MAX_DAYS)
-      .then(function(events) {
-        var artists = [];
-        events.forEach(function(event) {
-          var songkickEvent = {
+    },
+    getEvents: (metroID) => {
+      return songkick._getSkEvents(metroID, MAX_DAYS)
+      .then((events) => {
+        let artists = [];
+        events.forEach((event) => {
+          const songkickEvent = {
             id: event.id,
             url: event.uri,
             name: event.displayName,
             venue: event.venue.displayName,
             date: event.start.date,
           };
-          event.performance.forEach(function(performance) {
-            var artist = performance.artist.displayName;
+          event.performance.forEach((performance) => {
+            const artist = performance.artist.displayName;
             // add an artist only if they aren't already in the array
             if(!_.findWhere(artists, {artist: artist})) {
               artists.push({
@@ -119,11 +106,12 @@ module.exports = {
             }
           });
         });
-        resolve(artists);
+        return artists;
       })
-      .catch(function(err) {
+      .catch((err) => {
         console.error(err);
       });
-    });
-  }
+    }
+  };
+  return songkick;
 };

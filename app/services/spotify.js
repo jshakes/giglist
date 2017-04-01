@@ -16,7 +16,7 @@ const ARTIST_BLACKLIST = ['djs', 'various artists'];
 
 module.exports = () => {
 
-  const limiter = new Bottleneck(1, 500);  
+  const limiter = new Bottleneck(1, 500);
   let spotifyApi = new SpotifyWebApi(SPOTIFY_CONFIG);
   
   function _authenticate() {
