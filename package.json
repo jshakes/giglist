@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "test": "jest",
     "start": "node server.js",
     "dev": "grunt",
     "city:create": "node scripts/createCity",
@@ -46,6 +47,7 @@
     "grunt-contrib-uglify": "~0.11.1",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-develop": "^0.4.0",
+    "jest": "^19.0.2",
     "load-grunt-tasks": "^3.2.0",
     "time-grunt": "^1.2.1"
   }

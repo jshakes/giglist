@@ -5,6 +5,7 @@ const Bottleneck = require('bottleneck');
 const arrayLib = require('../lib/arrays');
 
 const SPOTIFY_CONFIG = {
+  username: process.env.SPOTIFY_USERNAME,
   clientId: process.env.SPOTIFY_CLIENT_ID,
   clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
   refreshToken: process.env.SPOTIFY_REFRESH_TOKEN,
@@ -44,7 +45,8 @@ module.exports = () => {
         console.log('Artist query found in blacklist:', query);
         return Promise.resolve();
       }
-      return spotifyApi.searchArtists(query)
+      return _authenticate()
+      .then(() => spotifyApi.searchArtists(query))
       .then(function(data) {
         let artist;
         // get the first artist name with a levenshtein distance of less than n
@@ -72,20 +74,18 @@ module.exports = () => {
     getArtistsMeta: (artistIdArr) => {
       let artistInfoArr = [];
       return _authenticate()
-      .then(() => {
-        return Promise.mapSeries(artistIdArr, (artistId) => {
-          return limiter.schedule(spotifyApi.getArtist.bind(spotifyApi), artistId)
-          .then((data) => {
-            const artistInfo = data.body;
-            console.log('Found data for', artistInfo.name);
-            artistInfoArr.push({
-              name: artistInfo.name,
-              popularity: artistInfo.popularity,
-              spotifyId: artistInfo.id
-            });
+      .then(() => Promise.mapSeries(artistIdArr, (artistId) => {
+        return limiter.schedule(spotifyApi.getArtist.bind(spotifyApi), artistId)
+        .then((data) => {
+          const artistInfo = data.body;
+          console.log('Found data for', artistInfo.name);
+          artistInfoArr.push({
+            name: artistInfo.name,
+            popularity: artistInfo.popularity,
+            spotifyId: artistInfo.id
           });
         });
-      })
+      }))
       .then(() => artistInfoArr);
     },
     getArtistMostPopularTrack: (artistName) => {
@@ -128,49 +128,6 @@ module.exports = () => {
         });
       });
     },
-    addTracksToPlaylist: (playlistId, tracks) => {
-      if(!tracks.length) {
-        console.log('No tracks to add to', playlistId);
-        return Promise.resolve();
-      }
-      const chunkedTrackArr = arrayLib.chunkArray(tracks, MAX_TRACK_ARRAY);
-      return new Promise(function(resolve, reject) {
-        _authenticate()
-        .then(() => {
-          return Promise.mapSeries(chunkedTrackArr, (trackChunk) => spotifyApi.addTracksToPlaylist(SPOTIFY_CONFIG.username, playlistId, trackChunk))
-        })
-        .then((data) => {
-          console.log('added tracks', tracks, 'to playlist', playlistId);
-          resolve(data);
-        })
-        .catch((err) => {
-          console.error('Something went wrong trying to add', tracks.length, 'to', playlistId, err);
-          reject(err);
-        });
-      });
-    },
-    deleteTracksFromPlaylist: (playlistId, tracks) => {
-      if(!tracks.length) {
-        console.log('No tracks to delete from', playlistId);
-        return Promise.resolve();
-      }
-      const parsedTrackArr = tracks.map((track) => { uri: track })
-      const chunkedTrackArr = arrayLib.chunkArray(parsedTrackArr, MAX_TRACK_ARRAY);
-      return new Promise((resolve, reject) => {
-        _authenticate()
-        .then(() => Promise.mapSeries(chunkedTrackArr, (trackChunk) => {
-          return spotifyApi.removeTracksFromPlaylist(SPOTIFY_CONFIG.username, playlistId, trackChunk)
-        }))
-        .then((data) => {
-          console.log('deleted tracks', tracks, 'from playlist', playlistId);
-          resolve(data);
-        })
-        .catch((err) => {
-          console.error('Something went wrong attempting to delete', tracks.length, 'tracks from', playlistId, err);
-          reject(err);
-        });
-      });
-    },
     createPlaylist: (playlistName) => {
       return new Promise((resolve, reject) => {
         _authenticate()
@@ -185,6 +142,50 @@ module.exports = () => {
         })
         .catch((err) => {
           console.error('Something went wrong!', err);
+          reject(err);
+        });
+      });
+    },
+    addTracksToPlaylist: (playlistId, tracks) => {
+      if(!tracks.length) {
+        console.log('No tracks to add to', playlistId);
+        return Promise.resolve();
+      }
+      const parsedTrackArr = tracks.map((track) => `spotify:track:${track}`);
+      const chunkedTrackArr = arrayLib.chunkArray(parsedTrackArr, MAX_TRACK_ARRAY);
+      return new Promise(function(resolve, reject) {
+        _authenticate()
+        .then(() => Promise.mapSeries(chunkedTrackArr, (trackChunk) => {
+          return spotifyApi.addTracksToPlaylist(SPOTIFY_CONFIG.username, playlistId, trackChunk);
+        }))
+        .then((data) => {
+          console.log('added tracks', tracks, 'to playlist', playlistId);
+          resolve(data[0].body);
+        })
+        .catch((err) => {
+          console.error('Something went wrong trying to add', tracks.length, 'track to', playlistId, err);
+          reject(err);
+        });
+      });
+    },
+    deleteTracksFromPlaylist: (playlistId, tracks) => {
+      if(!tracks.length) {
+        console.log('No tracks to delete from', playlistId);
+        return Promise.resolve();
+      }
+      const parsedTrackArr = tracks.map((track) => { return {uri: `spotify:track:${track}`}});
+      const chunkedTrackArr = arrayLib.chunkArray(parsedTrackArr, MAX_TRACK_ARRAY);
+      return new Promise((resolve, reject) => {
+        _authenticate()
+        .then(() => Promise.mapSeries(chunkedTrackArr, (trackChunk) => {
+          return spotifyApi.removeTracksFromPlaylist(SPOTIFY_CONFIG.username, playlistId, trackChunk);
+        }))
+        .then((data) => {
+          console.log('deleted tracks', tracks, 'from playlist', playlistId);
+          resolve(data[0].body);
+        })
+        .catch((err) => {
+          console.error('Something went wrong attempting to delete', tracks.length, 'tracks from', playlistId, err);
           reject(err);
         });
       });

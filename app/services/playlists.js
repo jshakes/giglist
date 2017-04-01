@@ -17,17 +17,12 @@ module.exports = {
       console.error(err);
     });
   },
-  replacePlaylistTracks: function(playlist, tracks) {
-    var existingTrackIds = playlist.tracks.map(function(track) {
-      return `spotify:track:${track.spotify.id}`;
-    });
-    var newTrackIds = tracks.map(function(track) {
-      return `spotify:track:${track.spotify.id}`;
-    });
+  replacePlaylistTracks: function(playlist, newTrackIds) {
+    var existingTrackIds = playlist.newTrackIds;
     var spotifyIdsToAdd = _.difference(newTrackIds, existingTrackIds);
     var spotifyIdsToDelete = _.difference(existingTrackIds, newTrackIds);
     // Replace the playlist track array with the current events
-    playlist.tracks = tracks;
+    playlist.tracks = newTrackIds;
     return spotify.addTracksToPlaylist(playlist.spotifyId, spotifyIdsToAdd)
     .then(function() {
       return spotify.deleteTracksFromPlaylist(playlist.spotifyId, spotifyIdsToDelete);
