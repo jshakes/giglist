@@ -10,8 +10,7 @@
     "city:delete": "node scripts/deleteCity",
     "city:update": "node scripts/updateCity",
     "city:truncate": "node scripts/truncatePlaylists",
-    "resortGenres": "node scripts/resortGenres",
-    "getGenre": "node scripts/getGenre"
+    "resortGenres": "node scripts/resortGenres"
   },
   "dependencies": {
     "async": "^1.5.2",
