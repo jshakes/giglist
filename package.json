@@ -33,6 +33,7 @@
     "node-fetch": "^1.6.0",
     "prompt": "^1.0.0",
     "request": "^2.60.0",
+    "rollbar": "^0.6.5",
     "serve-favicon": "^2.3.0",
     "songkick-api": "0.0.2",
     "spotify-web-api-node": "^2.3.5",
