@@ -1,4 +1,4 @@
-var spotify = require('./spotify');
+var spotify = require('./spotify')();
 var Playlist = require('../models/playlist');
 var _ = require('underscore');
 

@@ -1,6 +1,6 @@
 var Promise = require('bluebird');
 var genres = require('./genres');
-var spotify = require('./spotify');
+var spotify = require('./spotify')();
 
 var tracks = {
   _getArtistTrack: function(track) {
