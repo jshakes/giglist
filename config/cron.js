@@ -9,7 +9,7 @@ module.exports = function(app, config) {
     cityArr.forEach(function(city) {
       console.log('Scheduling cron job to update', city.name, 'playlists at 4am');
       var task = new CronJob({
-        cronTime: '00 40 23 * * *',
+        cronTime: '00 00 04 * * *',
         onTick: function() {
           return cities.updateCityPlaylists(city.id);
         },
