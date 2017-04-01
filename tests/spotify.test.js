@@ -11,7 +11,7 @@ describe('Spotify service methods', () => {
     .then((artistObject) => {
       expect(artistObject).toEqual(expects);
     });
-  });
+  }, 10000);
   it('Gets an array of objects for artists by their IDs', () => {
     const expects = expect.arrayContaining([
       expect.objectContaining({
@@ -28,7 +28,7 @@ describe('Spotify service methods', () => {
     .then((artistsArray) => {
       expect(artistsArray).toEqual(expects);
     });
-  });
+  }, 10000);
   it('Gets the most popular track for an artist by name', () => {
     const expects = expect.objectContaining({
       topTrackId: expect.any(String)
@@ -37,7 +37,7 @@ describe('Spotify service methods', () => {
     .then((trackObject) => {
       expect(trackObject).toEqual(expects);
     });
-  });
+  }, 10000);
   it('Creates a test playlist', () => {
     const expects = expect.objectContaining({
       owner: expect.objectContaining({
@@ -49,7 +49,7 @@ describe('Spotify service methods', () => {
       testPlaylistId = playlistObject.id;
       expect(playlistObject).toEqual(expects);
     });
-  });
+  }, 10000);
   it('Gets information about the test playlist from its ID', () => {
     const expects = expect.objectContaining({
       owner: expect.objectContaining({
@@ -60,7 +60,7 @@ describe('Spotify service methods', () => {
     .then((playlistObject) => {
       expect(playlistObject).toEqual(expects);
     });
-  });
+  }, 10000);
   it('Adds What is Love by Haddaway to the test playlist', () => {
     const expects = expect.objectContaining({
       snapshot_id: expect.any(String)
@@ -78,7 +78,7 @@ describe('Spotify service methods', () => {
     .then((response) => {
       expect(response).toEqual(expects);
     });
-  });
+  }, 10000);
 });
 
 afterAll(() => {
