@@ -4,7 +4,6 @@
   Services object for interacting with the Last FM API
  */
 
-const Promise = require('bluebird');
 const _ = require('underscore');
 const fetch = require('node-fetch');
 const querystring = require('querystring');

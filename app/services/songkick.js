@@ -4,7 +4,6 @@
   Services object for interacting with the Songkick API
  */
 
-const Promise = require('bluebird');
 const _ = require('underscore');
 const Songkick = require('songkick-api');
 const dates = require('../lib/dates');
