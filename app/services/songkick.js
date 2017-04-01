@@ -56,7 +56,7 @@ module.exports = () => {
             totalEvents = json.resultsPage.totalEntries;
             if(pagedEvents) {
               events = events.concat(pagedEvents);
-              console.log('Fetched results', events.length, 'to', events.length + pagedEvents.length);
+              console.log('Fetched results', events.length, 'to', events.length + pagedEvents.length, 'of', totalEvents);
             }
           })
           .catch((err) => {
@@ -66,7 +66,7 @@ module.exports = () => {
         };
         promises.promiseWhile(() => {
           return events.length < totalEvents;
-        }, _.throttle(fetchEvents, 500))
+        }, _.throttle(fetchEvents, 1000, {leading: false}))
         .then(() => {
           console.log('Fetched', totalEvents, 'events');
           resolve(events);
@@ -100,7 +100,7 @@ module.exports = () => {
             // add an artist only if they aren't already in the array
             if(!_.findWhere(artists, {artist: artist})) {
               artists.push({
-                artist: performance.artist.displayName,
+                artist,
                 songkick: songkickEvent
               });
             }
