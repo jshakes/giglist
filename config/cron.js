@@ -1,4 +1,4 @@
-var cron = require('node-cron');
+var CronJob = require('cron').CronJob;
 var City = require('../app/models/city');
 var cities = require('../app/services/cities');
 
@@ -8,9 +8,13 @@ module.exports = function(app, config) {
   .then(function(cityArr) {
     cityArr.forEach(function(city) {
       console.log('Scheduling cron job to update', city.name, 'playlists at 4am');
-      var task =  cron.schedule('30 23 * * *', function() {
-        console.log('running the task');
-        return cities.updateCityPlaylists(city.id);
+      var task = new CronJob({
+        cronTime: '00 40 23 * * *',
+        onTick: function() {
+          return cities.updateCityPlaylists(city.id);
+        },
+        start: true,
+        timeZone: 'America/New_York'
       });
       return task;
     });
