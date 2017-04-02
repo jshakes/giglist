@@ -29,14 +29,7 @@ var schema = new Schema({
     default: 0
   },
   topArtists: [String],
-  tracks: [{
-    artist: String,
-    track: String,
-    genres: [String],
-    spotify: {},
-    songkick: {},
-    lastfm: {}
-  }]
+  tracks: [Schema.Types.Mixed]
 });
 
 schema.pre('update', function() {
