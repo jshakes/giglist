@@ -11,25 +11,21 @@ module.exports = {
         externalUrl: spotifyPlaylistData.external_urls.spotify
       });
       playlist = new Playlist(playlistData);
-      return playlist.save()
+      return playlist.save();
     })
     .catch(function(err) {
       console.error(err);
     });
   },
-  replacePlaylistTracks: function(playlist, newTrackIds) {
-    var existingTrackIds = playlist.newTrackIds;
-    var spotifyIdsToAdd = _.difference(newTrackIds, existingTrackIds);
-    var spotifyIdsToDelete = _.difference(existingTrackIds, newTrackIds);
-    // Replace the playlist track array with the current events
-    playlist.tracks = newTrackIds;
+  replacePlaylistTracks: function(playlist, newTracks) {
+    const existingTrackIds = playlist.tracks.map((track) => track.spotify.id);
+    const newTrackIds = newTracks.map((track) => track.spotify.id);
+    const spotifyIdsToAdd = _.difference(newTrackIds, existingTrackIds);
+    const spotifyIdsToDelete = _.difference(existingTrackIds, newTrackIds);
+    playlist.tracks = newTracks;
     return spotify.addTracksToPlaylist(playlist.spotifyId, spotifyIdsToAdd)
-    .then(function() {
-      return spotify.deleteTracksFromPlaylist(playlist.spotifyId, spotifyIdsToDelete);
-    })
-    .then(function() {
-      return playlist.save();
-    });
+    .then(() => spotify.deleteTracksFromPlaylist(playlist.spotifyId, spotifyIdsToDelete))
+    .then(() => playlist.save())
   },
   updatePlaylistMeta: function(playlist) {
     console.log('Updating playlist meta for', playlist.id);
