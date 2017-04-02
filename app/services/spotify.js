@@ -128,21 +128,19 @@ module.exports = () => {
       });
     },
     createPlaylist: (playlistName) => {
-      return new Promise((resolve, reject) => {
-        _authenticate()
-        .then(() => {
-          console.log('Attempting to create a playlist called', playlistName);
-          return spotifyApi.createPlaylist(SPOTIFY_CONFIG.username, playlistName, { public: true })
-        })
-        .then((data) => {
-          const playlist = data.body;
-          console.log('Created new Spotify playlist', playlist.name, 'with id', playlist.id);
-          resolve(playlist);
-        })
-        .catch((err) => {
-          console.error('Something went wrong!', err);
-          reject(err);
-        });
+      return _authenticate()
+      .then(() => {
+        console.log('Attempting to create a playlist called', playlistName);
+        return spotifyApi.createPlaylist(SPOTIFY_CONFIG.username, playlistName, { public: true })
+      })
+      .then((data) => {
+        const playlist = data.body;
+        console.log('Created new Spotify playlist', playlist.name, 'with id', playlist.id);
+        return playlist;
+      })
+      .catch((err) => {
+        console.error('Something went wrong!', err);
+        return err;
       });
     },
     addTracksToPlaylist: (playlistId, tracks) => {
