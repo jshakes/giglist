@@ -1,5 +1,5 @@
 require('dotenv').config();
-var lastfm = require('../app/services/lastfm')();
+const lastfm = require('../app/services/lastfm')();
 
 describe('Last.fm service methods', () => {
   it('Gets an array of genre tags from an artist name', () => {
