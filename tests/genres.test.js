@@ -18,7 +18,7 @@ describe('Genre service methods', () => {
     const expects = expect.arrayContaining([
       expect.any(Number)
     ]);
-    return genres._getArtistGenres('David Bowie')
+    return genres._getArtistGenres({artist:'David Bowie'})
     .then((genreIds) => {
       expect(genreIds).toEqual(expects);
     });

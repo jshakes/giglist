@@ -131,8 +131,8 @@ var cities = {
             });
           }
         })
-        .then(genres.getEventGenres)
         .then(tracks.getArtistTracks)
+        .then(genres.getEventGenres)
         .then(function(tracks) {
           return cache.writeCache(`tracks-${trackObj.city.id}`, tracks);
         })

@@ -5,13 +5,19 @@ const lastfm = require('./lastfm')();
 const genreMap = require('../data/genres');
 
 const genres = {
-  _getArtistGenres: (artist) => {
-    console.log('Finding a genre for', artist);
-    return lastfm.getArtistTagArray(artist)
-    .then((tags) => {
-      console.log('Found tags', tags, 'for', artist);
-      return genres._getGenresFromTags(tags);
-    })
+  _getArtistTags: (event) => {
+    if(event.spotify && event.spotify.genres.length) {
+      console.log('Found Spotify tags for', event.artist);
+      return Promise.resolve(event.spotify.genres);
+    }
+    else {
+      console.log('Getting last.fm tags for', event.artist);
+      return lastfm.getArtistTagArray(event.artist);      
+    }
+  },
+  _getArtistGenres: (event) => {
+    return genres._getArtistTags(event)
+    .then(genres._getGenresFromTags)
     .catch(function(err) {
       console.error('Could not get genre for', artist);
       return err;
@@ -55,7 +61,7 @@ const genres = {
       if(event.lastfm && event.lastfm.tags) {
         return Promise.resolve(event.lastfm.tags);
       }
-      return genres._getArtistGenres(event.artist)
+      return genres._getArtistGenres(event)
     }
   }
 };
