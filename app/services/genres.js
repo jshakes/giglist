@@ -6,24 +6,41 @@ const genreMap = require('../data/genres');
 
 const genres = {
   _getArtistTags: (event) => {
+    let tags = {
+      spotify: [],
+      lastfm: []
+    };
     if(event.spotify && event.spotify.genres.length) {
       console.log('Found Spotify tags for', event.artist);
-      return Promise.resolve(event.spotify.genres);
+      tags.spotify = event.spotify.genres;
     }
-    else {
-      console.log('Getting last.fm tags for', event.artist);
-      return lastfm.getArtistTagArray(event.artist);      
-    }
+    console.log('Getting last.fm tags for', event.artist);
+    return lastfm.getArtistTagArray(event.artist)
+    .then((lastfmTags) => {
+      tags.lastfm = lastfmTags;
+      return tags;
+    });
   },
   _getArtistGenres: (event) => {
     return genres._getArtistTags(event)
-    .then(genres._getGenresFromTags)
+    .then((tags) => {
+      // return intersection of genres if both arrays are populated, otherwise just use lastfm genres
+      const spotifyGenres = genres._getGenresFromTags(tags.spotify);
+      const lastfmGenres = genres._getGenresFromTags(tags.lastfm);
+      if(spotifyGenres.length && lastfmGenres.length) {
+        return _.intersection(lastfmGenres, spotifyGenres);
+      }
+      return lastfmGenres;
+    })
     .catch(function(err) {
-      console.error('Could not get genre for', artist);
+      console.error('Could not get genre for', event.artist);
       return err;
     });
   },
   _getGenresFromTags: (tags) => {
+    if(!tags || !tags.length) {
+      return [];
+    }
     return _.pluck(_.filter(genreMap, function(genre) {
       return _.intersection(genre.tags, tags).length;
     }), 'id');
