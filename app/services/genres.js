@@ -11,10 +11,8 @@ const genres = {
       lastfm: []
     };
     if(event.spotify && event.spotify.genres.length) {
-      console.log('Found Spotify tags for', event.artist);
       tags.spotify = event.spotify.genres;
     }
-    console.log('Getting last.fm tags for', event.artist);
     return lastfm.getArtistTagArray(event.artist)
     .then((lastfmTags) => {
       tags.lastfm = lastfmTags;
@@ -28,8 +26,11 @@ const genres = {
       const spotifyGenres = genres._getGenresFromTags(tags.spotify);
       const lastfmGenres = genres._getGenresFromTags(tags.lastfm);
       if(spotifyGenres.length && lastfmGenres.length) {
-        return _.intersection(lastfmGenres, spotifyGenres);
+        const genreArr = _.intersection(lastfmGenres, spotifyGenres);
+        console.log(event.artist, '- using intersection of genres from Spotify and Last.fm tags:', genreArr);
+        return genreArr;
       }
+      console.log(event.artist, '- using genres from Last.fm tags only:', lastfmGenres);
       return lastfmGenres;
     })
     .catch(function(err) {

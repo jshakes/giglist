@@ -18,7 +18,7 @@ describe('Genre service methods', () => {
     const expects = expect.arrayContaining([
       expect.any(Number)
     ]);
-    return genres._getArtistGenres({artist: 'David Bowie'})
+    return genres._getArtistGenres({artist: 'Floating Points'})
     .then((genreIds) => {
       expect(genreIds).toEqual(expects);
     });
@@ -28,9 +28,9 @@ describe('Genre service methods', () => {
       expect.any(Number)
     ]);
     const input = {
-      artist:'David Bowie',
+      artist: 'Floating Points',
       spotify: {
-        genres: ['album rock', 'art rock', 'classic funk rock', 'classic rock', 'dance rock', 'glam rock', 'mellow gold', 'new wave', 'permanent wave', 'pop christmas', 'protopunk', 'rock', 'singer-songwriter', 'soft rock']
+        genres: ['bass music', 'chamber psych', 'chillwave', 'deep house', 'electronic', 'float house', 'fluxwork', 'future garage', 'indie jazz', 'indie r&b', 'indietronica', 'microhouse', 'minimal techno', 'new rave', 'ninja', 'nu jazz', 'outsider house', 'trip hop', 'uk garage', 'wonky']
       }
     };
     return genres._getArtistGenres(input)
