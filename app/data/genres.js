@@ -378,7 +378,6 @@ module.exports = [
       'folk rock',
       'Garage Rock',
       'art rock',
-      'soft rock',
       'rockabilly',
       'glam rock',
       'space rock',
