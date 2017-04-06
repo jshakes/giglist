@@ -4,21 +4,22 @@ module.exports = [
     name: 'Acoustic',
 
     tags: [
-      'singer-songwriter', //Spotify
-      'acoustic', //Spotify
+      'singer-songwriter',
+      'singer songwriter'
+      'acoustic',
       'easy listening',
       'Alt-country',
       'americana',
       'indie folk',
-      'bluegrass', //Spotify
-      'songwriter' //Spotify
+      'bluegrass',
+      'songwriter'
     ]
   }, {
     id: 2,
     name: 'Ambient',
 
     tags: [
-      'ambient', //Spotify
+      'ambient',
       'chillout',
       'downtempo',
       'dark ambient',
@@ -35,15 +36,15 @@ module.exports = [
       'chill out',
       'piano ambient',
       'ambient piano',
-      'chill', //Spotify
-      'new-age' //Spotify
+      'chill',
+      'new-age'
     ]
   }, {
     id: 3,
     name: 'Blues',
 
     tags: [
-      'blues', //Spotify
+      'blues',
       'blues rock'
     ]
   }, {
@@ -67,7 +68,7 @@ module.exports = [
       'neo-classical',
       'cello',
       'symphonic',
-      'classical' //Spotify
+      'classical'
     ]
   }, {
     id: 5,
@@ -87,34 +88,34 @@ module.exports = [
     name: 'Country',
 
     tags: [
-      'country', //Spotify
+      'country',
       'Alt-country',
-      'rockabilly', //Spotify
+      'rockabilly',
       'americana',
       'classic country',
-      'honky-tonk' //Spotify
+      'honky-tonk'
     ]
   }, {
     id: 7,
     name: 'Electronic and Dance',
 
     tags: [
-      'electronic', //Spotify
-      'breakbeat', //Spotify
-      'dance', //Spotify
+      'electronic',
+      'breakbeat',
+      'dance',
       'electronica',
-      'trance', //Spotify
+      'trance',
       'House',
-      'electro', //Spotify
+      'electro',
       'synthpop',
       'Drum and bass',
-      'dubstep', //Spotify
+      'dubstep',
       'electropop',
       'psytrance',
       'progressive trance',
       'progressive house',
       'synth pop',
-      'club', //Spotify
+      'club',
       'glitch',
       'trip hop',
       'deep house',
@@ -140,24 +141,23 @@ module.exports = [
       'psychedelic trance',
       'uplifting trance',
       'Rave',
-      'garage', //Spotify
+      'garage',
       'chillwave',
-      'chill', //Spotify
-      'deep-house', //Spotify
-      'drum-and-bass', //Spotify
-      'edm', //Spotify
-      'idm', //Spotify
-      'industrial', //Spotify
-      'post-dubstep', //Spotify
-      'progressive-house', //Spotify
-      'reggaeton' //Spotify
+      'chill',
+      'drum and bass',
+      'edm',
+      'idm',
+      'industrial',
+      'post-dubstep',
+      'progressive house',
+      'reggaeton'
     ]
   }, {
     id: 8,
     name: 'House and Techno',
 
     tags: [
-      'techno', //Spotify
+      'techno',
       'acid house',
       'microhouse',
       'deep house',
@@ -165,22 +165,20 @@ module.exports = [
       'tech house',
       'acid',
       '303',
-      'chicago-house', //Spotify
-      'deep-house', //Spotify
-      'detroit-techno', //Spotify
-      'house', //Spotify
-      'minimal-techno' //Spotify
+      'chicago house',
+      'detroit techno',
+      'house'
     ]
   }, {
     id: 9,
     name: 'Folk',
 
     tags: [
-      'folk', //Spotify
+      'folk',
       'folk rock',
       'neofolk',
       'indie folk',
-      'bluegrass', //Spotify
+      'bluegrass',
       'freak folk',
       'folk-rock'
     ]
@@ -189,18 +187,18 @@ module.exports = [
     name: 'Funk',
 
     tags: [
-      'funk', //Spotify
+      'funk',
       'funky',
       'groovy',
-      'afrobeat' //Spotify
+      'afrobeat'
     ]
   }, {
     id: 11,
     name: 'Indie',
 
     tags: [
-      'alternative', //Spotify
-      'indie', //Spotify
+      'alternative',
+      'indie',
       'alternative rock',
       'indie rock',
       'psychedelic',
@@ -208,7 +206,7 @@ module.exports = [
       'new wave',
       'american',
       'indie pop',
-      'emo', //Spotify
+      'emo',
       'Grunge',
       'britpop',
       'synthpop',
@@ -231,16 +229,16 @@ module.exports = [
       'twee',
       'freak folk',
       'chillwave',
-      'alt-rock', //Spotify
-      'grunge', //Spotify
-      'indie-pop' //Spotify
+      'alt-rock',
+      'grunge',
+      'indie-pop'
     ]
   }, {
     id: 12,
     name: 'Jazz',
 
     tags: [
-      'jazz', //Spotify
+      'jazz',
       'Smooth Jazz',
       'Fusion',
       'acid jazz',
@@ -257,9 +255,9 @@ module.exports = [
       'trumpet',
       'contemporary jazz',
       'bebop',
-      'bossanova', //Spotify
-      'salsa', //Spotify
-      'samba', //Spotify
+      'bossanova',
+      'salsa',
+      'samba',
       'tango'
     ]
   }, {
@@ -273,14 +271,14 @@ module.exports = [
       'swing',
       'motown',
       'Big Band',
-      'disco' //Spotify
+      'disco'
     ]
   }, {
     id: 14,
     name: 'Pop',
 
     tags: [
-      'pop', //Spotify
+      'pop',
       'indie pop',
       'synthpop',
       'pop rock',
@@ -289,33 +287,31 @@ module.exports = [
       'dream pop',
       'JPop',
       'synth pop',
-      'k-pop', //Spotify
+      'k-pop',
       'mpb',
       'power pop',
       'futurepop',
       'Pop-Rock',
       'Kpop',
-      'cantopop', //Spotify
-      'j-dance', //Spotify
-      'j-idol', //Spotify
-      'j-pop', //Spotify
-      'mandopop', //Spotify
-      'power-pop', //Spotify
-      'synth-pop' //Spotify
+      'cantopop',
+      'j-dance',
+      'j-idol',
+      'j-pop',
+      'mandopop'
     ]
   }, {
     id: 15,
     name: 'R&B and Soul',
 
     tags: [
-      'soul', //Spotify
+      'soul',
       'rnb',
       'rhythm and blues',
       'r&b',
-      'gospel', //Spotify
+      'gospel',
       'Neo-Soul',
       'urban',
-      'r-n-b' //Spotify
+      'r-n-b'
     ]
   }, {
     id: 16,
@@ -333,20 +329,20 @@ module.exports = [
       'instrumental hip-hop',
       'urban',
       'turntablism',
-      'hip-hop' //Spotify
+      'hip-hop'
     ]
   }, {
     id: 17,
     name: 'Reggae / Ska',
 
     tags: [
-      'reggae', //Spotify
-      'ska', //Spotify
-      'dub', //Spotify
-      'dancehall', //Spotify
+      'reggae',
+      'ska',
+      'dub',
+      'dancehall',
       'ska punk',
       'roots reggae',
-      'reggaeton' //Spotify
+      'reggaeton'
 
     ]
   }, {
@@ -354,7 +350,7 @@ module.exports = [
     name: 'Rock',
 
     tags: [
-      'rock', //Spotify
+      'rock',
       'alternative rock',
       'britpop',
       'classic rock',
@@ -405,26 +401,25 @@ module.exports = [
       'Deutschrock',
       'noise rock',
       'alt-rock',
-      'alternative', //Spotify
-      'grunge', //Spotify
-      'hard-rock', //Spotify
-      'j-rock', //Spotify
-      'psych-rock', //Spotify
-      'rock-n-roll' //Spotify
+      'alternative',
+      'grunge',
+      'j-rock',
+      'psych rock',
+      'rock-n-roll'
     ]
   }, {
     id: 19,
     name: 'Heavy Rock / Metal',
 
     tags: [
-      'metal', //Spotify
+      'metal',
       'hard rock',
       'black metal',
       'death metal',
-      'hardcore', //Spotify
+      'hardcore',
       'heavy metal',
       'thrash metal',
-      'metalcore', //Spotify
+      'metalcore',
       'Progressive metal',
       'Melodic Death Metal',
       'Power metal',
@@ -436,7 +431,7 @@ module.exports = [
       'screamo',
       'Nu Metal',
       'symphonic metal',
-      'grindcore', //Spotify
+      'grindcore',
       'darkwave',
       'folk metal',
       'deathcore',
@@ -455,7 +450,7 @@ module.exports = [
       'russian rock',
       'post rock',
       'atmospheric black metal',
-      'goth', //Spotify
+      'goth',
       'depressive black metal',
       'Post-Metal',
       'melodic metal',
@@ -486,18 +481,18 @@ module.exports = [
       'hardstyle',
       'post hardcore',
       'heavy',
-      'black-metal', //Spotify
-      'death-metal', //Spotify
-      'hardstyle', //Spotify
-      'heavy-metal', //Spotify
-      'metal-misc' //Spotify
+      'black metal',
+      'death metal',
+      'hardstyle',
+      'heavy metal',
+      'metal misc'
     ]
   }, {
     id: 20,
     name: 'Punk',
 
     tags: [
-      'punk', //Spotify
+      'punk',
       'punk rock',
       'pop punk',
       'hardcore punk',
@@ -507,7 +502,6 @@ module.exports = [
       'ska punk',
       'Oi',
       'horror punk',
-      'punk-rock' //Spotify
     ]
   }
 ];
