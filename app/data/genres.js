@@ -343,10 +343,8 @@ module.exports = [
       'reggae', //Spotify
       'ska', //Spotify
       'dub', //Spotify
-      'Stoner Rock',
       'dancehall', //Spotify
       'ska punk',
-      'stoner',
       'roots reggae',
       'reggaeton' //Spotify
 
@@ -378,6 +376,7 @@ module.exports = [
       'folk rock',
       'Garage Rock',
       'art rock',
+      'soft rock',
       'rockabilly',
       'glam rock',
       'space rock',
