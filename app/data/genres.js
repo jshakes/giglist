@@ -5,7 +5,7 @@ module.exports = [
 
     tags: [
       'singer-songwriter',
-      'singer songwriter'
+      'singer songwriter',
       'acoustic',
       'easy listening',
       'Alt-country',
