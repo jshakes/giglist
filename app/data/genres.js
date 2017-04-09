@@ -152,7 +152,6 @@ module.exports = [
     tags: [
       'edm',
       'jungle',
-      'dance',
       'trance',
       'psytrance',
       'psychedelic trance',
@@ -160,7 +159,6 @@ module.exports = [
       'dubstep',
       'club',
       'breakcore',
-      'bass',
       'dnb',
       'vocal trance',
       'drum n bass',
