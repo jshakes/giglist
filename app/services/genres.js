@@ -38,6 +38,11 @@ const genres = {
       return err;
     });
   },
+  _sanitizeTags: (tags) => {
+    return tags.map((tag) => {
+      return tag.toLowerCase();
+    });
+  },
   _getGenresFromTags: (tags) => {
     if(!tags || !tags.length) {
       return [];
