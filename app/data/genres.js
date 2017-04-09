@@ -211,7 +211,6 @@ module.exports = [
       'emo',
       'grunge',
       'britpop',
-      'synthpop',
       'mellow',
       'new age',
       'shoegaze',
@@ -269,7 +268,8 @@ module.exports = [
     tags: [
       'new wave',
       'post punk',
-      'post-punk'
+      'post-punk',
+      'synthpop'
     ]
   }, {
     id: 14,
