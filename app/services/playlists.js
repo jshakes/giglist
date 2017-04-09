@@ -3,8 +3,14 @@ var Playlist = require('../models/playlist');
 var _ = require('underscore');
 
 module.exports = {
+  generatePlaylistSpotifyName: (city, genre) => {
+    return `Giglist ${city} - ${genre}`;
+  },
+  generatePlaylistSpotifyDescription: (city, genre) => {
+    return `Hear ${genre.toLowerCase()} artists playing live in ${city} over the next two weeks`;
+  },
   createPlaylist: function(playlistData) {      
-    return spotify.createPlaylist(playlistData.spotifyName)
+    return spotify.createPlaylist(playlistData.spotifyName, playlistData.description)
     .then(function(spotifyPlaylistData) {
       playlistData = Object.assign(playlistData, {
         spotifyId: spotifyPlaylistData.id,

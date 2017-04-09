@@ -8,7 +8,13 @@ var songkick = require('./songkick')();
 var tracks = require('./tracks');
 
 var cities = {
-  _createCityPlaylist: function(city, playlistData) {
+  createCityPlaylist: function(city, genreData) {
+    const playlistData = {
+      genre: genreData.name,
+      spotifyName: playlists.generatePlaylistSpotifyName(city.name, genreData.name),
+      genreId: genreData.id,
+      description: playlists.generatePlaylistSpotifyDescription(city.name, genreData.name)
+    };   
     return playlists.createPlaylist(playlistData)
     .then(function(record) {
       console.log('Associating playlist', record.id, 'with city', city.id);
@@ -40,13 +46,8 @@ var cities = {
     var _this = this;
     var genreArr = genres.getGenres();
     return new Promise(function(resolve, reject) {
-      Promise.mapSeries(genreArr, function(genre) {
-        var playlistData = {
-          name: genre.name,
-          spotifyName: `Giglist ${city.name} - ${genre.name}`,
-          genreId: genre.id
-        };        
-        return cities._createCityPlaylist(city, playlistData);
+      Promise.mapSeries(genreArr, function(genre) {     
+        return cities.createCityPlaylist(city, genre);
       })
       .then(function() {
         resolve(city);

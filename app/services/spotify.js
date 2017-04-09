@@ -127,11 +127,14 @@ module.exports = () => {
         });
       });
     },
-    createPlaylist: (playlistName) => {
+    createPlaylist: (playlistName, playlistDescription) => {
       return _authenticate()
       .then(() => {
         console.log('Attempting to create a playlist called', playlistName);
-        return spotifyApi.createPlaylist(SPOTIFY_CONFIG.username, playlistName, { public: true })
+        return spotifyApi.createPlaylist(SPOTIFY_CONFIG.username, playlistName, {
+          public: true,
+          description: playlistDescription
+        });
       })
       .then((data) => {
         const playlist = data.body;
@@ -186,6 +189,10 @@ module.exports = () => {
           reject(err);
         });
       });
+    },
+    updatePlaylist: (playlistId, options) => {
+      return _authenticate()
+      .then(() => spotifyApi.changePlaylistDetails(SPOTIFY_CONFIG.username, playlistId, options));
     }
   };
   

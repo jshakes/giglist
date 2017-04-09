@@ -10,6 +10,7 @@ var URLSlugs = require('mongoose-url-slugs');
 
 var schema = new Schema({
   name: String,
+  description: String,
   spotifyName: String,
   created: {
     type: Date,
