@@ -8,6 +8,7 @@ const Promise = require('bluebird');
 const _ = require('underscore');
 const app = require('../app');
 const City = require('../app/models/city');
+const cities = require('../app/services/cities');
 const genres = require('../app/services/genres');
 const playlists = require('../app/services/playlists');
 const spotify = require('../app/services/spotify')();
@@ -24,22 +25,27 @@ return City.findById(id)
     });
     const spotifyName = playlists.generatePlaylistSpotifyName(city.name, genre.name);
     const spotifyDescription = playlists.generatePlaylistSpotifyDescription(city.name, genre.name);
-    return spotify.updatePlaylist(playlist.spotifyId, {
-      name: spotifyName,
-      description: spotifyDescription
-    })
-    .then(() => {
-      playlist.name = genre.name;
-      playlist.spotifyName = spotifyName;
-      playlist.description = spotifyDescription;
-      return playlist.save();
-    })
-    .catch((err) => {
-      console.log(err);
-      return err;
-    });
+    if(playlist) {
+      return spotify.updatePlaylist(playlist.spotifyId, {
+        name: spotifyName,
+        description: spotifyDescription
+      })
+      .then(() => {
+        playlist.name = genre.name;
+        playlist.spotifyName = spotifyName;
+        playlist.description = spotifyDescription;
+        return playlist.save();
+      })
+    }
+    else {
+      return cities.createCityPlaylist(city, genre);
+    }
   })
   .then((playlists) => {
     console.log('Updated all playlists');
+  })
+  .catch((err) => {
+    console.log(err);
+    return err;
   });
 });

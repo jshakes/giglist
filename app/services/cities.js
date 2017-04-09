@@ -10,7 +10,7 @@ var tracks = require('./tracks');
 var cities = {
   createCityPlaylist: function(city, genreData) {
     const playlistData = {
-      genre: genreData.name,
+      name: genreData.name,
       spotifyName: playlists.generatePlaylistSpotifyName(city.name, genreData.name),
       genreId: genreData.id,
       description: playlists.generatePlaylistSpotifyDescription(city.name, genreData.name)
