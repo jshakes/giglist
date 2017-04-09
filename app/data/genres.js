@@ -106,9 +106,6 @@ module.exports = [
       'electro',
       'synthpop',
       'electropop',
-      'psytrance',
-      'progressive trance',
-      'progressive house',
       'synth pop',
       'glitch',
       'trip hop',
@@ -157,6 +154,8 @@ module.exports = [
       'jungle',
       'dance',
       'trance',
+      'psytrance',
+      'psychedelic trance',
       'drum and bass',
       'dubstep',
       'club',
@@ -166,9 +165,9 @@ module.exports = [
       'vocal trance',
       'drum n bass',
       'big beat',
-      'psychedelic trance',
       'uplifting trance',
       'rave',
+      'progressive trance',
       'progressive house',
       'electro house',
       'drum and bass'
@@ -267,20 +266,16 @@ module.exports = [
     ]
   }, {
     id: 13,
-    name: 'Oldies',
+    name: 'New Wave and Post-Punk',
 
     tags: [
       'new wave',
-      'oldies',
-      'disco',
-      'swing',
-      'motown',
-      'big band',
-      'disco'
+      'post punk',
+      'post-punk'
     ]
   }, {
     id: 14,
-    name: 'pop',
+    name: 'Pop',
 
     tags: [
       'pop',
@@ -316,7 +311,8 @@ module.exports = [
       'gospel',
       'neo-soul',
       'urban',
-      'r-n-b'
+      'r-n-b',
+      'motown'
     ]
   }, {
     id: 16,
