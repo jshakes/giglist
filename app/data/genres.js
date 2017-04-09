@@ -503,10 +503,5 @@ module.exports = [
       'Oi',
       'horror punk',
     ]
-  }, {
-    id: 21,
-    name: 'Test',
-
-    tags: []
   }
 ];
