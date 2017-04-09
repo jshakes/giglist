@@ -121,7 +121,6 @@ module.exports = [
       'psychill',
       'electro-industrial',
       'garage',
-      'chillwave',
       'chill',
       'idm',
       'industrial',
@@ -269,7 +268,10 @@ module.exports = [
       'new wave',
       'post punk',
       'post-punk',
-      'synthpop'
+      'synthpop',
+      'minimal wave',
+      'darkwave',
+      'chillwave'
     ]
   }, {
     id: 14,
@@ -431,7 +433,6 @@ module.exports = [
       'nu metal',
       'symphonic metal',
       'grindcore',
-      'darkwave',
       'folk metal',
       'deathcore',
       'industrial metal',
