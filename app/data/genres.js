@@ -271,8 +271,7 @@ module.exports = [
       'electropop',
       'electro pop',
       'dreampop',
-      'dream pop',
-      'shoegaze'
+      'dream pop'
     ]
   }, {
     id: 22,
@@ -280,7 +279,8 @@ module.exports = [
     
     tags: [
       'post punk',
-      'post-punk'
+      'post-punk',
+      'shoegaze'
     ]
   },
   {
