@@ -204,7 +204,6 @@ module.exports = [
       'indie rock',
       'psychedelic',
       'post-rock',
-      'new wave',
       'indie pop',
       'emo',
       'grunge',
@@ -261,35 +260,45 @@ module.exports = [
     ]
   }, {
     id: 13,
-    name: 'New Wave and Post-Punk',
+    name: 'Electropop, new wave and chillwave',
 
     tags: [
       'new wave',
-      'post punk',
-      'post-punk',
-      'synthpop',
-      'minimal wave',
       'darkwave',
-      'chillwave'
+      'chillwave',
+      'minimal wave',
+      'synthpop',
+      'synth pop',
+      'futurepop',
+      'future pop',
+      'electropop',
+      'electro pop',
+      'dreampop',
+      'dream pop',
+      'shoegaze'
     ]
   }, {
+    id: 22,
+    name: 'Post-punk',
+    
+    tags: [
+      'post punk',
+      'post-punk'
+    ]
+  },
+  {
     id: 14,
     name: 'Pop',
 
     tags: [
       'pop',
       'indie pop',
-      'synthpop',
       'pop rock',
       'j-pop',
-      'electropop',
-      'dream pop',
       'jpop',
-      'synth pop',
       'k-pop',
       'mpb',
       'power pop',
-      'futurepop',
       'pop-rock',
       'kpop',
       'cantopop',
