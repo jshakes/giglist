@@ -205,7 +205,6 @@ module.exports = [
       'psychedelic',
       'post-rock',
       'new wave',
-      'american',
       'indie pop',
       'emo',
       'grunge',
