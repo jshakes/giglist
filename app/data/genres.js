@@ -110,7 +110,6 @@ module.exports = [
       'eurodance',
       'indietronica',
       'synth',
-      'goa',
       '8-bit',
       'chill out',
       'ninja tune',
@@ -163,7 +162,9 @@ module.exports = [
       'progressive trance',
       'progressive house',
       'electro house',
-      'drum and bass'
+      'drum and bass',
+      'goa',
+      'goa trance'
     ]
   },  
   {
