@@ -261,7 +261,6 @@ module.exports = [
     name: 'Electropop, synthpop and chillwave',
 
     tags: [
-      'new wave',
       'darkwave',
       'chillwave',
       'minimal wave',
