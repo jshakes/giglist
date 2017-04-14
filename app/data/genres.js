@@ -108,7 +108,6 @@ module.exports = [
       'trip hop',
       'electroclash',
       'eurodance',
-      'indietronica',
       'synth',
       '8-bit',
       'chill out',
@@ -271,7 +270,8 @@ module.exports = [
       'electropop',
       'electro pop',
       'dreampop',
-      'dream pop'
+      'dream pop',
+      'indietronica'
     ]
   }, {
     id: 22,
