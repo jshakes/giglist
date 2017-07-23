@@ -1,4 +1,4 @@
-# livelist
+# Giglist
 
 A Node.js application that generates Spotify playlists for cities based on artists playing there in the coming weeks.
 
