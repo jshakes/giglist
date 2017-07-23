@@ -1,7 +1,6 @@
 {
-  "name": "livelist",
+  "name": "giglist",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "test": "jest",
     "start": "node server.js",
