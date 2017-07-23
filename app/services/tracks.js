@@ -13,15 +13,20 @@ var tracks = {
         throw 'No suitable track found for ' + track.artist;
       }
       console.log('Found track', spotifyTrack.topTrackName, 'for', track.artist);
-      track = Object.assign(track, {
-        name: spotifyTrack.topTrackName,
-        spotify: {
-          id: spotifyTrack.topTrackId,
-          url: spotifyTrack.topTrackUrl,
-          genres: spotifyTrack.genres
-        }
+      return spotify.getTrackAudioFeatures(spotifyTrack.topTrackId)
+      .then((audioFeatures) => {
+        spotifyTrack.audioFeatures = audioFeatures;
+        track = Object.assign(track, {
+          name: spotifyTrack.topTrackName,
+          spotify: {
+            id: spotifyTrack.topTrackId,
+            url: spotifyTrack.topTrackUrl,
+            genres: spotifyTrack.genres,
+            audioFeatures: audioFeatures
+          }
+        });
+        return track;
       });
-      return track;
     })
     .catch(function(err) {
       console.error(err);

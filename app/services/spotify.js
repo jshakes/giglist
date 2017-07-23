@@ -190,6 +190,11 @@ module.exports = () => {
         });
       });
     },
+    getTrackAudioFeatures: (trackId) => {
+      return _authenticate()
+      .then(() => spotifyApi.getAudioFeaturesForTrack(trackId))
+      .then((data) => data.body);
+    },
     updatePlaylist: (playlistId, options) => {
       return _authenticate()
       .then(() => spotifyApi.changePlaylistDetails(SPOTIFY_CONFIG.username, playlistId, options));
